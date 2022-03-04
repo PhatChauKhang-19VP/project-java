@@ -35,12 +35,35 @@ public class Patient extends UserDecorator {
         this.closeContacts = new ArrayList<Patient>(closeContacts);
     }
 
-    public boolean buyPackage() {
-        return false;
+    public void viewPackages() {
+        try {
+            // todo: show available package
+        } catch (Exception e) {
+            System.out.println("Exception showing packages: " + e.getMessage());
+        } finally {
+        }
     }
 
-    public boolean payBill() {
-        return false;
+    public boolean buyPackage() {
+        try {
+            // todo: buy package
+        } catch (Exception e) {
+            System.out.println("Exception buying package: " + e.getMessage());
+            return false;
+        } finally {
+            return true;
+        }
+    }
+
+    public boolean payBills() {
+        try {
+            // todo: pay bills
+        } catch (Exception e) {
+            System.out.println("Exception paying bills: " + e.getMessage());
+            return false;
+        } finally {
+            return true;
+        }
     }
 
     public int getStatus() {
@@ -95,7 +118,8 @@ public class Patient extends UserDecorator {
         this.closeContacts.add(newCloseContact);
     }
 
-    public void showContractedInfo() {
+    /** More interpretable way to display patient's information. */
+    public void showCompactInfo() {
         System.out.print("Username: " + ((UserConcreteComponent)this.user).getUsername());
         System.out.println("\tStatus: F" + status);
     }
@@ -109,7 +133,7 @@ public class Patient extends UserDecorator {
         System.out.println("Close contacts:");
         for (Patient contact : closeContacts) {
             System.out.print("\t");
-            contact.showContractedInfo();
+            contact.showCompactInfo();
         }
     }
 }
