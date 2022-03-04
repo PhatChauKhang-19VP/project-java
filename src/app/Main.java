@@ -11,81 +11,64 @@ public class Main {
     public static void main(String[] args) {
         App app = App.getInstance();
 
-        Location loc1 = new Location(
-                "123 Hong Bang",
-                "15",
-                "5",
-                "HCM"
-        );
+        IUser admin = Admin.getInstance();
+        admin.setUsername("admin");
+        admin.setName("Admin");
+        admin.setPassword("*****");
 
-        TreatmentLocation tloc1 = new TreatmentLocation(
-                "56 An Duong Vuong",
-                "4",
-                "5",
-                "HCM",
-                "1",
-                200,
-                0
-        );
+        Location loc1 = new Location("123 Hong Bang","15","5","HCM");
 
-        TreatmentLocation tloc2 = new TreatmentLocation(
-                "32 Hung Vuong",
-                "4",
-                "5",
-                "HCM",
-                "2",
-                500,
-                0
-        );
-
-        IUser admin1 = new Admin(
-                new UserConcreteComponent("admin1", "Admin 1", "a", IUser.Role.ADMIN)
-        );
-
-        IUser admin2 = new Admin(
-                new UserConcreteComponent("admin2", "Admin 2", "b", IUser.Role.ADMIN)
-        );
+        TreatmentLocation tloc1 = new TreatmentLocation("Benh vien Cho Ray",200,0);
+        TreatmentLocation tloc2 = new TreatmentLocation("Benh vien da chien so 1",500,0);
 
         IUser patient1 = new Patient(
                 new UserConcreteComponent("patient1", "Patient 1", "c", IUser.Role.PATIENT),
-                0,
-                new Date(2012, 2, 3),
-                loc1,
-                tloc2,
+                0, new Date(2012, 2, 3), loc1, tloc2,
                 new ArrayList<Patient>());
 
         IUser patient2 = new Patient(
                 new UserConcreteComponent("patient2", "Patient 2", "d", IUser.Role.PATIENT),
-                1,
-                new Date(1992, 12, 7),
-                loc1,
-                tloc1,
+                1, new Date(1992, 12, 7), loc1, tloc1,
                 new ArrayList<Patient>());
 
         IUser patient3 = new Patient(
                 new UserConcreteComponent("patient3", "Patient 3", "e", IUser.Role.PATIENT),
-                2,
-                new Date(1992, 12, 7),
-                loc1,
-                tloc1,
-                new ArrayList<Patient>());
+                2, new Date(1992, 12, 7), loc1, tloc1, new ArrayList<Patient>());
 
         IUser patient4 = new Patient(
                 new UserConcreteComponent("patient4", "Patient 4", "e", IUser.Role.PATIENT),
-                2,
-                new Date(1992, 12, 7),
-                loc1,
-                tloc1,
+                2, new Date(1992, 12, 7), loc1, tloc1,
                 new ArrayList<Patient>());
 
         IUser patient5 = new Patient(
                 new UserConcreteComponent("patient5", "Patient 5", "e", IUser.Role.PATIENT),
-                3,
-                new Date(1992, 12, 7),
-                loc1,
-                tloc1,
+                3, new Date(1992, 12, 7), loc1, tloc1,
                 new ArrayList<Patient>());
 
+        // Test adding component to App object
+        app.addUser(admin);
+        app.addUser(patient1);
+        app.addUser(patient2);
+        app.addUser(patient3);
+        app.addUser(patient4);
+        app.addUser(patient5);
+        app.addTreatmentLocation(tloc1);
+        app.addTreatmentLocation(tloc2);
+
+        // Test adding manager
+        IUser manager1 = new Manager(
+                new UserConcreteComponent("manager1", "Manager 1", "b", IUser.Role.MANAGER)
+        );
+        ((Admin) admin).createManager((Manager)manager1);
+
+        // Test creating and updating treatment location
+        // via admin
+        ((Admin) admin).createTreatmentLocation(new TreatmentLocation("Benh vien PNT",500,0));
+        ((Admin) admin).modifyTreatmentLocationName(tloc1, "Benh vien Hung Vuong");
+        ((Admin) admin).deleteLocation(tloc1);
+        app.showTreatmentLocationList();
+
+        // Test handling patient and F-system
         ((Patient) patient1).addCloseContact((Patient) patient2);
         ((Patient) patient2).addCloseContact((Patient) patient3);
         ((Patient) patient2).addCloseContact((Patient) patient4);
@@ -94,30 +77,9 @@ public class Main {
         ((Patient) patient3).setStatus(0);
         ((Patient) patient2).setStatus(0);
 
-        // Testing
-        app.addUser(admin1);
-        app.addUser(admin2);
-        app.addUser(patient1);
-        app.addUser(patient2);
-        app.addUser(patient3);
-        app.addUser(patient4);
-        app.addUser(patient5);
-
-        app.addTreatmentLocation(tloc1);
-        app.addTreatmentLocation(tloc2);
-
-        // Test adding manager
-        IUser manager1 = new Manager(
-                new UserConcreteComponent("manager1", "Manager 1", "b", IUser.Role.MANAGER)
-        );
-
-        ((Admin) admin1).createManager((Manager)manager1);
-
-        System.out.println(((Admin) admin1).viewHistory(patient3));
-
-//        for (IUser i : app.getUserList()) {
-//            i.showInfo();
-//            System.out.println("\n\n=======\n");
-//        }
+        for (IUser i : app.getUserList()) {
+            i.showInfo();
+            System.out.println("\n\n=======\n");
+        }
     }
 }
