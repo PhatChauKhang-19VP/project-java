@@ -115,6 +115,10 @@ public class Main {
 
         System.out.println(((Admin) admin1).viewHistory(patient3));
 
+        try {
+            ((Patient) patient5).payBill();
+        } catch (Exception e) {}
+
 //        for (IUser i : app.getUserList()) {
 //            i.showInfo();
 //            System.out.println("\n\n=======\n");
