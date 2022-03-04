@@ -1,5 +1,7 @@
 package app.user;
 
+import app.App;
+import app.util.History;
 import app.util.Location;
 
 public class Admin extends UserDecorator {
@@ -7,12 +9,24 @@ public class Admin extends UserDecorator {
         super(user);
     }
 
-    public boolean createManager() {
-        return false;
+    public boolean createManager(Manager manager) {
+        try {
+            // save to db
+        } catch (Exception e) {
+            System.out.println("Error creating new manager: " + e.getMessage());
+            return false;
+        } finally {
+            App.getInstance().addUser(manager);
+            return true;
+        }
     }
 
-    public boolean deactivateManager() {
-        return false;
+    public void deactivateManager(Manager manager) {
+        manager.deactivate();
+    }
+
+    public History viewHistory(IUser user) {
+        return user.showHistory();
     }
 
     public boolean addLocation(Location newLocation) {
