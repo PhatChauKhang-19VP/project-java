@@ -1,21 +1,19 @@
 package app;
 
-import app.user.Admin;
 import app.user.IUser;
-import app.user.UserConcreteComponent;
-import app.user.UserDecorator;
 import app.util.Location;
+import app.util.TreatmentLocation;
 
 import java.util.ArrayList;
 
 public class App {
     private static App instance = null;
     private ArrayList<IUser> userList;
-    private ArrayList<Location> locationList;
+    private ArrayList<TreatmentLocation> treatmentLocationList;
 
     private App() {
         userList = new ArrayList<IUser>();
-        locationList = new ArrayList<Location>();
+        treatmentLocationList = new ArrayList<TreatmentLocation>();
     }
 
     public static App getInstance() {
@@ -28,15 +26,23 @@ public class App {
         this.userList = userList;
     }
 
+    public void addUser(IUser newUser) {
+        userList.add(newUser);
+    }
+
     public ArrayList<IUser> getUserList() {
         return userList;
     }
 
-    public void setLocationList(ArrayList<Location> locationList) {
-        this.locationList = locationList;
+    public void setTreatmentLocations(ArrayList<TreatmentLocation> treatmentLocationList) {
+        this.treatmentLocationList = treatmentLocationList;
     }
 
-    public ArrayList<Location> getLocationList() {
-        return locationList;
+    public void addTreatmentLocation(TreatmentLocation newLocation) {
+        this.treatmentLocationList.add(newLocation);
+    }
+
+    public ArrayList<TreatmentLocation> getTreatmentLocations() {
+        return treatmentLocationList;
     }
 }
