@@ -45,4 +45,12 @@ public class Location {
     public void setProvince(String province) {
         this.province = province;
     }
+
+    @Override
+    public String toString() {
+        return addressLine +
+                ", Ward " + ward +
+                ", District " + district +
+                ", " + province;
+    }
 }
