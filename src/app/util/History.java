@@ -2,6 +2,7 @@ package app.util;
 
 import java.util.ArrayList;
 
+/** Info log for all users. */
 public class History {
     private ArrayList<String> history;
 
@@ -17,7 +18,7 @@ public class History {
         try {
             history.add(record);
         } catch (Exception e) {
-            System.out.printf("Add record exception: " + e);
+            System.out.printf("Exception adding new record: " + e);
             return false;
         } finally {
             return true;
