@@ -4,6 +4,7 @@ import app.user.*;
 import app.util.Location;
 import app.util.TreatmentLocation;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -66,7 +67,7 @@ public class Main {
         ((Admin) admin).createTreatmentLocation(new TreatmentLocation("Benh vien PNT",500,0));
         ((Admin) admin).modifyTreatmentLocationName(tloc1, "Benh vien Hung Vuong");
         ((Admin) admin).deleteLocation(tloc1);
-        app.showTreatmentLocationList();
+        //app.showTreatmentLocationList();
 
         // Test handling patient and F-system
         ((Patient) patient1).addCloseContact((Patient) patient2);
@@ -77,9 +78,7 @@ public class Main {
         ((Patient) patient3).setStatus(0);
         ((Patient) patient2).setStatus(0);
 
-        try {
-            ((Patient) patient5).payBill();
-        } catch (Exception e) {}
+        ((Patient) patient5).payBill();
 
 //        for (IUser i : app.getUserList()) {
 //            i.showInfo();
