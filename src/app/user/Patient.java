@@ -59,6 +59,7 @@ public class Patient extends UserDecorator {
         }
     }
 
+
     /**
      * Interfaces that be called by client to pay bill.
      * @return true if successfully purchase.
@@ -73,6 +74,9 @@ public class Patient extends UserDecorator {
             e.printStackTrace();
             return false;
         } finally {
+            if (socket != null) {
+                socket.close();
+            }
             return true;
         }
     }
