@@ -77,9 +77,15 @@ public class Main {
         ((Patient) patient3).setStatus(0);
         ((Patient) patient2).setStatus(0);
 
-        try {
-            ((Patient) patient5).payBill();
-        } catch (Exception e) {}
+        //!! test manager
+        //* 1.2.1
+        ((Manager) manager1).showPatientList();
+        ((Manager) manager1).showPatientInfo(patient1);
+
+
+        Patient pTemp = ((Manager) manager1).findPatientWithId("patient3");
+        System.out.println(patient3);
+        System.out.println(pTemp);
 
 //        for (IUser i : app.getUserList()) {
 //            i.showInfo();

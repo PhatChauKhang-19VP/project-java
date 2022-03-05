@@ -1,5 +1,6 @@
 package app;
 
+import app.product.ProductManagement;
 import app.user.IUser;
 import app.util.Location;
 import app.util.TreatmentLocation;
@@ -11,6 +12,7 @@ public class App {
     private static App instance = null;
     private ArrayList<IUser> userList;
     private ArrayList<TreatmentLocation> treatmentLocationList;
+    private ProductManagement productManagement;
 
     private App() {
         userList = new ArrayList<IUser>();
@@ -70,5 +72,9 @@ public class App {
         for (TreatmentLocation loc : treatmentLocationList) {
             System.out.println(loc);
         }
+    }
+
+    public ProductManagement getProductManagement() {
+        return productManagement;
     }
 }
