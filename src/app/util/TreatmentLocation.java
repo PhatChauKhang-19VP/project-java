@@ -1,34 +1,27 @@
 package app.util;
 
-public class TreatmentLocation extends Location {
-    private String id;
+public class TreatmentLocation {
+    private String name;
     private int capacity, currentRoom;
 
     public TreatmentLocation() {
         super();
-        id = null;
+        name = null;
         capacity = currentRoom = 0;
     }
 
-    public TreatmentLocation(String id, int capacity, int currentRoom) {
-        this.id = id;
+    public TreatmentLocation(String name, int capacity, int currentRoom) {
+        this.name = name;
         this.currentRoom = currentRoom;
         this.capacity = capacity;
     }
 
-    public TreatmentLocation(String addressLine, String ward, String district, String province, String id, int capacity, int currentRoom) {
-        super(addressLine, ward, district, province);
-        this.id = id;
-        this.capacity = capacity;
-        this.currentRoom = currentRoom;
+    public String getName() {
+        return name;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getCapacity() {
@@ -37,6 +30,14 @@ public class TreatmentLocation extends Location {
 
     public void setCapacity(int capacity) {
         this.capacity = capacity;
+    }
+
+    public int getCurrentRoom() {
+        return currentRoom;
+    }
+
+    public void setCurrentRoom(int currentRoom) {
+        this.currentRoom = currentRoom;
     }
 
     public  boolean addPatient() {
@@ -48,6 +49,6 @@ public class TreatmentLocation extends Location {
     }
     @Override
     public String toString() {
-        return super.toString() + "\n\t ID: " + id + "\n\tCurrent room: " + currentRoom + "/" + capacity;
+        return "Name: " + name + "\nCapacity: " + currentRoom + "/" + capacity;
     }
 }

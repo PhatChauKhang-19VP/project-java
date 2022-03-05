@@ -6,6 +6,7 @@ import app.util.TreatmentLocation;
 
 import java.util.ArrayList;
 
+/** App controller, implemented according to Singleton pattern. */
 public class App {
     private static App instance = null;
     private ArrayList<IUser> userList;
@@ -26,23 +27,48 @@ public class App {
         this.userList = userList;
     }
 
+    public ArrayList<IUser> getUserList() {
+        return userList;
+    }
+
     public void addUser(IUser newUser) {
         userList.add(newUser);
     }
 
-    public ArrayList<IUser> getUserList() {
-        return userList;
+    public boolean deleteUser(IUser user) {
+        if (user.getRole() == IUser.Role.ADMIN) {
+            return false;
+        } else {
+            userList.remove(user);
+            return true;
+        }
     }
 
     public void setTreatmentLocations(ArrayList<TreatmentLocation> treatmentLocationList) {
         this.treatmentLocationList = treatmentLocationList;
     }
 
+    public ArrayList<TreatmentLocation> getTreatmentLocations() {
+        return treatmentLocationList;
+    }
+
     public void addTreatmentLocation(TreatmentLocation newLocation) {
         this.treatmentLocationList.add(newLocation);
     }
 
-    public ArrayList<TreatmentLocation> getTreatmentLocations() {
-        return treatmentLocationList;
+    public boolean deleteTreatmentLocation(TreatmentLocation location) {
+        try {
+            treatmentLocationList.remove(location);
+        } catch (Exception e) {
+            System.out.println("Exception deleting treatment location: " + e.getMessage());
+        } finally {
+            return true;
+        }
+    }
+
+    public void showTreatmentLocationList() {
+        for (TreatmentLocation loc : treatmentLocationList) {
+            System.out.println(loc);
+        }
     }
 }
