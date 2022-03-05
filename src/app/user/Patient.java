@@ -3,6 +3,9 @@ package app.user;
 import app.util.Location;
 import app.util.TreatmentLocation;
 
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Date;
 import java.text.SimpleDateFormat;
@@ -55,13 +58,30 @@ public class Patient extends UserDecorator {
         }
     }
 
-    public boolean payBills() {
+    public boolean payBill() throws IOException, InterruptedException {
+        String SERVER_IP = "127.0.0.1";
+        int SERVER_PORT = 7;
+
+        Socket socket = null;
+
         try {
-            // todo: pay bills
-        } catch (Exception e) {
-            System.out.println("Exception paying bills: " + e.getMessage());
+            socket = new Socket(SERVER_IP, SERVER_PORT); // Connect to server
+            System.out.println("Connected: " + socket);
+
+            String message = "Paybill;" + ((UserConcreteComponent)user).getUsername() + ";1060";
+            byte[] clientReq = message.getBytes();
+
+            DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream());
+
+            dataOut.writeInt(clientReq.length); // write length of the message
+            dataOut.write(clientReq);           // write the message, send to server
+        } catch (IOException ie) {
+            System.out.println("Can’t connect to server");
             return false;
         } finally {
+            if (socket != null) {
+                socket.close();
+            }
             return true;
         }
     }

@@ -77,9 +77,13 @@ public class Main {
         ((Patient) patient3).setStatus(0);
         ((Patient) patient2).setStatus(0);
 
-        for (IUser i : app.getUserList()) {
-            i.showInfo();
-            System.out.println("\n\n=======\n");
-        }
+        try {
+            ((Patient) patient5).payBill();
+        } catch (Exception e) {}
+
+//        for (IUser i : app.getUserList()) {
+//            i.showInfo();
+//            System.out.println("\n\n=======\n");
+//        }
     }
 }
