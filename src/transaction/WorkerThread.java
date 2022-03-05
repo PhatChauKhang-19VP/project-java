@@ -1,11 +1,11 @@
 package transaction;
 
-import app.user.UserConcreteComponent;
-
-import java.io.*;
+import java.io.DataInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 
 public class WorkerThread extends Thread {
     private Socket socket;
@@ -13,13 +13,12 @@ public class WorkerThread extends Thread {
     public WorkerThread(Socket socket) {
         this.socket = socket;
     }
-
     private String receiveClientRequest(Socket socket) {
         try {
             DataInputStream dataIn = new DataInputStream(socket.getInputStream());
 
             int length = dataIn.readInt();  // read length of incoming message
-            if (length > 0) {
+            if(length > 0) {
                 byte[] buffer = new byte[length];
                 dataIn.readFully(buffer, 0, buffer.length); // read the message
 
