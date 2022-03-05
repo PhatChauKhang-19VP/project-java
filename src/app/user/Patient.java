@@ -3,6 +3,7 @@ package app.user;
 import app.util.Location;
 import app.util.TreatmentLocation;
 
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
@@ -58,7 +59,34 @@ public class Patient extends UserDecorator {
         }
     }
 
-    public boolean payBill() throws IOException, InterruptedException {
+
+    /**
+     * Interfaces that be called by client to pay bill.
+     * @return true if successfully purchase.
+     */
+    public boolean payBill() {
+        try {
+            _payBill();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            if (socket != null) {
+                socket.close();
+            }
+            return true;
+        }
+    }
+
+    /**
+     * Connect to transaction server and send purchase request.
+     * @throws IOException
+     * @throws InterruptedException
+     */
+    private void _payBill() throws IOException, InterruptedException {
         String SERVER_IP = "127.0.0.1";
         int SERVER_PORT = 7;
 
@@ -68,21 +96,21 @@ public class Patient extends UserDecorator {
             socket = new Socket(SERVER_IP, SERVER_PORT); // Connect to server
             System.out.println("Connected: " + socket);
 
-            String message = "Paybill;" + ((UserConcreteComponent)user).getUsername() + ";1060";
-            byte[] clientReq = message.getBytes();
+            String request = "Paybill;" + ((UserConcreteComponent)user).getUsername() + ";1060";
 
-            DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream());
-
-            dataOut.writeInt(clientReq.length); // write length of the message
-            dataOut.write(clientReq);           // write the message, send to server
-        } catch (IOException ie) {
+//            byte[] clientReq = message.getBytes();
+//            DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream());
+//            dataOut.writeInt(clientReq.length); // write length of the message
+//            dataOut.write(clientReq);           // write the message, send to server
+            sendRequest(socket, request);
+            String response = receiveServerResponse(socket);
+            System.out.println("Response: " + response);
+        } catch (IOException ioe) {
             System.out.println("Can’t connect to server");
-            return false;
         } finally {
             if (socket != null) {
                 socket.close();
             }
-            return true;
         }
     }
 
@@ -143,6 +171,7 @@ public class Patient extends UserDecorator {
         System.out.print("Username: " + ((UserConcreteComponent)this.user).getUsername());
         System.out.println("\tStatus: F" + status);
     }
+
     @Override
     public void showInfo() {
         super.showInfo();
@@ -155,5 +184,35 @@ public class Patient extends UserDecorator {
             System.out.print("\t");
             contact.showCompactInfo();
         }
+    }
+
+    private String receiveServerResponse(Socket socket) {
+        try {
+            DataInputStream dataIn = new DataInputStream(socket.getInputStream());
+
+            int length = dataIn.readInt();  // read length of incoming message
+            if (length > 0) {
+                byte[] buffer = new byte[length];
+                dataIn.readFully(buffer, 0, buffer.length); // read the message
+
+                String response = new String(buffer);
+                return response;
+            }
+            return null;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private void sendRequest(Socket socket, String request) {
+        try {
+            byte[] req = request.getBytes();
+
+            DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream());
+
+            dataOut.writeInt(req.length); // write length of the message
+            dataOut.write(req);
+        } catch (IOException e) {}
     }
 }
