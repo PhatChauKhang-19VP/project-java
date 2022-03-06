@@ -74,9 +74,6 @@ public class Patient extends UserDecorator {
             e.printStackTrace();
             return false;
         } finally {
-            if (socket != null) {
-                socket.close();
-            }
             return true;
         }
     }
