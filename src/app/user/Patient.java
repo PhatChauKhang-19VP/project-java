@@ -77,8 +77,6 @@ public class Patient extends UserDecorator {
             if (socket != null) {
                 socket.close();
             }
-            return true;
-        }
     }
 
     /**
