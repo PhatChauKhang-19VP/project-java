@@ -195,7 +195,7 @@ alter table PRODUCTS_IN_PACKAGES with check add constraint products_in_packages_
 create table HISTORIES (
 	history_id int identity(1,1) primary key,
 	belong_to_username varchar(50) not null,
-	at_time datetime not null,
+	at_datetime datetime not null,
 	history_content nvarchar(255) not null
 )
 go

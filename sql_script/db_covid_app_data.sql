@@ -12515,8 +12515,6 @@ INSERT INTO WARDS (code,name,name_en,full_name,full_name_en,code_name,district_c
 	 ('32244',N'Rạch Gốc',N'Rach Goc',N'Thị trấn Rạch Gốc',N'Rach Goc Township',N'rach_goc',N'973'),
 	 ('32245',N'Tân Ân',N'Tan An',N'Xã Tân Ân',N'Tan An Commune',N'tan_an',N'973'),
 	 ('32248',N'Đất Mũi',N'Dat Mui',N'Xã Đất Mũi',N'Dat Mui Commune',N'dat_mui',N'973');
-
---- END IMPORT DATA ----
 GO
 
 --- USERS DUMMY DATA ---
@@ -12600,6 +12598,8 @@ insert into CLOSE_CONTACTS(f_upper_username,f_lower_username) values
 	('patient6', 'patient10')
 go
 
+--- PRODUCTS & PACKAGES DUMMY DATA
+
 insert into PRODUCTS(
 	product_id,
 	name,
@@ -12629,7 +12629,16 @@ values
 	('product19', N'Hành tím', N'https://res.cloudinary.com/ngo-minh-phat/image/upload/v1647964677/covid_app/products/hanh-tim-goi-300g_zlz8jz.jpg','Y', 15.500),
 	('product20', N'Gừng', N'https://res.cloudinary.com/ngo-minh-phat/image/upload/v1647964677/covid_app/products/gung-tui-100g_ccfayz.jpg', 'Z', 6.500),
 	('product21', N'Hành tây', N'https://res.cloudinary.com/ngo-minh-phat/image/upload/v1647964677/covid_app/products/hanh-tay-tui-300g_llx2z9.jpg', 'Y', 12.000),
-	('product22', N'Ớt hiểm', N'https://res.cloudinary.com/ngo-minh-phat/image/upload/v1647964675/covid_app/products/ot-hiem-trai-goi-50g_yqkwmk.jpg','Z', 3.000)
+	('product22', N'Ớt hiểm', N'https://res.cloudinary.com/ngo-minh-phat/image/upload/v1647964675/covid_app/products/ot-hiem-trai-goi-50g_yqkwmk.jpg','Z', 3.000),
+	('product23', N'Nước rửa tay Lifebuoy 493ml', 'https://res.cloudinary.com/ngo-minh-phat/image/upload/v1648226643/covid_app/products/nuoc-rua-tay-lifebuoy-bao-ve-vuot-troi-huong-tuoi-mat-chai-493ml_vkwhdx.jpg', 'X', 66.000),
+	('product24', N'Gel rửa tay khô Green Cross hương tự nhiên chai 100ml', 'https://res.cloudinary.com/ngo-minh-phat/image/upload/v1648226575/covid_app/products/gel-rua-tay-kho-green-cross-huong-tu-nhien-chai-100ml_vmbvqc.jpg', 'Y', 36.000),
+	('product25', N'Dung dịch rửa tay khô Green Cross hương tự nhiên chai 70ml', 'https://res.cloudinary.com/ngo-minh-phat/image/upload/v1648226575/covid_app/products/xit-rua-tay-kho-green-cross-huong-tu-nhien-chai-70ml_vyicg5.jpg', 'Y', 30.000),
+	('product26', N'Dung dịch rửa tay khô Green Cross hương tự nhiên chai 250ml', 'https://res.cloudinary.com/ngo-minh-phat/image/upload/v1648226576/covid_app/products/dung-dich-rua-tay-kho-green-cross-fresh-tuoi-mat-chai-250ml_sybqzn.jpg', 'X', 42.900),
+	('product27', N'Khẩu trang y tế VMEDCARE 4 lớp hộp 50 cái', 'https://res.cloudinary.com/ngo-minh-phat/image/upload/v1648226577/covid_app/products/khau-trang-y-te-vmedcare-4-lop-hop-50-cai_xtwudd.jpg', 'Y', 59.000),
+	('product28', N'Khẩu trang y tế Promask N95 5 lớp hộp 10 cái', 'https://res.cloudinary.com/ngo-minh-phat/image/upload/v1648226576/covid_app/products/khau-trang-y-te-promask-n95-5-lop-hop-10-cai_wh8ldg.jpg', 'Y', 165.000),
+	('product29', N'Quýt mini hộp 500g', 'https://res.cloudinary.com/ngo-minh-phat/image/upload/v1648226576/covid_app/products/quyt-mini-tui-500g_yqm3sr.jpg', 'X', 22.500),
+	('product30', N'Cam sành túi 1kg', 'https://res.cloudinary.com/ngo-minh-phat/image/upload/v1648226576/covid_app/products/cam-sanh-tui-1kg_ohokbs.jpg', 'X', 39.000),
+	('product31', N'Ổi Đài Loan vỉ 1kg', 'https://res.cloudinary.com/ngo-minh-phat/image/upload/v1648226629/covid_app/products/oi-dai-loan-tui-1kg-3-5-trai_m8b9cp.jpg', 'X', 21.000)
 go
 
 insert into PACKAGES (
@@ -12648,7 +12657,11 @@ values
 	('package5', N'Gói rau củ (1)', '', 2, 1, 35),
 	('package6', N'Gói rau củ (2)', '', 2, 1, 68),
 	('package7', N'Gói gia vị (1)', '', 2, 1, 18),
-	('package8', N'Gói gia vị (2)', '', 2, 1, 55)
+	('package8', N'Gói gia vị (2)', '', 2, 1, 55),
+	('package9', N'Gói trái cây', '', 2, 1, 82.5),
+	('package10', N'Gói y tế (1)', '', 2, 1, 144),
+	('package11', N'Gói y tế (2)', '', 2, 1, 125),
+	('package12', N'Gói y tế (3)', '', 2, 1, 195)
 go
 
 insert into PRODUCTS_IN_PACKAGES (
@@ -12679,8 +12692,87 @@ values
 	('product18', 'package8',3),
 	('product19', 'package8',1),
 	('product20', 'package8',1),
-	('product21', 'package8',1)
+	('product21', 'package8',1),
+	('product29', 'package9',1),
+	('product30', 'package9',1),
+	('product31', 'package9',1),
+	('product23', 'package10',1),
+	('product24', 'package10',1),
+	('product26', 'package10',1),
+	('product24', 'package11',1),
+	('product25', 'package11',1),
+	('product27', 'package11',1),
+	('product25', 'package12',1),
+	('product28', 'package12',1)
 go
+
+--- HISTORIES DUMMY DATA
+
+insert into HISTORIES(
+	belong_to_username,
+	at_datetime,
+	history_content
+) 
+values 
+	('admin1', '2022-02-01 15:00', 'Tạo tài khoản người quản lí mới'),
+	('admin1', '2022-02-01 15:05', 'Tạo tài khoản người quản lí mới'),
+	('admin1', '2022-02-05 07:00', 'Tạo tài khoản người quản lí mới'),
+	('admin1', '2022-02-07 09:15', 'Tạo tài khoản người quản lí mới'),
+	('admin1', '2022-02-10 18:00', 'Tạo tài khoản người quản lí mới'),
+	('manager2', '2022-02-15 13:00', 'Thêm sản phẩm nhu yếu phẩm mới'),
+	('manager2', '2022-02-15 13:05', 'Thêm sản phẩm nhu yếu phẩm mới'),
+	('manager2', '2022-02-15 13:10', 'Thêm sản phẩm nhu yếu phẩm mới'),
+	('manager2', '2022-02-15 13:15', 'Thêm sản phẩm nhu yếu phẩm mới'),
+	('manager2', '2022-02-15 13:20', 'Thêm sản phẩm nhu yếu phẩm mới'),
+	('manager2', '2022-02-15 13:25', 'Thêm sản phẩm nhu yếu phẩm mới'),
+	('manager2', '2022-02-15 13:30', 'Thêm sản phẩm nhu yếu phẩm mới'),
+	('manager2', '2022-02-15 13:35', 'Thêm sản phẩm nhu yếu phẩm mới'),
+	('manager2', '2022-02-15 13:40', 'Thêm sản phẩm nhu yếu phẩm mới'),
+	('manager2', '2022-02-15 13:45', 'Thêm sản phẩm nhu yếu phẩm mới'),
+	('manager2', '2022-02-15 13:50', 'Thêm sản phẩm nhu yếu phẩm mới'),
+	('manager2', '2022-02-15 13:55', 'Thêm sản phẩm nhu yếu phẩm mới'),
+	('manager2', '2022-02-15 14:00', 'Thêm sản phẩm nhu yếu phẩm mới'),
+	('manager2', '2022-02-15 14:05', 'Thêm sản phẩm nhu yếu phẩm mới'),
+	('manager3', '2022-02-16 09:00', 'Thêm gói nhu yếu phẩm mới'),
+	('manager3', '2022-02-16 09:15', 'Thêm gói nhu yếu phẩm mới'),
+	('manager3', '2022-02-16 09:30', 'Thêm gói nhu yếu phẩm mới'),
+	('manager3', '2022-02-16 09:45', 'Thêm gói nhu yếu phẩm mới'),
+	('manager3', '2022-02-16 10:00', 'Thêm gói nhu yếu phẩm mới'),
+	('manager3', '2022-02-16 10:15', 'Thêm gói nhu yếu phẩm mới'),
+	('manager1', '2022-03-15 12:00', 'Thêm người liên quan đến Covid-19 vào hệ thống'),
+	('manager1', '2022-03-15 12:05', 'Thêm người liên quan đến Covid-19 vào hệ thống'),
+	('manager1', '2022-03-15 12:10', 'Thêm người liên quan đến Covid-19 vào hệ thống'),
+	('manager1', '2022-03-15 12:15', 'Thêm người liên quan đến Covid-19 vào hệ thống'),
+	('manager1', '2022-03-15 12:20', 'Thêm người liên quan đến Covid-19 vào hệ thống'),
+	('manager1', '2022-03-15 12:30', 'Thêm người liên quan đến Covid-19 vào hệ thống'),
+	('manager1', '2022-03-15 12:35', 'Thêm người liên quan đến Covid-19 vào hệ thống'),
+	('manager1', '2022-03-15 12:40', 'Thêm người liên quan đến Covid-19 vào hệ thống'),
+	('manager1', '2022-03-15 12:45', 'Thêm người liên quan đến Covid-19 vào hệ thống'),
+	('manager1', '2022-03-15 12:50', 'Thêm người liên quan đến Covid-19 vào hệ thống'),
+	('patient1', '2022-03-18 10:00', 'Đặt một đơn hàng mới'),
+	('patient3', '2022-03-20 12:40', 'Đặt một đơn hàng mới'),
+	('patient4', '2022-03-22 18:00', 'Đặt một đơn hàng mới'),
+	('patient6', '2022-03-24 08:00', 'Đặt một đơn hàng mới'),
+	('patient10', '2022-03-25 16:00', 'Đặt một đơn hàng mới')
+go
+
+--- ORDERS DUMMY DATA
+
+insert into ORDERS (
+	belong_to_username,
+	at_datetime,
+	total
+)
+values 
+	('patient1', '2022-03-18 10:00', 277.5),
+	('patient3', '2022-03-20 12:40', 250),
+	('patient4', '2022-03-22 18:00', 196.5),
+	('patient6', '2022-03-24 08:00', 213),
+	('patient10', '2022-03-25 16:00', 125)
+go
+
+
+
 ----- GET RIGHT CODES TO INSERT ADDRESS
 --select w.code, d.code, p.code, w.name, d.name, p.name
 --	from wards as w 
