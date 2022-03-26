@@ -93,7 +93,7 @@ create table ADMINS (
 )
 go
 
-alter table ADMINS with check add constraint admins_foreign_key foreign key (username) references ADMINS(username) 
+alter table ADMINS with check add constraint admins_foreign_key foreign key (username) references LOGIN_INFOS(username) 
 go
 
 create table MANAGERS (
@@ -103,7 +103,7 @@ create table MANAGERS (
 )
 go
 
-alter table MANAGERS with check add constraint managers_foreign_key foreign key (username) references MANAGERS(username) 
+alter table MANAGERS with check add constraint managers_foreign_key foreign key (username) references LOGIN_INFOS(username) 
 go
 
 create table TREATMENT_LOCATIONS (
@@ -127,9 +127,12 @@ create table PATIENTS (
 	address_ward_code nvarchar(20) not null,
 	address_line nvarchar(255) not null,
 	treatment_location_code varchar(20) not null,
+	debit_balance float not null,
+
 	constraint patients_pkey primary key (username),
 	constraint patients_chk_valid_f_status check (f_status >= 0),	
 	constraint patients_chk_valid_date_of_birth check (datediff(day, date_of_birth, getdate()) >= 0),
+	constraint patients_chk_valid_debit_balance check (debit_balance >= 0)
 )
 go
 
@@ -193,30 +196,34 @@ alter table PRODUCTS_IN_PACKAGES with check add constraint products_in_packages_
 alter table PRODUCTS_IN_PACKAGES with check add constraint products_in_packages_fkey_to_packages foreign key (package_id) references PACKAGES(package_id)
 
 create table HISTORIES (
-	history_id int identity(1,1) primary key,
+	history_id varchar(20) not null,
 	belong_to_username varchar(50) not null,
 	at_datetime datetime not null,
-	history_content nvarchar(255) not null
+	history_content nvarchar(255) not null,
+
+	constraint histories_pkey primary key (history_id)
 )
 go
 
-alter table HISTORIES with check add constraint histories_fkey_to_login_infos foreign key (belong_to_username) references LOGIN_INFOS(username)
+alter table HISTORIES with check add constraint histories_fkey_to_login_infos 
+			foreign key (belong_to_username) references LOGIN_INFOS(username)
 
 create table ORDERS (
-	order_id int identity(1,1) not null,
+	order_id varchar(20) not null,
 	belong_to_username varchar(50) not null,
 	at_datetime datetime not null,
 	total float,
 
-	constraint oders_pkey primary key (order_id),
-	constraint oders_chk_valid_total check (total >= 0)
+	constraint orders_pkey primary key (order_id),
+	constraint orders_chk_valid_total check (total >= 0)
 )
 go
 
-alter table ORDERS with check add constraint orders_fkey_to_patients foreign key (belong_to_username) references PATIENTS(username)
+alter table ORDERS with check add constraint orders_fkey_to_patients 
+			foreign key (belong_to_username) references PATIENTS(username)
 
 create table ORDERS_DETAILS(
-	order_id int not null,
+	order_id varchar(20) not null,
 	package_id varchar(20) not null,
 	quantity int not null,
 	price float not null,
@@ -237,7 +244,7 @@ create table BANK_ACCOUNTS (
 	password varchar(128) null,
 	belong_to_username varchar(50) not null,
 	balance float not null,
-	creaeted_at datetime not null,
+	created_at datetime not null,
 	minimum_payment float not null,
 
 	constraint bank_accounts_pkey primary key (bank_account),
