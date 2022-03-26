@@ -4,8 +4,8 @@ import app.App;
 import app.product.Package;
 import app.product.Product;
 
-import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 
 public class Manager extends UserDecorator {
     public Manager(IUser user) {
@@ -15,7 +15,7 @@ public class Manager extends UserDecorator {
     //! 1.2.1 Patient management
     public void showPatientList() {
         if (getRole() == Role.MANAGER) {
-            App.getInstance().getUserList().forEach(user -> {
+            App.getInstance().getUserList().forEach((key, user) -> {
                 if (user.getRole() == Role.PATIENT) {
                     user.showInfo();
                 }
@@ -37,7 +37,8 @@ public class Manager extends UserDecorator {
 
     public Patient findPatientWithId(String id) {
         if (getRole() == Role.MANAGER) {
-            for (IUser user : App.getInstance().getUserList()) {
+            for (String key: App.getInstance().getUserList().keySet()) {
+                IUser user = App.getInstance().getUserList().get(key);
                 if (user.getRole() == Role.PATIENT && user.getUsername().equals(id)) {
                     return (Patient) user;
                 }
@@ -64,10 +65,9 @@ public class Manager extends UserDecorator {
                 return false;
             } finally {
                 App.getInstance().addUser(newPatient);
-                return true;
             }
         }
-        return false;
+        return true;
     }
 
     //! 1.2.3 update patient status
@@ -88,7 +88,7 @@ public class Manager extends UserDecorator {
         App.getInstance().getProductManagement().sortProductList(comparator);
     }
 
-    public ArrayList<Product> filterProduct(/*filter*/) {
+    public HashMap<String, Product> filterProduct(/*filter*/) {
         if (getRole() == Role.MANAGER) {
             return App.getInstance().getProductManagement().filterProduct(/*filter*/);
         }
@@ -145,12 +145,11 @@ public class Manager extends UserDecorator {
         if (getRole() == Role.MANAGER) {
             // show package on UI
 
-            App.getInstance()
-                    .getProductManagement()
-                    .getPackageList()
-                    .forEach(aPackage -> {
-                        System.out.println(aPackage);
-                    });
+            HashMap<String, Package> pl = App.getInstance().getProductManagement().getPackageList();
+
+            for (String key : pl.keySet()){
+                System.out.println(pl.get(key));
+            }
         }
     }
 
@@ -168,7 +167,7 @@ public class Manager extends UserDecorator {
         return;
     }
 
-    public ArrayList<Package> filterPackage(/*filter*/) {
+    public HashMap<String, Package> filterPackage(/*filter*/) {
         if (getRole() == Role.MANAGER) {
             return App.getInstance().getProductManagement().filterPackage(/*filter*/);
         }
@@ -207,15 +206,14 @@ public class Manager extends UserDecorator {
         return false;
     }
 
-    public boolean deletePagekage(String id) {
+    public boolean deletePackage(String id) {
         if (getRole() == Role.MANAGER) {
             try {
                 //delete package in DB
+                return App.getInstance().getProductManagement().deleteProduct(id);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
                 return false;
-            } finally {
-                return App.getInstance().getProductManagement().deleteProduct(id);
             }
         }
         return false;

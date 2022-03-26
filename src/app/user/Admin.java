@@ -84,7 +84,7 @@ public class Admin extends UserDecorator {
         }
     }
 
-    public boolean deleteLocation(TreatmentLocation location) {
+    public boolean deleteLocation(String code) {
         try {
             // todo: delete loc in db
 
@@ -95,8 +95,7 @@ public class Admin extends UserDecorator {
              from the array
              */
             App app = App.getInstance();
-            app.deleteTreatmentLocation(location);
-            location = null;
+            app.deleteTreatmentLocation(code);
         } catch (Exception e) {
             System.out.println("Exception deleting treatment location " + e.getMessage());
             return false;

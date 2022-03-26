@@ -7,13 +7,14 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 
 public class Patient extends UserDecorator {
     private int status;
-    private Date dob;
+    private LocalDate dob;
     private Location address;
     private TreatmentLocation treatmentLocation;
     private ArrayList<Patient> closeContacts;
@@ -21,7 +22,7 @@ public class Patient extends UserDecorator {
     public Patient(
             IUser user,
             int status,
-            Date dob,
+            LocalDate dob,
             Location address,
             TreatmentLocation treatmentLocation,
             ArrayList<Patient> closeContacts
@@ -74,9 +75,8 @@ public class Patient extends UserDecorator {
             e.printStackTrace();
             return false;
         } finally {
-            if (socket != null) {
-                socket.close();
-            }
+            return true;
+        }
     }
 
     /**
@@ -133,11 +133,11 @@ public class Patient extends UserDecorator {
         }
     }
 
-    public Date getDob() {
+    public LocalDate getDob() {
         return dob;
     }
 
-    public void setDob(Date dob) {
+    public void setDob(LocalDate dob) {
         this.dob = dob;
     }
 
