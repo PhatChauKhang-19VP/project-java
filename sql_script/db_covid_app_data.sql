@@ -12571,19 +12571,20 @@ insert into PATIENTS (
 	address_district_code,
 	address_ward_code,
 	address_line,
-	treatment_location_code
+	treatment_location_code,
+	debit_balance
 ) 
 values
-	('patient1', 'patient1 name', 0, '2001-06-01', N'87', N'867', '29902', N'123 nhà 1', 'loc1'),
-	('patient2', 'patient2 name', 1, '2001-06-01', N'87', N'867', '29920', N'123 nhà 1', 'loc3'),
-	('patient3', 'patient3 name', 1, '2001-06-01', N'87', N'867', '29905', N'123 nhà 1', 'loc2'),
-	('patient4', 'patient4 name', 2, '2001-06-01', N'87', N'867', '29908', N'123 nhà 1', 'loc3'),
-	('patient5', 'patient5 name', 2, '2001-06-01', N'87', N'867', '29911', N'123 nhà 1', 'loc2'),
-	('patient6', 'patient6 name', 3, '2001-06-01', N'87', N'867', '29920', N'123 nhà 1', 'loc1'),
-	('patient7', 'patient7 name', 3, '2001-06-01', N'87', N'867', '29914', N'123 nhà 1', 'loc1'),
-	('patient8', 'patient8 name', 4, '2001-06-01', N'87', N'867', '29920', N'123 nhà 1', 'loc2'),
-	('patient9', 'patient9 name', 4, '2001-06-01', N'87', N'867', '29914', N'123 nhà 1', 'loc3'),
-	('patient10', 'patient10 name', 4, '2001-06-01', N'87', N'867', '29919', N'123 nhà 1', 'loc1')
+	('patient1', 'patient1 name', 0, '2001-06-01', N'87', N'867', '29902', N'123 nhà 1', 'loc1', 0),
+	('patient2', 'patient2 name', 1, '2001-06-01', N'87', N'867', '29920', N'123 nhà 1', 'loc3', 0),
+	('patient3', 'patient3 name', 1, '2001-06-01', N'87', N'867', '29905', N'123 nhà 1', 'loc2', 0),
+	('patient4', 'patient4 name', 2, '2001-06-01', N'87', N'867', '29908', N'123 nhà 1', 'loc3', 0),
+	('patient5', 'patient5 name', 2, '2001-06-01', N'87', N'867', '29911', N'123 nhà 1', 'loc2', 0),
+	('patient6', 'patient6 name', 3, '2001-06-01', N'87', N'867', '29920', N'123 nhà 1', 'loc1', 0),
+	('patient7', 'patient7 name', 3, '2001-06-01', N'87', N'867', '29914', N'123 nhà 1', 'loc1', 0),
+	('patient8', 'patient8 name', 4, '2001-06-01', N'87', N'867', '29920', N'123 nhà 1', 'loc2', 0),
+	('patient9', 'patient9 name', 4, '2001-06-01', N'87', N'867', '29914', N'123 nhà 1', 'loc3', 0),
+	('patient10', 'patient10 name', 4, '2001-06-01', N'87', N'867', '29919', N'123 nhà 1', 'loc1', 0)
 go
 
 insert into CLOSE_CONTACTS(f_upper_username,f_lower_username) values
@@ -12596,6 +12597,28 @@ insert into CLOSE_CONTACTS(f_upper_username,f_lower_username) values
 	('patient6', 'patient8'),
 	('patient6', 'patient9'),
 	('patient6', 'patient10')
+go
+
+--- BANK ACCOUNTS DUMMY DATA
+insert into BANK_ACCOUNTS (
+	password,
+	belong_to_username,
+	balance,
+	created_at,
+	minimum_payment
+)
+values
+	('1', 'patient1', '15000000', '2022-03-15 18:00', 100),
+	('1', 'patient2', '15000000', '2022-03-15 18:00', 100),
+	('1', 'patient3', '15000000', '2022-03-15 18:00', 100),
+	('1', 'patient4', '15000000', '2022-03-15 18:00', 100),
+	('1', 'patient5', '15000000', '2022-03-15 18:00', 100),
+	('1', 'patient6', '15000000', '2022-03-15 18:00', 100),
+	('1', 'patient7', '15000000', '2022-03-15 18:00', 100),
+	('1', 'patient8', '15000000', '2022-03-15 18:00', 100),
+	('1', 'patient9', '15000000', '2022-03-15 18:00', 100),
+	('1', 'patient10', '15000000', '2022-03-15 18:00', 100),
+	('2BD66886431D7CDADFFE20A789221C5B2E60E826EE9600743D9071869C13EB4F6B3207615FC2324363A2E1A88738E4DD73BC04D2E5ED9046FB4055A84FB264B7', 'admin1', '15000000', '2022-01-01 18:00', 100)
 go
 
 --- PRODUCTS & PACKAGES DUMMY DATA
@@ -12709,68 +12732,88 @@ go
 --- HISTORIES DUMMY DATA
 
 insert into HISTORIES(
+	history_id,
 	belong_to_username,
 	at_datetime,
 	history_content
 ) 
 values 
-	('admin1', '2022-02-01 15:00', 'Tạo tài khoản người quản lí mới'),
-	('admin1', '2022-02-01 15:05', 'Tạo tài khoản người quản lí mới'),
-	('admin1', '2022-02-05 07:00', 'Tạo tài khoản người quản lí mới'),
-	('admin1', '2022-02-07 09:15', 'Tạo tài khoản người quản lí mới'),
-	('admin1', '2022-02-10 18:00', 'Tạo tài khoản người quản lí mới'),
-	('manager2', '2022-02-15 13:00', 'Thêm sản phẩm nhu yếu phẩm mới'),
-	('manager2', '2022-02-15 13:05', 'Thêm sản phẩm nhu yếu phẩm mới'),
-	('manager2', '2022-02-15 13:10', 'Thêm sản phẩm nhu yếu phẩm mới'),
-	('manager2', '2022-02-15 13:15', 'Thêm sản phẩm nhu yếu phẩm mới'),
-	('manager2', '2022-02-15 13:20', 'Thêm sản phẩm nhu yếu phẩm mới'),
-	('manager2', '2022-02-15 13:25', 'Thêm sản phẩm nhu yếu phẩm mới'),
-	('manager2', '2022-02-15 13:30', 'Thêm sản phẩm nhu yếu phẩm mới'),
-	('manager2', '2022-02-15 13:35', 'Thêm sản phẩm nhu yếu phẩm mới'),
-	('manager2', '2022-02-15 13:40', 'Thêm sản phẩm nhu yếu phẩm mới'),
-	('manager2', '2022-02-15 13:45', 'Thêm sản phẩm nhu yếu phẩm mới'),
-	('manager2', '2022-02-15 13:50', 'Thêm sản phẩm nhu yếu phẩm mới'),
-	('manager2', '2022-02-15 13:55', 'Thêm sản phẩm nhu yếu phẩm mới'),
-	('manager2', '2022-02-15 14:00', 'Thêm sản phẩm nhu yếu phẩm mới'),
-	('manager2', '2022-02-15 14:05', 'Thêm sản phẩm nhu yếu phẩm mới'),
-	('manager3', '2022-02-16 09:00', 'Thêm gói nhu yếu phẩm mới'),
-	('manager3', '2022-02-16 09:15', 'Thêm gói nhu yếu phẩm mới'),
-	('manager3', '2022-02-16 09:30', 'Thêm gói nhu yếu phẩm mới'),
-	('manager3', '2022-02-16 09:45', 'Thêm gói nhu yếu phẩm mới'),
-	('manager3', '2022-02-16 10:00', 'Thêm gói nhu yếu phẩm mới'),
-	('manager3', '2022-02-16 10:15', 'Thêm gói nhu yếu phẩm mới'),
-	('manager1', '2022-03-15 12:00', 'Thêm người liên quan đến Covid-19 vào hệ thống'),
-	('manager1', '2022-03-15 12:05', 'Thêm người liên quan đến Covid-19 vào hệ thống'),
-	('manager1', '2022-03-15 12:10', 'Thêm người liên quan đến Covid-19 vào hệ thống'),
-	('manager1', '2022-03-15 12:15', 'Thêm người liên quan đến Covid-19 vào hệ thống'),
-	('manager1', '2022-03-15 12:20', 'Thêm người liên quan đến Covid-19 vào hệ thống'),
-	('manager1', '2022-03-15 12:30', 'Thêm người liên quan đến Covid-19 vào hệ thống'),
-	('manager1', '2022-03-15 12:35', 'Thêm người liên quan đến Covid-19 vào hệ thống'),
-	('manager1', '2022-03-15 12:40', 'Thêm người liên quan đến Covid-19 vào hệ thống'),
-	('manager1', '2022-03-15 12:45', 'Thêm người liên quan đến Covid-19 vào hệ thống'),
-	('manager1', '2022-03-15 12:50', 'Thêm người liên quan đến Covid-19 vào hệ thống'),
-	('patient1', '2022-03-18 10:00', 'Đặt một đơn hàng mới'),
-	('patient3', '2022-03-20 12:40', 'Đặt một đơn hàng mới'),
-	('patient4', '2022-03-22 18:00', 'Đặt một đơn hàng mới'),
-	('patient6', '2022-03-24 08:00', 'Đặt một đơn hàng mới'),
-	('patient10', '2022-03-25 16:00', 'Đặt một đơn hàng mới')
+	('history1', 'admin1', '2022-02-01 15:00', N'Tạo tài khoản người quản lí mới'),
+	('history2', 'admin1', '2022-02-01 15:05', N'Tạo tài khoản người quản lí mới'),
+	('history3', 'admin1', '2022-02-05 07:00', N'Tạo tài khoản người quản lí mới'),
+	('history4', 'admin1', '2022-02-07 09:15', N'Tạo tài khoản người quản lí mới'),
+	('history5', 'admin1', '2022-02-10 18:00', N'Tạo tài khoản người quản lí mới'),
+	('history6', 'manager2', '2022-02-15 13:00', N'Thêm sản phẩm nhu yếu phẩm mới'),
+	('history7', 'manager2', '2022-02-15 13:05', N'Thêm sản phẩm nhu yếu phẩm mới'),
+	('history8', 'manager2', '2022-02-15 13:10', N'Thêm sản phẩm nhu yếu phẩm mới'),
+	('history9', 'manager2', '2022-02-15 13:15', N'Thêm sản phẩm nhu yếu phẩm mới'),
+	('history10', 'manager2', '2022-02-15 13:20', N'Thêm sản phẩm nhu yếu phẩm mới'),
+	('history11', 'manager2', '2022-02-15 13:25', N'Thêm sản phẩm nhu yếu phẩm mới'),
+	('history12', 'manager2', '2022-02-15 13:30', N'Thêm sản phẩm nhu yếu phẩm mới'),
+	('history13', 'manager2', '2022-02-15 13:35', N'Thêm sản phẩm nhu yếu phẩm mới'),
+	('history14', 'manager2', '2022-02-15 13:40', N'Thêm sản phẩm nhu yếu phẩm mới'),
+	('history15', 'manager2', '2022-02-15 13:45', N'Thêm sản phẩm nhu yếu phẩm mới'),
+	('history16', 'manager2', '2022-02-15 13:50', N'Thêm sản phẩm nhu yếu phẩm mới'),
+	('history17', 'manager2', '2022-02-15 13:55', N'Thêm sản phẩm nhu yếu phẩm mới'),
+	('history18', 'manager2', '2022-02-15 14:00', N'Thêm sản phẩm nhu yếu phẩm mới'),
+	('history19', 'manager2', '2022-02-15 14:05', N'Thêm sản phẩm nhu yếu phẩm mới'),
+	('history20', 'manager3', '2022-02-16 09:00', N'Thêm gói nhu yếu phẩm mới'),
+	('history21', 'manager3', '2022-02-16 09:15', N'Thêm gói nhu yếu phẩm mới'),
+	('history22', 'manager3', '2022-02-16 09:30', N'Thêm gói nhu yếu phẩm mới'),
+	('history23', 'manager3', '2022-02-16 09:45', N'Thêm gói nhu yếu phẩm mới'),
+	('history24', 'manager3', '2022-02-16 10:00', N'Thêm gói nhu yếu phẩm mới'),
+	('history25', 'manager3', '2022-02-16 10:15', N'Thêm gói nhu yếu phẩm mới'),
+	('history26', 'manager1', '2022-03-15 12:00', N'Thêm người liên quan đến Covid-19 vào hệ thống'),
+	('history27', 'manager1', '2022-03-15 12:05', N'Thêm người liên quan đến Covid-19 vào hệ thống'),
+	('history28', 'manager1', '2022-03-15 12:10', N'Thêm người liên quan đến Covid-19 vào hệ thống'),
+	('history29', 'manager1', '2022-03-15 12:15', N'Thêm người liên quan đến Covid-19 vào hệ thống'),
+	('history30', 'manager1', '2022-03-15 12:20', N'Thêm người liên quan đến Covid-19 vào hệ thống'),
+	('history31', 'manager1', '2022-03-15 12:30', N'Thêm người liên quan đến Covid-19 vào hệ thống'),
+	('history32', 'manager1', '2022-03-15 12:35', N'Thêm người liên quan đến Covid-19 vào hệ thống'),
+	('history33', 'manager1', '2022-03-15 12:40', N'Thêm người liên quan đến Covid-19 vào hệ thống'),
+	('history34', 'manager1', '2022-03-15 12:45', N'Thêm người liên quan đến Covid-19 vào hệ thống'),
+	('history35', 'manager1', '2022-03-15 12:50', N'Thêm người liên quan đến Covid-19 vào hệ thống'),
+	('history36', 'patient1', '2022-03-18 10:00', N'Đặt một đơn hàng mới'),
+	('history37', 'patient3', '2022-03-20 12:40', N'Đặt một đơn hàng mới'),
+	('history38', 'patient4', '2022-03-22 18:00', N'Đặt một đơn hàng mới'),
+	('history39', 'patient6', '2022-03-24 08:00', N'Đặt một đơn hàng mới'),
+	('history40', 'patient10', '2022-03-25 16:00', N'Đặt một đơn hàng mới')
 go
 
 --- ORDERS DUMMY DATA
 
 insert into ORDERS (
+	order_id,
 	belong_to_username,
 	at_datetime,
 	total
 )
 values 
-	('patient1', '2022-03-18 10:00', 277.5),
-	('patient3', '2022-03-20 12:40', 250),
-	('patient4', '2022-03-22 18:00', 196.5),
-	('patient6', '2022-03-24 08:00', 213),
-	('patient10', '2022-03-25 16:00', 125)
+	('order1', 'patient1', '2022-03-18 10:00', 277.5), --- package9, package12
+	('order2', 'patient3', '2022-03-20 12:40', 163.5), --- package1, package6
+	('order3', 'patient4', '2022-03-22 18:00', 160), --- package5, package11
+	('order4', 'patient6', '2022-03-24 08:00', 213), --- package1, package4
+	('order5', 'patient10', '2022-03-25 16:00', 125) --- package11
 go
 
+insert into ORDERS_DETAILS (
+	order_id,
+	package_id,
+	quantity,
+	price,
+	sub_total
+)
+values
+	('order1', 'package9', 1, 82.5, 82.5),
+	('order1', 'package12', 1, 195, 195),
+	('order2', 'package1', 1, 95.5, 95.5),
+	('order2', 'package6', 1, 68, 68),
+	('order3', 'package5', 1, 35, 35),
+	('order3', 'package11', 1, 125, 125),
+	('order4', 'package1', 1, 95.5, 95.5),
+	('order4', 'package4', 1, 171.5, 171.5),
+	('order5', 'package11', 1, 125, 125)
+go
 
 
 ----- GET RIGHT CODES TO INSERT ADDRESS
