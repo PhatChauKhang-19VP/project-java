@@ -10,6 +10,8 @@ public class TransactionServer {
     public static final int NUM_OF_THREAD = 4;
     public final static int SERVER_PORT = 7;
 
+    //private static boolean
+
     public static void main(String[] args) throws IOException {
         ExecutorService executor = Executors.newFixedThreadPool(NUM_OF_THREAD);
         ServerSocket serverSocket = null;
