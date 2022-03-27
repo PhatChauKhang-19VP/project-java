@@ -1,19 +1,23 @@
 package app.user;
 
+import app.database.DatabaseCommunication;
+import app.database.SelectQuery;
 import app.util.Location;
 import app.util.TreatmentLocation;
+import cyptography.RSA;
+import cyptography.StructClass;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.*;
 import java.text.SimpleDateFormat;
 
 public class Patient extends UserDecorator {
     private int status;
-    private Date dob;
+    private LocalDate dob;
     private Location address;
     private TreatmentLocation treatmentLocation;
     private ArrayList<Patient> closeContacts;
@@ -21,7 +25,7 @@ public class Patient extends UserDecorator {
     public Patient(
             IUser user,
             int status,
-            Date dob,
+            LocalDate dob,
             Location address,
             TreatmentLocation treatmentLocation,
             ArrayList<Patient> closeContacts
@@ -41,7 +45,10 @@ public class Patient extends UserDecorator {
 
     public void viewPackages() {
         try {
-            // todo: show available package
+            SelectQuery selectQuery = new SelectQuery();
+            selectQuery.select("*").from("PACKAGES");
+            List<Map<String, Object>> rs = DatabaseCommunication.getInstance().executeQuery(selectQuery.getQuery());
+            DatabaseCommunication.getInstance().printResult(rs);
         } catch (Exception e) {
             System.out.println("Exception showing packages: " + e.getMessage());
         } finally {
@@ -62,6 +69,7 @@ public class Patient extends UserDecorator {
 
     /**
      * Interfaces that be called by client to pay bill.
+     *
      * @return true if successfully purchase.
      */
     public boolean payBill() {
@@ -74,13 +82,13 @@ public class Patient extends UserDecorator {
             e.printStackTrace();
             return false;
         } finally {
-            if (socket != null) {
-                socket.close();
-            }
+            return true;
+        }
     }
 
     /**
      * Connect to transaction server and send purchase request.
+     *
      * @throws IOException
      * @throws InterruptedException
      */
@@ -94,12 +102,13 @@ public class Patient extends UserDecorator {
             socket = new Socket(SERVER_IP, SERVER_PORT); // Connect to server
             System.out.println("Connected: " + socket);
 
-            String request = "Paybill;" + ((UserConcreteComponent)user).getUsername() + ";1060";
+            HashMap<String, String> requestData = new HashMap<>();
+            requestData.put("type", "paybill");
+            requestData.put("username", this.getUsername());
+            requestData.put("amount", "100");
 
-//            byte[] clientReq = message.getBytes();
-//            DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream());
-//            dataOut.writeInt(clientReq.length); // write length of the message
-//            dataOut.write(clientReq);           // write the message, send to server
+            String request = StructClass.pack(requestData);
+
             sendRequest(socket, request);
             String response = receiveServerResponse(socket);
             System.out.println("Response: " + response);
@@ -121,7 +130,7 @@ public class Patient extends UserDecorator {
         // format date to save update history
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         String date = formatter.format(new Date());
-        String content = "Update status: " + this.status  + " -> " + status;
+        String content = "Update status: " + this.status + " -> " + status;
         this.addRecord(date + " " + content);
 
         // update status and close contacts' status
@@ -133,11 +142,11 @@ public class Patient extends UserDecorator {
         }
     }
 
-    public Date getDob() {
+    public LocalDate getDob() {
         return dob;
     }
 
-    public void setDob(Date dob) {
+    public void setDob(LocalDate dob) {
         this.dob = dob;
     }
 
@@ -164,9 +173,19 @@ public class Patient extends UserDecorator {
         this.closeContacts.add(newCloseContact);
     }
 
-    /** More interpretable way to display patient's information. */
+    public TreatmentLocation getTreatmentLocation() {
+        return treatmentLocation;
+    }
+
+    public void setTreatmentLocation(TreatmentLocation treatmentLocation) {
+        this.treatmentLocation = treatmentLocation;
+    }
+
+    /**
+     * More interpretable way to display patient's information.
+     */
     public void showCompactInfo() {
-        System.out.print("Username: " + ((UserConcreteComponent)this.user).getUsername());
+        System.out.print("Username: " + ((UserConcreteComponent) this.user).getUsername());
         System.out.println("\tStatus: F" + status);
     }
 
@@ -193,24 +212,33 @@ public class Patient extends UserDecorator {
                 byte[] buffer = new byte[length];
                 dataIn.readFully(buffer, 0, buffer.length); // read the message
 
-                String response = new String(buffer);
-                return response;
+//                System.out.println("client receive res\n\t" + new String(buffer));
+                
+                String encryptedResponse = new String(buffer);
+                String decryptedResponse = RSA.getInstance().decrypt(encryptedResponse);
+
+                return decryptedResponse;
             }
             return null;
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    private void sendRequest(Socket socket, String request) {
+    private void sendRequest(Socket socket, String rawRequest) {
         try {
-            byte[] req = request.getBytes();
+            String encryptedRequest = RSA.getInstance().encrypt(rawRequest);
+
+//            System.out.println("Client send request\n\t" + encryptedRequest);
 
             DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream());
 
-            dataOut.writeInt(req.length); // write length of the message
-            dataOut.write(req);
-        } catch (IOException e) {}
+            dataOut.writeInt(encryptedRequest.getBytes().length); // write length of the message
+            dataOut.write(encryptedRequest.getBytes());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

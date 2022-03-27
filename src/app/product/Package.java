@@ -1,39 +1,49 @@
 package app.product;
 
-import java.time.Duration;
+import app.util.Pair;
+
 import java.util.HashMap;
 
 public class Package {
-    private String id;
-    private String name;
+    private String id, name, img_src;
     private int purchasedAmountLimit;
-    private Duration timeLimit;
+    private int timeLimit;
     private double price = 0.0D;
-    private HashMap<Product, Integer> productList;
+    private HashMap<String, Pair<Product, Integer>> productList;
 
     Package() {
-        productList = new HashMap<Product, Integer>();
+        productList = new HashMap<>();
     }
 
-    public Package(String name, HashMap<Product, Integer> productList, int purchasedAmountLimit, Duration timeLimit) {
+    public Package(String id, String name, String img_src, int purchasedAmountLimit, int timeLimit, double price) {
+        this.id = id;
         this.name = name;
-        this.productList = productList;
+        this.img_src = img_src;
         this.purchasedAmountLimit = purchasedAmountLimit;
         this.timeLimit = timeLimit;
-        productList.forEach((product, quantity) -> {
-            price += product.getPrice() * quantity;
-        });
+        this.price = price;
+        productList = new HashMap<>();
     }
 
-    public Package(HashMap<Product, Integer> productList) {
+    public Package(String id, String name, String img_src, int purchasedAmountLimit, int timeLimit, double price, HashMap<String, Pair<Product, Integer>> productList) {
+        this.id = id;
+        this.name = name;
+        this.img_src = img_src;
+        this.purchasedAmountLimit = purchasedAmountLimit;
+        this.timeLimit = timeLimit;
+        this.price = price;
         this.productList = productList;
-        productList.forEach((product, quantity) -> {
-            price += product.getPrice() * quantity;
+    }
+
+    public Package(HashMap<String, Pair<Product, Integer>> productList) {
+        this.productList = productList;
+        productList.forEach((id, pair) -> {
+            price += pair.getFirst().getPrice()*pair.getSecond();
         });
     }
 
-    void addProduct(Product product, int quantity) {
-        productList.put(product, quantity);
+    public void addProduct(Product product, int quantity) {
+        productList.put(product.getId(), new Pair(product, quantity));
         price += product.getPrice() * quantity;
     }
 
@@ -53,11 +63,11 @@ public class Package {
         this.purchasedAmountLimit = purchasedAmountLimit;
     }
 
-    public Duration getTimeLimit() {
+    public int getTimeLimit() {
         return timeLimit;
     }
 
-    public void setTimeLimit(Duration timeLimit) {
+    public void setTimeLimit(int timeLimit) {
         this.timeLimit = timeLimit;
     }
 
@@ -77,15 +87,20 @@ public class Package {
         this.price = price;
     }
 
-    public HashMap<Product, Integer> getProductList() {
+    public String getImg_src() {
+        return img_src;
+    }
+
+    public void setImg_src(String img_src) {
+        this.img_src = img_src;
+    }
+
+    public HashMap<String, Pair<Product, Integer>> getProductList() {
         return productList;
     }
 
-    public void setProductList(HashMap<Product, Integer> productList) {
+    public void setProductList(HashMap<String, Pair<Product, Integer>> productList) {
         this.productList = productList;
-        productList.forEach((product, quantity) -> {
-            price += product.getPrice() * quantity;
-        });
     }
 
     //add remove product
@@ -93,4 +108,22 @@ public class Package {
         // update pkg
     }
 
+    @Override
+    public String toString() {
+        String ret = "";
+        ret += "Package: " +
+                " id=" + id +
+                ", name=" + name +
+                ", img_src=" + img_src +
+                ", purchasedAmountLimit=" + purchasedAmountLimit +
+                ", timeLimit=" + timeLimit +
+                ", price=" + price +
+                "\n";
+
+        for (String key : productList.keySet()){
+            ret += "\n" + productList.get(key).getFirst() + "\n\t\tquantity=" + productList.get(key).getSecond();
+        }
+
+        return ret;
+    }
 }

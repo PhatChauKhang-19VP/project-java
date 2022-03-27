@@ -1,13 +1,19 @@
 package app.util;
 
 public class Location {
-    private String addressLine, ward, district, province;
+    private String addressLine;
+    Ward ward;
+    District district;
+    Province province;
 
     public Location() {
-        addressLine = ward = district = province = null;
+        addressLine = null;
+        ward = null;
+        district = null;
+        province = null;
     }
 
-    public Location(String addressLine, String ward, String district, String province) {
+    public Location(String addressLine, Ward ward, District district, Province province) {
         this.addressLine = addressLine;
         this.ward = ward;
         this.district = district;
@@ -22,35 +28,35 @@ public class Location {
         this.addressLine = addressLine;
     }
 
-    public String getWard() {
+    public Ward getWard() {
         return ward;
     }
 
-    public void setWard(String ward) {
+    public void setWard(Ward ward) {
         this.ward = ward;
     }
 
-    public String getDistrict() {
+    public District getDistrict() {
         return district;
     }
 
-    public void setDistrict(String district) {
+    public void setDistrict(District district) {
         this.district = district;
     }
 
-    public String getProvince() {
+    public Province getProvince() {
         return province;
     }
 
-    public void setProvince(String province) {
+    public void setProvince(Province province) {
         this.province = province;
     }
 
     @Override
     public String toString() {
         return addressLine +
-                ", Ward " + ward +
-                ", District " + district +
+                ", " + ward +
+                ", " + district +
                 ", " + province;
     }
 }

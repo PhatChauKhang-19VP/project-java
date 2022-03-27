@@ -1,98 +1,156 @@
 package app;
 
+import app.database.DatabaseCommunication;
+import app.product.Package;
+import app.product.Product;
 import app.user.*;
 import app.util.Location;
 import app.util.TreatmentLocation;
 
-import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class Main {
-    public static void main(String[] args) {
+
+    public static void main(String[] args) throws InterruptedException {
         App app = App.getInstance();
-
+        DatabaseCommunication dbCom = DatabaseCommunication.getInstance();
+        dbCom.loadAll();
         IUser admin = Admin.getInstance();
-        admin.setUsername("admin");
-        admin.setName("Admin");
-        admin.setPassword("*****");
 
-        Location loc1 = new Location("123 Hong Bang","15","5","HCM");
-
-        TreatmentLocation tloc1 = new TreatmentLocation("Benh vien Cho Ray",200,0);
-        TreatmentLocation tloc2 = new TreatmentLocation("Benh vien da chien so 1",500,0);
-
-        IUser patient1 = new Patient(
-                new UserConcreteComponent("patient1", "Patient 1", "c", IUser.Role.PATIENT),
-                0, new Date(2012, 2, 3), loc1, tloc2,
-                new ArrayList<Patient>());
-
-        IUser patient2 = new Patient(
-                new UserConcreteComponent("patient2", "Patient 2", "d", IUser.Role.PATIENT),
-                1, new Date(1992, 12, 7), loc1, tloc1,
-                new ArrayList<Patient>());
-
-        IUser patient3 = new Patient(
-                new UserConcreteComponent("patient3", "Patient 3", "e", IUser.Role.PATIENT),
-                2, new Date(1992, 12, 7), loc1, tloc1, new ArrayList<Patient>());
-
-        IUser patient4 = new Patient(
-                new UserConcreteComponent("patient4", "Patient 4", "e", IUser.Role.PATIENT),
-                2, new Date(1992, 12, 7), loc1, tloc1,
-                new ArrayList<Patient>());
-
-        IUser patient5 = new Patient(
-                new UserConcreteComponent("patient5", "Patient 5", "e", IUser.Role.PATIENT),
-                3, new Date(1992, 12, 7), loc1, tloc1,
-                new ArrayList<Patient>());
-
-        // Test adding component to App object
-        app.addUser(admin);
-        app.addUser(patient1);
-        app.addUser(patient2);
-        app.addUser(patient3);
-        app.addUser(patient4);
-        app.addUser(patient5);
-        app.addTreatmentLocation(tloc1);
-        app.addTreatmentLocation(tloc2);
-
-        // Test adding manager
-        IUser manager1 = new Manager(
-                new UserConcreteComponent("manager1", "Manager 1", "b", IUser.Role.MANAGER)
+        IUser m1 = new Manager(
+                new UserConcreteComponent(
+                        "mng6", "Manager 6", "123", IUser.Role.MANAGER
+                )
         );
-        ((Admin) admin).createManager((Manager)manager1);
+        Location loc1 = new Location(
+                "123 Hong Bang",
+                app.getWardList().get("00001"),
+                app.getDistrictList().get("001"),
+                app.getProvinceList().get("01"));
+        TreatmentLocation tloc1 = new TreatmentLocation("loc1", "treament location 1", 10, 0);
+        IUser p1 = new Patient(
+                new UserConcreteComponent(
+                        "patientz", "Patient 1", "abcd", IUser.Role.PATIENT
+                ),
+                1,
+                LocalDate.now(),
+                loc1,
+                tloc1,
+                new ArrayList<Patient>()
+        );
 
-        // Test creating and updating treatment location
-        // via admin
-        ((Admin) admin).createTreatmentLocation(new TreatmentLocation("Benh vien PNT",500,0));
-        ((Admin) admin).modifyTreatmentLocationName(tloc1, "Benh vien Hung Vuong");
-        ((Admin) admin).deleteLocation(tloc1);
-        //app.showTreatmentLocationList();
+        // test login
+//        System.out.println(dbCom.login("admin1", "1"));
+//
+//        // get manager
+//        dbCom.loadAdmin();
+//
+//        // load administrativeDivision
+//        dbCom.loadAdministrativeDivision();
+//
+//        // load Treatment Locations
+//        dbCom.loadTreatmentLocation();
+//
+//        // load Patients and their close contacts
+//        dbCom.loadPatients();
+//
+//        // load Histories
+//        dbCom.loadHistories();
+//
+//        // load Products and Packages
+//        dbCom.loadProductsAndPackages();
+//
+//        // load Orders
+//        dbCom.loadOrders();
+//
+//        ((Patient) app.getUserList().get("patient1")).payBill();
 
-        // Test handling patient and F-system
-        ((Patient) patient1).addCloseContact((Patient) patient2);
-        ((Patient) patient2).addCloseContact((Patient) patient3);
-        ((Patient) patient2).addCloseContact((Patient) patient4);
-        ((Patient) patient3).addCloseContact((Patient) patient5);
+        /* get manager */
+        DatabaseCommunication.getInstance().loadAdmin();
 
-        ((Patient) patient3).setStatus(0);
-        ((Patient) patient2).setStatus(0);
+        /* load administrativeDivision */
+        DatabaseCommunication.getInstance().loadAdministrativeDivisions();
 
-        //!! test manager
-        //* 1.2.1
-        ((Manager) manager1).showPatientList();
-        ((Manager) manager1).showPatientInfo(patient1);
+        DatabaseCommunication.getInstance().loadTreatmentLocations();
 
 
-        Patient pTemp = ((Manager) manager1).findPatientWithId("patient3");
-        System.out.println(patient3);
-        System.out.println(pTemp);
+//        app.getUserList().get("patient1").showInfo();
+//        App.getInstance().getProductManagement().showInfo();
 
-        ((Patient) patient5).payBill();
+//        testAddingManager((Manager) m1);
+//        testAddingTreatmentLocation();
+//        testModifyingTLoc();
+//        testDeletingTloc();
+//        testViewingPackages((Patient) p1);
+//        testSortingPatientList((Manager) m1);
+//        testAddingPatient((Manager) m1, (Patient) p1);
+//        testFindingProduct((Manager) m1);
+//        testAddingPackage((Manager) m1);
+//        testDeletingPackage((Manager) m1);
+    }
 
-//        for (IUser i : app.getUserList()) {
-//            i.showInfo();
-//            System.out.println("\n\n=======\n");
-//        }
+    private static void testAddingManager(Manager manager) {
+        Admin.getInstance().createManager(manager);
+    }
+
+    private static void testAddingTreatmentLocation() {
+        TreatmentLocation tloc = new TreatmentLocation("tloc4", "Treatment Loc 4", 2000, 400);
+        Admin.getInstance().createTreatmentLocation(tloc);
+    }
+
+    private static void testModifyingTLoc() {
+        Admin.getInstance().modifyTreatmentLocationName("tloc4", "Modified Treatment Location 4");
+        Admin.getInstance().modifyTreatmentLocationCapacity("tloc4", 2500);
+        Admin.getInstance().modifyTreatmentLocationRoom("tloc4", 940);
+    }
+
+    private static void testDeletingTloc() {
+        Admin.getInstance().deleteLocation("tloc4");
+    }
+
+    private static void testViewingPackages(Patient patient) {
+        App app = App.getInstance();
+        patient.viewPackages();
+    }
+
+    private static void testSortingPatientList(Manager manager) {
+        ArrayList<String> orders = new ArrayList<>();
+        orders.add("f_status");
+        manager.sortPatientList(orders);
+    }
+
+    private static void testAddingPatient(Manager manager, Patient patient) {
+        manager.addPatient(patient);
+    }
+
+    private static void testFindingProduct(Manager manager) {
+        ArrayList<Product> prods = manager.findProductByName("Su su");
+        prods.forEach(product -> {
+            System.out.println(product);
+        });
+    }
+
+    private static void testAddingPackage(Manager manager) {
+        Product prod = new Product(
+                "product14",
+                "Su su",
+                "https://res.cloudinary.com/ngo-minh-phat/image/upload/v1647964674/covid_app/products/su-su-tui-500g_lyy8pw.jpg",
+                "X",
+                10.0);
+        Package pkg = new Package(
+                "testpackage",
+                "Test package",
+                "",
+                10,
+                10,
+                200
+        );
+        pkg.addProduct(prod, 5);
+        manager.addPackage(pkg);
+    }
+
+    private static void testDeletingPackage(Manager manager) {
+        manager.deletePackage("testpackage");
     }
 }
