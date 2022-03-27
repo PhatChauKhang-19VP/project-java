@@ -1,60 +1,59 @@
 package app.product;
 
-import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 
 public class ProductManagement {
-    private ArrayList<Product> productList;
-    private ArrayList<Package> packageList;
+    private HashMap<String, Product> productList;
+    private HashMap<String, Package> packageList;
+    private HashMap<Integer, Order> orderList;
 
     public ProductManagement() {
-        productList = new ArrayList<>();
-        packageList = new ArrayList<>();
+        productList = new HashMap<>();
+        packageList = new HashMap<>();
     }
 
-    public ProductManagement(ArrayList<Product> productList, ArrayList<Package> packageList) {
-        this.productList = productList;
-        this.packageList = packageList;
-    }
-
-    public ArrayList<Product> getProductList() {
+    public HashMap<String, Product> getProductList() {
         return productList;
     }
 
-    public void setProductList(ArrayList<Product> productList) {
+    public void setProductList(HashMap<String, Product> productList) {
         this.productList = productList;
     }
 
-    public ArrayList<Package> getPackageList() {
+    public HashMap<String, Package> getPackageList() {
         return packageList;
     }
 
-    public void setPackageList(ArrayList<Package> packageList) {
+    public void setPackageList(HashMap<String, Package> packageList) {
         this.packageList = packageList;
     }
 
+    public HashMap<Integer, Order> getOrderList() {
+        return orderList;
+    }
+
+    public void setOrderList(HashMap<Integer, Order> orderList) {
+        this.orderList = orderList;
+    }
+
     public Product findProductById(String id) {
-        for (Product product : productList) {
-            if (product.getName().equals(id)) {
-                return product;
-            }
-        }
-        return null;
+        return productList.get(id);
     }
 
     public Product findProductByName(String name) {
-        for (Product product : productList) {
-            if (product.getName().equals(name)) {
-                return product;
+        for (String key : productList.keySet()) {
+            if (productList.get(key).getName().equals(name)) {
+                return productList.get(key);
             }
         }
         return null;
     }
 
     public Package findPackageByName(String name) {
-        for (Package pkg : packageList) {
-            if (pkg.getName().equals(name)) {
-                return pkg;
+        for (String key : packageList.keySet()) {
+            if (packageList.get(key).getName().equals(name)) {
+                return packageList.get(key);
             }
         }
 
@@ -62,13 +61,7 @@ public class ProductManagement {
     }
 
     public Package findPackageById(String id) {
-        for (Package pkg : packageList) {
-            if (pkg.getName().equals(id)) {
-                return pkg;
-            }
-        }
-
-        return null;
+        return packageList.get(id);
     }
 
     public void sortProductList(Comparator comparator) {
@@ -81,20 +74,20 @@ public class ProductManagement {
         System.out.println("Package list is sorted");
     }
 
-    public ArrayList<Product> filterProduct(/*filter params*/) {
+    public HashMap<String, Product> filterProduct(/*filter params*/) {
         return productList;
     }
 
-    public ArrayList<Package> filterPackage(/*filter params*/) {
+    public HashMap<String, Package> filterPackage(/*filter params*/) {
         return packageList;
     }
 
     public void addProduct(Product product) {
-        productList.add(product);
+        productList.put(product.getId(), product);
     }
 
     public void addPackage(Package pkg) {
-        packageList.add(pkg);
+        packageList.put(pkg.getId(), pkg);
     }
 
     public boolean updateProduct(String id, Product newProductInfo) {
@@ -116,12 +109,30 @@ public class ProductManagement {
     }
 
     public boolean deleteProduct(String id) {
-        Product product = findProductById(id);
-        return productList.remove(product);
+        if (productList.containsKey(id)){
+            productList.remove(id);
+            return true;
+        }
+        return false;
     }
 
     public boolean deletePackage(String id) {
-        Package pkg = findPackageById(id);
-        return packageList.remove(pkg);
+        if (packageList.containsKey(id)){
+            packageList.remove(id);
+
+            return  true;
+        }
+        return  false;
+    }
+
+    public void addProductToPackage(String package_id, Product product, int quantity){
+        packageList.get(package_id).addProduct(product, quantity);
+    }
+
+    public void showInfo(){
+        for (String key : packageList.keySet()){
+            System.out.println(packageList.get(key));
+            System.out.println("\n=========================================================\n");
+        }
     }
 }

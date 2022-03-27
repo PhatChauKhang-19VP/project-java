@@ -1,8 +1,15 @@
 package app.util;
 
 public class TreatmentLocation {
-    private String name;
+    private String code, name;
     private int capacity, currentRoom;
+
+    public TreatmentLocation(String code, String name, int capacity, int currentRoom) {
+        this.code = code;
+        this.name = name;
+        this.capacity = capacity;
+        this.currentRoom = currentRoom;
+    }
 
     public TreatmentLocation() {
         super();
@@ -10,10 +17,12 @@ public class TreatmentLocation {
         capacity = currentRoom = 0;
     }
 
-    public TreatmentLocation(String name, int capacity, int currentRoom) {
-        this.name = name;
-        this.currentRoom = currentRoom;
-        this.capacity = capacity;
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getName() {

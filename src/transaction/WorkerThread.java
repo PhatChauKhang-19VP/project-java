@@ -1,8 +1,11 @@
 package transaction;
 
+import cyptography.RSA;
+import cyptography.StructClass;
+
 import java.io.*;
 import java.net.Socket;
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public class WorkerThread extends Thread {
     private Socket socket;
@@ -10,38 +13,55 @@ public class WorkerThread extends Thread {
     public WorkerThread(Socket socket) {
         this.socket = socket;
     }
+
     private String receiveClientRequest(Socket socket) {
         try {
             DataInputStream dataIn = new DataInputStream(socket.getInputStream());
 
             int length = dataIn.readInt();  // read length of incoming message
-            if(length > 0) {
+            if (length > 0) {
                 byte[] buffer = new byte[length];
                 dataIn.readFully(buffer, 0, buffer.length); // read the message
 
-                String requestData = new String(buffer);
-                return requestData;
+                String encryptedResponse = new String(buffer);
+                String decryptedResponse = RSA.getInstance().decrypt(encryptedResponse);
+
+                return decryptedResponse;
             }
             return null;
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
 
     private String handleClientRequest(String request) {
-        return "Success";
+        HashMap<String, String> requestData = StructClass.unpack(request);
+
+        switch (requestData.get("type")) {
+            case "paybill":
+                // todo: user payment query should be added here
+                return "Username  " + requestData.get("username") + " pay bill with amount = " + requestData.get("amount") + " successfully";
+
+            default:
+                return "FAILED";
+        }
     }
 
-    private void sendResponse(Socket socket, String response) {
+    private void sendResponse(Socket socket, String rawResponse) {
         try {
-            byte[] serverResponse = response.getBytes();
+            String encryptedResponse = RSA.getInstance().encrypt(rawResponse);
+
+//            System.out.println("server send res\n\t" + encryptedResponse);
+
+            System.out.println();
 
             DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream());
 
-            dataOut.writeInt(serverResponse.length); // write length of the message
-            dataOut.write(serverResponse);
-        } catch (IOException e) {}
+            dataOut.writeInt(encryptedResponse.getBytes().length); // write length of the message
+            dataOut.write(encryptedResponse.getBytes());
+        } catch (Exception e) {
+        }
     }
 
     //Handle client request and send response to client
@@ -50,13 +70,12 @@ public class WorkerThread extends Thread {
 
         //Receive request from client
         String requestData = receiveClientRequest(socket);
-        System.out.println(requestData);
 
         //Process request from client: tra cuu so du, thanh toan,...
-        String response = handleClientRequest(requestData);
+        String rawResponse = handleClientRequest(requestData);
 
         //Send response to client
-        sendResponse(socket, response);
+        sendResponse(socket, rawResponse);
         System.out.println("Complete processing: " + socket);
     }
 }
