@@ -15,6 +15,7 @@ public class Main {
     public static void main(String[] args) throws InterruptedException {
         App app = App.getInstance();
         DatabaseCommunication dbCom = DatabaseCommunication.getInstance();
+        dbCom.loadAll();
         IUser admin = Admin.getInstance();
 
         IUser m1 = new Manager(
