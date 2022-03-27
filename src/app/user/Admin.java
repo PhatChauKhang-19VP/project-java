@@ -1,8 +1,15 @@
 package app.user;
 
 import app.App;
+import app.database.DatabaseCommunication;
+import app.database.DeleteQuery;
+import app.database.InsertQuery;
+import app.database.UpdateQuery;
 import app.util.History;
 import app.util.TreatmentLocation;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 /** Admin decorator, also implemented with Singleton pattern. */
 public class Admin extends UserDecorator {
@@ -18,84 +25,154 @@ public class Admin extends UserDecorator {
         return instance;
     }
 
+    private boolean createLoginInfo(IUser user) {
+        try {
+            InsertQuery insertQuery = new InsertQuery();
+            ArrayList<String> loginInfoColumns = new ArrayList<>() {
+                {
+                    add("username");
+                    add("password");
+                    add("account_status");
+                    add("user_type");
+                }
+            };
+            ArrayList<String> loginInfo = new ArrayList<>() {
+                {
+                    add("'" + user.getUsername() + "'");
+                    add("'" + user.getPassword() + "'");
+                    add("'ACTIVE'");
+                    add("'MANAGER'");
+                }
+            };
+            insertQuery.insertInto("LOGIN_INFOS")
+                    .columns(loginInfoColumns)
+                    .values(loginInfo);
+            DatabaseCommunication.getInstance().execute(insertQuery.getQuery());
+        } catch (Exception e) {
+            System.out.println("Exception creating manager login info: " + e.getMessage());
+            return false;
+        } finally {
+            return true;
+        }
+    }
+
     public boolean createManager(Manager manager) {
         try {
-            // todo: save to db
+            createLoginInfo(manager);
+            InsertQuery insertQuery = new InsertQuery();
+            ArrayList<String> values = new ArrayList<>();
+            values.add("'" + manager.getUsername() + "'");
+            values.add("'" + manager.getName() + "'");
+            insertQuery.insertInto("MANAGERS")
+                    .columns("username")
+                    .columns("name")
+                    .values(values);
+            DatabaseCommunication.getInstance().execute(insertQuery.getQuery());
         } catch (Exception e) {
             System.out.println("Exception creating new manager: " + e.getMessage());
             return false;
         } finally {
-            App.getInstance().addUser(manager);
             return true;
         }
     }
 
     public void deactivateManager(Manager manager) {
         manager.deactivate();
+        UpdateQuery updateQuery = new UpdateQuery();
+        updateQuery.update("MANAGER").set("status", "INACTIVE");
+        try {
+            DatabaseCommunication.getInstance().execute(updateQuery.getQuery());
+        } catch (SQLException e) {
+            System.out.println("Exception deactivating manager: " + e.getMessage());
+        }
     }
 
     public History viewHistory(IUser user) { return user.getHistory(); }
 
     public boolean createTreatmentLocation(TreatmentLocation newLocation) {
         try {
-            // todo: save new loc to db
+            InsertQuery insertQuery = new InsertQuery();
+            ArrayList<String> columns = new ArrayList<>() {
+                {
+                    add("treatment_location_code");
+                    add("name");
+                    add("capacity");
+                    add("current_room");
+                }
+            };
+            ArrayList<String> values = new ArrayList<>() {
+                {
+                    add("'" + newLocation.getCode() + "'");
+                    add("'" + newLocation.getName() + "'");
+                    add(String.valueOf(newLocation.getCapacity()));
+                    add(String.valueOf(newLocation.getCurrentRoom()));
+                }
+            };
+            insertQuery.insertInto("TREATMENT_LOCATIONS")
+                    .columns(columns)
+                    .values(values);
+            DatabaseCommunication.getInstance().execute(insertQuery.getQuery());
         } catch (Exception e) {
             System.out.println("Exception creating new treatment location " + e.getMessage());
             return false;
         } finally {
-            App.getInstance().addTreatmentLocation(newLocation);
+            // todo: re-load treatment location from db
             return true;
         }
     }
 
-    public boolean modifyTreatmentLocationName(TreatmentLocation location, String newName) {
+    public boolean modifyTreatmentLocationName(String locationID, String newName) {
         try {
-            // todo: save updated loc to db
-            location.setName(newName);
+            UpdateQuery updateQuery = new UpdateQuery();
+            updateQuery.update("TREATMENT_LOCATIONS")
+                    .set("name", "'" + newName + "'")
+                    .where("treatment_location_code='" + locationID + "'");
+            DatabaseCommunication.getInstance().execute(updateQuery.getQuery());
         } catch (Exception e) {
-            System.out.println("Exception modifying treatment location " + e.getMessage());
+            System.out.println("Exception modifying treatment location: " + e.getMessage());
             return false;
         } finally {
             return true;
         }
     }
 
-    public boolean modifyTreatmentLocationRoom(TreatmentLocation location, int newRoom) {
+    public boolean modifyTreatmentLocationRoom(String locationID, int newRoom) {
         try {
-            // todo: save updated loc to db
-            location.setCurrentRoom(newRoom);
+            UpdateQuery updateQuery = new UpdateQuery();
+            updateQuery.update("TREATMENT_LOCATIONS")
+                    .set("current_room", String.valueOf(newRoom))
+                    .where("treatment_location_code='" + locationID + "'");
+            DatabaseCommunication.getInstance().execute(updateQuery.getQuery());
         } catch (Exception e) {
-            System.out.println("Exception modifying treatment location " + e.getMessage());
+            System.out.println("Exception modifying treatment location: " + e.getMessage());
             return false;
         } finally {
             return true;
         }
     }
 
-    public boolean modifyTreatmentLocationCapacity(TreatmentLocation location, int newCapacity) {
+    public boolean modifyTreatmentLocationCapacity(String locationID, int newCapacity) {
         try {
-            // todo: save updated loc to db
-            location.setCapacity(newCapacity);
+            UpdateQuery updateQuery = new UpdateQuery();
+            updateQuery.update("TREATMENT_LOCATIONS")
+                    .set("capacity", String.valueOf(newCapacity))
+                    .where("treatment_location_code='" + locationID + "'");
+            DatabaseCommunication.getInstance().execute(updateQuery.getQuery());
         } catch (Exception e) {
-            System.out.println("Exception modifying treatment location " + e.getMessage());
+            System.out.println("Exception modifying treatment location: " + e.getMessage());
             return false;
         } finally {
             return true;
         }
     }
 
-    public boolean deleteLocation(String code) {
+    public boolean deleteLocation(String locationID) {
         try {
-            // todo: delete loc in db
-
-             /*
-             The code block below is for testing only.
-             In production, the app should reload the locations
-             straight from the database instead of delete element
-             from the array
-             */
-            App app = App.getInstance();
-            app.deleteTreatmentLocation(code);
+            DeleteQuery deleteQuery = new DeleteQuery();
+            deleteQuery.deleteFrom("TREATMENT_LOCATIONS")
+                    .where("treatment_location_code='" + locationID + "'");
+            DatabaseCommunication.getInstance().execute(deleteQuery.getQuery());
+            System.out.println(deleteQuery.getQuery());
         } catch (Exception e) {
             System.out.println("Exception deleting treatment location " + e.getMessage());
             return false;

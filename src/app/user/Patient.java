@@ -1,5 +1,7 @@
 package app.user;
 
+import app.database.DatabaseCommunication;
+import app.database.SelectQuery;
 import app.util.Location;
 import app.util.TreatmentLocation;
 import cyptography.RSA;
@@ -10,10 +12,8 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.*;
 import java.text.SimpleDateFormat;
-import java.util.HashMap;
 
 public class Patient extends UserDecorator {
     private int status;
@@ -45,7 +45,10 @@ public class Patient extends UserDecorator {
 
     public void viewPackages() {
         try {
-            // todo: show available package
+            SelectQuery selectQuery = new SelectQuery();
+            selectQuery.select("*").from("PACKAGES");
+            List<Map<String, Object>> rs = DatabaseCommunication.getInstance().executeQuery(selectQuery.getQuery());
+            DatabaseCommunication.getInstance().printResult(rs);
         } catch (Exception e) {
             System.out.println("Exception showing packages: " + e.getMessage());
         } finally {
@@ -168,6 +171,14 @@ public class Patient extends UserDecorator {
             newCloseContact.setStatus(this.status + 1);
         }
         this.closeContacts.add(newCloseContact);
+    }
+
+    public TreatmentLocation getTreatmentLocation() {
+        return treatmentLocation;
+    }
+
+    public void setTreatmentLocation(TreatmentLocation treatmentLocation) {
+        this.treatmentLocation = treatmentLocation;
     }
 
     /**

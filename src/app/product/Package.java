@@ -15,6 +15,16 @@ public class Package {
         productList = new HashMap<>();
     }
 
+    public Package(String id, String name, String img_src, int purchasedAmountLimit, int timeLimit, double price) {
+        this.id = id;
+        this.name = name;
+        this.img_src = img_src;
+        this.purchasedAmountLimit = purchasedAmountLimit;
+        this.timeLimit = timeLimit;
+        this.price = price;
+        productList = new HashMap<>();
+    }
+
     public Package(String id, String name, String img_src, int purchasedAmountLimit, int timeLimit, double price, HashMap<String, Pair<Product, Integer>> productList) {
         this.id = id;
         this.name = name;
@@ -32,7 +42,7 @@ public class Package {
         });
     }
 
-    void addProduct(Product product, int quantity) {
+    public void addProduct(Product product, int quantity) {
         productList.put(product.getId(), new Pair(product, quantity));
         price += product.getPrice() * quantity;
     }

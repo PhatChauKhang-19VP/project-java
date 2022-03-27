@@ -9,11 +9,11 @@ import app.util.Ward;
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class DatabaseCommunication {
     private static DatabaseCommunication instance;
@@ -72,7 +72,7 @@ public class DatabaseCommunication {
         }
     }
 
-    public boolean loadAdministrativeDivision() {
+    public boolean loadAdministrativeDivisions() {
         boolean returnValue = false;
 
         try {
@@ -122,7 +122,7 @@ public class DatabaseCommunication {
         }
     }
 
-    public boolean loadTreatmentLocation() {
+    public boolean loadTreatmentLocations() {
         try {
             // get treatment location
             ResultSet rs = stmt.executeQuery("select * from TREATMENT_LOCATIONS as t");
@@ -141,4 +141,83 @@ public class DatabaseCommunication {
             return false;
         }
     }
+
+    private void open() {
+        try {
+            SQLServerDataSource sqlDs = new SQLServerDataSource();
+
+            sqlDs.setIntegratedSecurity(false);
+            sqlDs.setEncrypt(false);
+
+            sqlDs.setUser("sa");
+            sqlDs.setPassword("100282");
+
+            sqlDs.setServerName("localhost");
+            sqlDs.setPortNumber(1433);
+            sqlDs.setDatabaseName("db_covid_app");
+
+            conn = sqlDs.getConnection();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void close() {
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            System.out.println("Error closing connection.");
+            e.printStackTrace();
+        }
+    }
+
+    public List<Map<String, Object>> executeQuery(String sql) throws SQLException {
+        open();
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery(sql);
+
+        List<Map<String, Object>> resultList = new ArrayList<Map<String, Object>>();
+        Map<String, Object> row = null;
+        ResultSetMetaData metaData = rs.getMetaData();
+        Integer columnCount = metaData.getColumnCount();
+
+        while (rs.next()) {
+            row = new HashMap<String, Object>();
+            for (int i = 1; i <= columnCount; i++) {
+                row.put(metaData.getColumnName(i), rs.getObject(i));
+            }
+            resultList.add(row);
+        }
+        rs.close();
+        stmt.close();
+        return resultList;
+    }
+
+    public void execute(String sql) throws SQLException {
+        open();
+        Statement stmt = conn.createStatement();
+        stmt.execute(sql);
+        stmt.close();
+        close();
+    }
+
+    public void printResult(List<Map<String, Object>> rs) throws SQLException {
+        // Prepare metadata object and get the number of columns.
+        if (rs.size() == 0) {
+            return;
+        }
+
+        for (String key : rs.get(0).keySet()) {
+            System.out.print(key + " | ");
+        }
+
+        System.out.println();
+        for (Map<String, Object> item : rs) {
+            item.entrySet().forEach(entry -> {
+                System.out.print(entry.getValue() + " | ");
+            });
+            System.out.println();
+        }
+    }
+
 }
