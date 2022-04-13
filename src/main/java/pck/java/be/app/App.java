@@ -36,6 +36,9 @@ public class App {
         return instance;
     }
 
+    public static void main(String[] args) {
+    }
+
     public void setUserList(HashMap<String, IUser> userList) {
         this.userList = userList;
     }

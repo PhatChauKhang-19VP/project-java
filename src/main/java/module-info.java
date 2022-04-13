@@ -13,7 +13,14 @@ module pck.java {
     requires eu.hansolo.tilesfx;
     requires java.sql;
     requires mssql.jdbc;
+    requires AnimateFX;
 
     opens pck.java to javafx.fxml;
     exports pck.java;
+
+    opens pck.java.fe.mainPage to javafx.fxml;
+    exports pck.java.fe.mainPage;
+
+    opens pck.java.fe.patient to javafx.fxml;
+    exports pck.java.fe.patient;
 }
