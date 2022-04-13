@@ -6,19 +6,16 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TableColumn?>
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pck.java.fe.admin.HomePageController">
     <top>
         <Pane prefHeight="70.0" prefWidth="1024.0" style="-fx-background-color: A8ACFF;" BorderPane.alignment="CENTER">
@@ -96,7 +93,7 @@
                                           </PasswordField>
                                        </children>
                                     </Pane>
-                                    <Button layoutX="120.0" layoutY="372.0" mnemonicParsing="false" style="-fx-background-color: A8ACFF;" text="Tạo tài khoản">
+                                    <Button layoutX="120.0" layoutY="372.0" mnemonicParsing="false" text="Tạo tài khoản">
                                        <font>
                                           <Font size="24.0" />
                                        </font>
@@ -126,10 +123,9 @@
                                                     <content>
                                                         <TableView fx:id="tableViewManager" layoutY="50.0" prefHeight="450.0" prefWidth="800.0">
                                                             <columns>
-                                                                <TableColumn fx:id="colNO" maxWidth="30.0" prefWidth="30.0" text="STT"/>
-                                                                <TableColumn fx:id="colName" maxWidth="200.0" minWidth="100.0" prefWidth="100.0"
-                                                                             resizable="false" text="Tên đăng nhập"/>
-                                                                <TableColumn fx:id="colBtn" prefWidth="70.0" resizable="false"/>
+                                                                <TableColumn fx:id="colNO" maxWidth="30.0" prefWidth="30.0" text="STT" />
+                                                                <TableColumn fx:id="colName" maxWidth="200.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Tên đăng nhập" />
+                                                                <TableColumn fx:id="colBtn" prefWidth="70.0" resizable="false" />
                                                             </columns>
                                                         </TableView>
                                                     </content>

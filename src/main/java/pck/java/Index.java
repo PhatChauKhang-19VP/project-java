@@ -21,10 +21,14 @@ import pck.java.be.app.product.Package;
 import pck.java.be.app.product.Product;
 import pck.java.be.app.user.IUser;
 import pck.java.be.app.user.Manager;
+import pck.java.be.app.user.Patient;
+import pck.java.be.app.util.TreatmentLocation;
 import pck.java.fe.patient.HomePageController;
 import pck.java.fe.utils.LineNumbersCellFactory;
 import pck.java.fe.utils.PackagePane;
 import pck.java.fe.utils.ProductPane;
+
+import java.time.LocalDate;
 
 public class Index extends Application {
     private static Index instance;
@@ -52,8 +56,8 @@ public class Index extends Application {
             stage = primaryStage;
 
             //gotoSignIn();
-            gotoPatientHomePage();
-
+            gotoManagerHomePage();
+            //gotoPatientHomePage();
 
             primaryStage.show();
         } catch (Exception ex) {
@@ -79,38 +83,66 @@ public class Index extends Application {
             TableView tableView = controller.tableViewManager;
             controller.colNO.setCellFactory(new LineNumbersCellFactory<>());
             controller.colName.setCellValueFactory(new PropertyValueFactory<Manager, String>("username"));
+
+
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 
     public void gotoManagerHomePage() {
+        try {
+            replaceSceneContent("manager.homePage.fxml");
+            pck.java.fe.manager.HomePageController controller = loader.getController();
 
+            DatabaseCommunication.getInstance().loadPatients();
+
+            TableView tableView = controller.tableViewPatient;
+            controller.colNO.setCellFactory(new LineNumbersCellFactory<>());
+            controller.colName.setCellValueFactory(new PropertyValueFactory<Patient, String>("name"));
+            controller.colUsername.setCellValueFactory(new PropertyValueFactory<Patient, String>("username"));
+            controller.colDob.setCellValueFactory(new PropertyValueFactory<Patient, String>("dobAsString"));
+            controller.colAddress.setCellValueFactory(new PropertyValueFactory<Patient, String>("addressAsString"));
+            controller.colStatus.setCellValueFactory(new PropertyValueFactory<Patient, String>("statusAsString"));
+            controller.colTLoc.setCellValueFactory(new PropertyValueFactory<Patient, String>("treatmentLocationAsString"));
+
+            for(String key : App.getInstance().getUserList().keySet()) {
+                if(App.getInstance().getUserList().get(key).getRole() == IUser.Role.PATIENT) {
+                    tableView.getItems().add(App.getInstance().getUserList().get(key));
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     public void gotoPatientHomePage() throws Exception {
-        replaceSceneContent("patient.homePage.fxml");
-        pck.java.fe.patient.HomePageController controller = loader.getController();
+        try {
+            replaceSceneContent("patient.homePage.fxml");
+            pck.java.fe.patient.HomePageController controller = loader.getController();
 
-        GridPane gp = controller.getGridPaneProduct();
+            GridPane gp = controller.getGridPaneProduct();
 
-        int row = 0, col = 0;
-        for (String key : App.getInstance().getProductManagement().getPackageList().keySet()) {
-            Package pkg = App.getInstance().getProductManagement().getPackageList().get(key);
+            int row = 0, col = 0;
+            for (String key : App.getInstance().getProductManagement().getPackageList().keySet()) {
+                Package pkg = App.getInstance().getProductManagement().getPackageList().get(key);
 
-            if (pkg.getImg_src().contains("http")) {
-                PackagePane packagePane = new PackagePane(pkg);
+                if (pkg.getImg_src().contains("http")) {
+                    PackagePane packagePane = new PackagePane(pkg);
 
-                Pane pTemp = packagePane.getPane();
+                    Pane pTemp = packagePane.getPane();
 
-                GridPane.setConstraints(pTemp, col, row);
-                gp.getChildren().add(pTemp);
-                col += 1;
-                if (col == 4) {
-                    col = 0;
-                    row += 1;
+                    GridPane.setConstraints(pTemp, col, row);
+                    gp.getChildren().add(pTemp);
+                    col += 1;
+                    if (col == 4) {
+                        col = 0;
+                        row += 1;
+                    }
                 }
             }
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 

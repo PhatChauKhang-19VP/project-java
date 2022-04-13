@@ -125,6 +125,10 @@ public class Patient extends UserDecorator {
         return status;
     }
 
+    public String getStatusAsString() {
+       return "F" + status;
+    }
+
     public void setStatus(int status) {
         // add to history
         // format date to save update history
@@ -146,12 +150,20 @@ public class Patient extends UserDecorator {
         return dob;
     }
 
+    public String getDobAsString() {
+        return dob.toString();
+    }
+
     public void setDob(LocalDate dob) {
         this.dob = dob;
     }
 
     public Location getAddress() {
         return address;
+    }
+
+    public String getAddressAsString() {
+        return address.toString();
     }
 
     public void setAddress(Location address) {
@@ -175,6 +187,10 @@ public class Patient extends UserDecorator {
 
     public TreatmentLocation getTreatmentLocation() {
         return treatmentLocation;
+    }
+
+    public String getTreatmentLocationAsString() {
+        return treatmentLocation.toString();
     }
 
     public void setTreatmentLocation(TreatmentLocation treatmentLocation) {

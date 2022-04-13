@@ -15,11 +15,20 @@ module pck.java {
     requires mssql.jdbc;
     requires AnimateFX;
 
-    opens pck.java to javafx.fxml;
+    opens pck.java to javafx.base;
     exports pck.java;
+
+    opens pck.java.be.app.user to javafx.base;
+    exports pck.java.be.app.user;
 
     opens pck.java.fe.mainPage to javafx.fxml;
     exports pck.java.fe.mainPage;
+
+    opens pck.java.fe.admin to javafx.fxml;
+    exports pck.java.fe.admin;
+
+    opens pck.java.fe.manager to javafx.fxml;
+    exports pck.java.fe.manager;
 
     opens pck.java.fe.patient to javafx.fxml;
     exports pck.java.fe.patient;
