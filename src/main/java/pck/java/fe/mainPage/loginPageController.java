@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import pck.java.be.app.App;
+import pck.java.be.app.user.IUser;
 
 import static java.lang.Thread.sleep;
 
@@ -21,6 +22,10 @@ public class loginPageController {
     String errorMessage = String.format("-fx-text-fill: RED;");
     String errorStyle = String.format("-fx-border-color: RED; -fx-border-width: 2; -fx-border-radius: 5;");
     String successStyle = String.format("-fx-border-color: #A9A9A9; -fx-border-width: 2; -fx-border-radius: 5;");
+
+    public Label getInvalidDetails() {
+        return invalidDetails;
+    }
 
     public void onBtnSignInClick(ActionEvent ae) throws InterruptedException {
 
@@ -64,8 +69,7 @@ public class loginPageController {
                 }
                 // If all login details are entered as required then display success message
                 else {
-                    String signInRes = "";
-
+//                    String signInRes = "";
 //                    if (signInRes.equals("LOGIN_FAILED")) {
 //                        invalidDetails.setText("Đăng nhập thất bại.\nTài khoản hoặc mật khẩu không chính xác.");
 //                        invalidDetails.setStyle(errorMessage);
@@ -96,21 +100,8 @@ public class loginPageController {
                     usernameTextField.setStyle(successStyle);
                     userPassword.setStyle(successStyle);
 
-                    new animatefx.animation.Shake(usernameTextField).play();
-                    new animatefx.animation.Shake(userPassword).play();
-
                     invalidDetails.setText("Đăng nhập thành công.");
 
-//
-//                    Platform.runLater(new Thread(() -> {
-//                        try {
-//                            System.out.println("Sleep 1s");
-//                            sleep(1000);
-//                        } catch (InterruptedException e) {
-//                            e.printStackTrace();
-//                        }
-//                        //App.getInstance().gotoHome();
-//                    }));
                 }
             }
         }

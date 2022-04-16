@@ -95,7 +95,6 @@ public class PackagePane {
         paneQuantity.getChildren().add(iMinus);
 
         iMinus.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-
             @Override
             public void handle(MouseEvent event) {
                 System.out.println(getClass() + "iMinus clicked");
@@ -143,7 +142,7 @@ public class PackagePane {
         });
 
         // pane > btnAddProd
-        Button btnAddProd = new Button("Thêm vào giỏ hàng");
+        Button btnAddProd = new Button("Mua sản phẩm");
         btnAddProd.setAlignment(Pos.CENTER);
         btnAddProd.setPrefSize(120, 25);
         btnAddProd.setLayoutX(60);
@@ -153,6 +152,7 @@ public class PackagePane {
         btnAddProd.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                tq.setEditable(true);
                 System.out.println(getClass() + " add prod to cart");
                 // todo: add product to cart
             }

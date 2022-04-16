@@ -49,7 +49,7 @@
                                                 <Font name="Arial Bold" size="36.0" />
                                             </font>
                                         </Label>
-                                        <AnchorPane layoutX="333.0" layoutY="75.0" prefHeight="449.0" prefWidth="400.0" style="-fx-background-color: #CFD1FC;">
+                                        <AnchorPane layoutX="333.0" layoutY="90.0" prefHeight="450.0" prefWidth="400.0" style="-fx-background-color: #CFD1FC;">
                                             <children>
                                                 <Pane layoutX="25.0" layoutY="20.0" prefHeight="100.0" prefWidth="350.0">
                                                     <children>
@@ -140,7 +140,32 @@
                 </Tab>
                 <Tab style="-fx-pref-height: 30; -fx-font-size: 16;" text="Quản lý địa điểm điều trị/cách ly">
                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <Label layoutX="320.0" layoutY="20.0" text="Địa điểm điều trị/cách ly">
+                                    <font>
+                                        <Font name="Arial Bold" size="36.0" />
+                                    </font>
+                                </Label>
+                                <AnchorPane layoutY="80.0" prefHeight="510.0" prefWidth="1024.0">
+                                    <children>
+                                        <ScrollPane fitToHeight="true" fitToWidth="true" layoutY="100" prefHeight="500.0" prefWidth="1024.0" visible="true" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10" AnchorPane.topAnchor="0">
+                                            <content>
+                                                <TableView fx:id="tableViewTreatmentLocation" layoutY="50.0" prefHeight="450.0" prefWidth="800.0">
+                                                    <columns>
+                                                        <TableColumn fx:id="colNO_1" maxWidth="30.0" prefWidth="30.0" text="STT" />
+                                                        <TableColumn fx:id="colName_1" maxWidth="600.0" minWidth="100.0" prefWidth="400.0" text="Tên" />
+                                                        <TableColumn fx:id="colCapacity" maxWidth="200.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Sức chứa" />
+                                                        <TableColumn fx:id="colCurrentRoom" maxWidth="200.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Số lượng tiếp nhận hiện tại" />
+                                                        <TableColumn fx:id="colBtn_1" prefWidth="70.0" resizable="false" />
+                                                    </columns>
+                                                </TableView>
+                                            </content>
+                                        </ScrollPane>
+                                    </children>
+                                </AnchorPane>
+                            </children>
+                        </AnchorPane>
                     </content>
                 </Tab>
             </tabs>

@@ -26,6 +26,7 @@ import pck.java.be.app.util.TreatmentLocation;
 import pck.java.fe.patient.HomePageController;
 import pck.java.fe.utils.LineNumbersCellFactory;
 import pck.java.fe.utils.PackagePane;
+import pck.java.fe.utils.PackagePaneManager;
 import pck.java.fe.utils.ProductPane;
 
 import java.time.LocalDate;
@@ -68,6 +69,29 @@ public class Index extends Application {
     public void gotoSignIn() {
         try {
             replaceSceneContent("mainPage.loginPage.fxml");
+            pck.java.fe.mainPage.loginPageController controller = loader.getController();
+
+//            for(String key : App.getInstance().getUserList().keySet()) {
+//                String username = String.valueOf(controller.usernameTextField);
+//                if(key.equals(username)) {
+//                    if(App.getInstance().getUserList().get(key).getRole() == IUser.Role.PATIENT) {
+//                        if(controller.getInvalidDetails().equals("Đăng nhập thành công.")) {
+//                            gotoPatientHomePage();
+//                        }
+//                    }
+//                    else if(App.getInstance().getUserList().get(key).getRole() == IUser.Role.ADMIN) {
+//                        if(controller.getInvalidDetails().equals("Đăng nhập thành công.")) {
+//                            gotoAdminHomePage();
+//                        }
+//                    }
+//                    else if(App.getInstance().getUserList().get(key).getRole() == IUser.Role.MANAGER) {
+//                        if(controller.getInvalidDetails().equals("Đăng nhập thành công.")) {
+//                            gotoManagerHomePage();
+//                        }
+//                    }
+//                }
+//            }
+
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -78,12 +102,12 @@ public class Index extends Application {
             replaceSceneContent("admin.homePage.fxml");
             pck.java.fe.admin.HomePageController controller = loader.getController();
 
-            DatabaseCommunication.getInstance().loadManagers();
-
-            TableView tableView = controller.tableViewManager;
+            DatabaseCommunication.getInstance().loadTreatmentLocations();
+            TableView tableView = controller.tableViewTreatmentLocation;
             controller.colNO.setCellFactory(new LineNumbersCellFactory<>());
-            controller.colName.setCellValueFactory(new PropertyValueFactory<Manager, String>("username"));
-
+            controller.colName_1.setCellValueFactory(new PropertyValueFactory<TreatmentLocation, String>("name"));
+            controller.colCapacity.setCellValueFactory(new PropertyValueFactory<TreatmentLocation, String>("capacity"));
+            controller.colCurrentRoom.setCellValueFactory(new PropertyValueFactory<TreatmentLocation, String>("currentRoom"));
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -111,6 +135,49 @@ public class Index extends Application {
                     tableView.getItems().add(App.getInstance().getUserList().get(key));
                 }
             }
+
+            GridPane gp = controller.gridPaneProduct;
+
+            int row = 0, col = 0;
+            for (String key : App.getInstance().getProductManagement().getProductList().keySet()) {
+                Product product = App.getInstance().getProductManagement().getProductList().get(key);
+
+                if (product.getImgSrc().contains("http")) {
+                    ProductPane productPane = new ProductPane(product);
+
+                    Pane pTemp = productPane.getPane();
+
+                    GridPane.setConstraints(pTemp, col, row);
+                    gp.getChildren().add(pTemp);
+                    col += 1;
+                    if (col == 4) {
+                        col = 0;
+                        row += 1;
+                    }
+                }
+            }
+
+            gp = controller.gridPanePackage;
+
+            row = 0;
+            col = 0;
+            for (String key : App.getInstance().getProductManagement().getPackageList().keySet()) {
+                Package pkg = App.getInstance().getProductManagement().getPackageList().get(key);
+
+                if (pkg.getImg_src().contains("http")) {
+                    PackagePaneManager packagePane = new PackagePaneManager(pkg);
+
+                    Pane pTemp = packagePane.getPane();
+
+                    GridPane.setConstraints(pTemp, col, row);
+                    gp.getChildren().add(pTemp);
+                    col += 1;
+                    if (col == 4) {
+                        col = 0;
+                        row += 1;
+                    }
+                }
+            }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -121,7 +188,7 @@ public class Index extends Application {
             replaceSceneContent("patient.homePage.fxml");
             pck.java.fe.patient.HomePageController controller = loader.getController();
 
-            GridPane gp = controller.getGridPaneProduct();
+            GridPane gp = controller.gridPanePackage;
 
             int row = 0, col = 0;
             for (String key : App.getInstance().getProductManagement().getPackageList().keySet()) {
