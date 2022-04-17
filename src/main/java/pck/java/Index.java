@@ -69,30 +69,7 @@ public class Index extends Application {
     public void gotoSignIn() {
         try {
             replaceSceneContent("mainPage.loginPage.fxml");
-            pck.java.fe.mainPage.loginPageController controller = loader.getController();
-
-//            for(String key : App.getInstance().getUserList().keySet()) {
-//                String username = String.valueOf(controller.usernameTextField);
-//                if(key.equals(username)) {
-//                    if(App.getInstance().getUserList().get(key).getRole() == IUser.Role.PATIENT) {
-//                        if(controller.getInvalidDetails().equals("Đăng nhập thành công.")) {
-//                            gotoPatientHomePage();
-//                        }
-//                    }
-//                    else if(App.getInstance().getUserList().get(key).getRole() == IUser.Role.ADMIN) {
-//                        if(controller.getInvalidDetails().equals("Đăng nhập thành công.")) {
-//                            gotoAdminHomePage();
-//                        }
-//                    }
-//                    else if(App.getInstance().getUserList().get(key).getRole() == IUser.Role.MANAGER) {
-//                        if(controller.getInvalidDetails().equals("Đăng nhập thành công.")) {
-//                            gotoManagerHomePage();
-//                        }
-//                    }
-//                }
-//            }
-
-        } catch (Exception ex) {
+                    } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
@@ -226,6 +203,7 @@ public class Index extends Application {
         } else {
             stage.getScene().setRoot(page);
         }
+        stage.setTitle("Quản lý thông tin COVID-19");
         //stage.getScene().getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
         stage.setResizable(false);
         stage.setFullScreen(false);

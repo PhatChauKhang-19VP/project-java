@@ -31,6 +31,11 @@
                         </ImageView>
                     </graphic>
                 </Button>
+            <Label layoutX="446.0" layoutY="14.0" text="Quản lý">
+               <font>
+                  <Font name="Arial Bold" size="36.0" />
+               </font>
+            </Label>
             </children>
         </Pane>
     </top>

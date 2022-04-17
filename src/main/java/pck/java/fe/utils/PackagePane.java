@@ -51,7 +51,7 @@ public class PackagePane {
         pane.getChildren().add(packageName);
 
         // label price
-        Label packagePrice = new Label(String.valueOf(pkg.getPrice()) + " VNĐ");
+        Label packagePrice = new Label(String.format("%.3f VNĐ", pkg.getPrice()));
         packagePrice.setAlignment(Pos.CENTER);
         packagePrice.setTextAlignment(TextAlignment.CENTER);
         packagePrice.setAlignment(Pos.CENTER);
