@@ -1,9 +1,9 @@
 package pck.java.be.app.user;
 
-import pck.java.be.app.database.DatabaseCommunication;
-import pck.java.be.app.database.DeleteQuery;
-import pck.java.be.app.database.InsertQuery;
-import pck.java.be.app.database.UpdateQuery;
+import pck.java.database.DatabaseCommunication;
+import pck.java.database.DeleteQuery;
+import pck.java.database.InsertQuery;
+import pck.java.database.UpdateQuery;
 import pck.java.be.app.util.History;
 import pck.java.be.app.util.TreatmentLocation;
 

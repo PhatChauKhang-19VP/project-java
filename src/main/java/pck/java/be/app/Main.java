@@ -1,6 +1,6 @@
 package pck.java.be.app;
 
-import pck.java.be.app.database.DatabaseCommunication;
+import pck.java.database.DatabaseCommunication;
 import pck.java.be.app.product.Package;
 import pck.java.be.app.product.Product;
 import pck.java.be.app.user.*;

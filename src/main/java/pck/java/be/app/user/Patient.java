@@ -2,8 +2,8 @@ package pck.java.be.app.user;
 
 import cyptography.RSA;
 import cyptography.StructClass;
-import pck.java.be.app.database.DatabaseCommunication;
-import pck.java.be.app.database.SelectQuery;
+import pck.java.database.DatabaseCommunication;
+import pck.java.database.SelectQuery;
 import pck.java.be.app.util.Location;
 import pck.java.be.app.util.TreatmentLocation;
 
@@ -163,7 +163,10 @@ public class Patient extends UserDecorator {
     }
 
     public String getAddressAsString() {
-        return address.toString();
+        return address.getAddressLine() + ",\n"
+                + address.getWard() + ",\n"
+                + address.getDistrict() + ",\n"
+                + address.getProvince();
     }
 
     public void setAddress(Location address) {

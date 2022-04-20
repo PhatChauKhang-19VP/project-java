@@ -1,4 +1,4 @@
-package pck.java.be.app.database;
+package pck.java.database;
 
 import java.util.List;
 

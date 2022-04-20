@@ -1,4 +1,4 @@
-package pck.java.be.app.database;
+package pck.java.database;
 
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 import pck.java.be.app.App;
@@ -20,7 +20,7 @@ public class DatabaseCommunication {
     private Connection conn;
     private Statement stmt;
     private static final String user = "sa";
-    private static final String password = "1";
+    private static final String password = "Thoai1234";
 
     private DatabaseCommunication() {
     }

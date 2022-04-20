@@ -44,7 +44,7 @@
                             <children>
                                 <AnchorPane prefHeight="592.0" prefWidth="1024.0">
                                     <children>
-                                        <Label layoutX="288.0" layoutY="20.0" text="Tạo tài khoản người quản lý">
+                                        <Label layoutX="355.0" layoutY="20.0" style="-fx-font-size: 24; -fx-font-weight: 900;" text="Tạo tài khoản người quản lý">
                                             <font>
                                                 <Font name="Arial Bold" size="36.0" />
                                             </font>
@@ -65,39 +65,39 @@
                                                         </TextField>
                                                     </children>
                                                 </Pane>
-                                    <Pane layoutX="25.0" layoutY="132.0" prefHeight="100.0" prefWidth="350.0">
-                                       <children>
-                                          <Label layoutY="10.0" text="Mật khẩu:">
-                                             <font>
-                                                <Font size="24.0" />
-                                             </font>
-                                          </Label>
-                                          <PasswordField layoutY="50.0" prefHeight="50.0" prefWidth="350.0" promptText="Nhập mật khẩu">
-                                             <font>
-                                                <Font name="Arial" size="24.0" />
-                                             </font>
-                                          </PasswordField>
-                                       </children>
-                                    </Pane>
-                                    <Pane layoutX="25.0" layoutY="240.0" prefHeight="100.0" prefWidth="350.0">
-                                       <children>
-                                          <Label layoutY="10.0" text="Xác nhận mật khẩu:">
-                                             <font>
-                                                <Font size="24.0" />
-                                             </font>
-                                          </Label>
-                                          <PasswordField layoutY="50.0" prefHeight="50.0" prefWidth="350.0" promptText="Nhập mật khẩu">
-                                             <font>
-                                                <Font name="Arial" size="24.0" />
-                                             </font>
-                                          </PasswordField>
-                                       </children>
-                                    </Pane>
-                                    <Button layoutX="120.0" layoutY="372.0" mnemonicParsing="false" text="Tạo tài khoản">
-                                       <font>
-                                          <Font size="24.0" />
-                                       </font>
-                                    </Button>
+                                                <Pane layoutX="25.0" layoutY="132.0" prefHeight="100.0" prefWidth="350.0">
+                                                    <children>
+                                                        <Label layoutY="10.0" text="Mật khẩu:">
+                                                            <font>
+                                                                <Font size="24.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <PasswordField layoutY="50.0" prefHeight="50.0" prefWidth="350.0" promptText="Nhập mật khẩu">
+                                                            <font>
+                                                                <Font name="Arial" size="24.0" />
+                                                            </font>
+                                                        </PasswordField>
+                                                    </children>
+                                                </Pane>
+                                                <Pane layoutX="25.0" layoutY="240.0" prefHeight="100.0" prefWidth="350.0">
+                                                    <children>
+                                                        <Label layoutY="10.0" text="Xác nhận mật khẩu:">
+                                                            <font>
+                                                                <Font size="24.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <PasswordField layoutY="50.0" prefHeight="50.0" prefWidth="350.0" promptText="Nhập mật khẩu">
+                                                            <font>
+                                                                <Font name="Arial" size="24.0" />
+                                                            </font>
+                                                        </PasswordField>
+                                                    </children>
+                                                </Pane>
+                                                <Button layoutX="120.0" layoutY="372.0" mnemonicParsing="false" text="Tạo tài khoản">
+                                                    <font>
+                                                        <Font size="24.0" />
+                                                    </font>
+                                                </Button>
                                             </children>
                                         </AnchorPane>
                                     </children>
@@ -112,7 +112,16 @@
                             <children>
                                 <AnchorPane prefHeight="593.0" prefWidth="1024.0">
                                     <children>
-                                        <Label layoutX="320.0" layoutY="20.0" text="Tài khoản người quản lý">
+                                        <Button fx:id="btnAddMng" layoutX="976.0" layoutY="47.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0">
+                                            <graphic>
+                                                <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="https://res.cloudinary.com/phatchaukhang/image/upload/v1649065784/JAVA/Icon/plus.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                        </Button>
+                                        <Label layoutX="316.0" layoutY="20.0" style="-fx-font-size: 24; -fx-font-weight: 900;" text="Danh sách tài khoản người quản lý">
                                             <font>
                                                 <Font name="Arial Bold" size="36.0" />
                                             </font>
@@ -124,8 +133,9 @@
                                                         <TableView fx:id="tableViewManager" layoutY="50.0" prefHeight="450.0" prefWidth="800.0">
                                                             <columns>
                                                                 <TableColumn fx:id="colNO" maxWidth="30.0" prefWidth="30.0" text="STT" />
-                                                                <TableColumn fx:id="colName" maxWidth="200.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Tên đăng nhập" />
-                                                                <TableColumn fx:id="colBtn" prefWidth="70.0" resizable="false" />
+                                                                <TableColumn fx:id="colUsername" maxWidth="300.0" minWidth="100.0" prefWidth="200.0" resizable="false" text="Tên đăng nhập" />
+                                                                <TableColumn fx:id="colName" minWidth="0.0" prefWidth="250.0" resizable="false" text="Tên" />
+                                                                <TableColumn fx:id="colBtn" minWidth="0.0" prefWidth="200" resizable="false" text="" />
                                                             </columns>
                                                         </TableView>
                                                     </content>
@@ -142,7 +152,7 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
-                                <Label layoutX="320.0" layoutY="20.0" text="Địa điểm điều trị/cách ly">
+                                <Label layoutX="315.0" layoutY="20.0" style="-fx-font-size: 24; -fx-font-weight: 900;" text="Danh sách địa điểm điều trị/cách ly">
                                     <font>
                                         <Font name="Arial Bold" size="36.0" />
                                     </font>
@@ -156,14 +166,23 @@
                                                         <TableColumn fx:id="colNO_1" maxWidth="30.0" prefWidth="30.0" text="STT" />
                                                         <TableColumn fx:id="colName_1" maxWidth="600.0" minWidth="100.0" prefWidth="400.0" text="Tên" />
                                                         <TableColumn fx:id="colCapacity" maxWidth="200.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Sức chứa" />
-                                                        <TableColumn fx:id="colCurrentRoom" maxWidth="200.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Số lượng tiếp nhận hiện tại" />
-                                                        <TableColumn fx:id="colBtn_1" prefWidth="70.0" resizable="false" />
+                                                        <TableColumn fx:id="colCurrentRoom" maxWidth="200.0" minWidth="200" prefWidth="100.0" resizable="false" text="Số lượng tiếp nhận hiện tại" />
+                                                        <TableColumn fx:id="colBtn_1" prefWidth="150" resizable="false" />
                                                     </columns>
                                                 </TableView>
                                             </content>
                                         </ScrollPane>
                                     </children>
                                 </AnchorPane>
+                                <Button fx:id="btnAddTloc" layoutX="975.0" layoutY="43.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0">
+                                    <graphic>
+                                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="https://res.cloudinary.com/phatchaukhang/image/upload/v1649065784/JAVA/Icon/plus.png" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
                             </children>
                         </AnchorPane>
                     </content>

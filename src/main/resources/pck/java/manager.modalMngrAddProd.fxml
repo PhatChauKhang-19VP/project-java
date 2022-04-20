@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.*?>
+<AnchorPane prefHeight="550.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="pck.java.fe.manager.modal.AddProdController">
+    <children>
+        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="83.0" layoutY="30.0" text="Thêm nhu yếu phẩm">
+            <font>
+                <Font name="Arial Bold" size="24.0"/>
+            </font>
+        </Label>
+        <Pane layoutY="100.0" prefHeight="350.0" prefWidth="400.0">
+            <children>
+                <Pane layoutX="100.0" prefHeight="150.0" prefWidth="200.0"/>
+                <ImageView disable="true" fitHeight="150.0" fitWidth="200.0" layoutX="100.0" pickOnBounds="true"
+                           preserveRatio="true">
+                    <image>
+                        <Image url="https://res.cloudinary.com/ngo-minh-phat/image/upload/v1650184929/covid_app/products/placeholder-image_e7drvx.png"/>
+                    </image>
+                </ImageView>
+                <Label layoutX="25.0" layoutY="200.0" prefHeight="30.0" text="Tên sản phẩm">
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                </Label>
+                <TextField layoutX="150.0" layoutY="200.0" prefHeight="30.0" prefWidth="225.0"
+                           promptText="Nhập tên sản phẩm"/>
+                <Label layoutX="25.0" layoutY="250.0" prefHeight="30.0" text="Giá sản phẩm">
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                </Label>
+                <TextField alignment="CENTER_RIGHT" layoutX="150.0" layoutY="250.0" prefHeight="30.0" prefWidth="50.0"
+                           promptText="Giá"/>
+                <Label alignment="CENTER_RIGHT" layoutX="205.0" layoutY="250.0" maxWidth="75.0" prefHeight="30.0"
+                       prefWidth="30.0" text="VNĐ">
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                </Label>
+                <Button layoutX="250.0" layoutY="250.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="125.0"
+                        text="Chọn hình ảnh"/>
+                <Label layoutX="25.0" layoutY="300.0" prefHeight="30.0" text="Đơn vị tính">
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                </Label>
+                <ComboBox layoutX="150.0" layoutY="300.0" prefHeight="30.0" prefWidth="99.0" promptText="Chọn"/>
+            </children>
+        </Pane>
+        <Button layoutX="50.0" layoutY="475.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="300.0"
+                text="Thêm sản phẩm">
+            <font>
+                <Font name="Arial Bold" size="14.0"/>
+            </font>
+        </Button>
+    </children>
+</AnchorPane>

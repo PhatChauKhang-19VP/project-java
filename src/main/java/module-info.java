@@ -18,6 +18,8 @@ module pck.java {
     opens pck.java to javafx.base;
     exports pck.java;
 
+    opens pck.java.be.app.util to javafx.base;
+
     opens pck.java.be.app.user to javafx.base;
     exports pck.java.be.app.user;
 
@@ -32,4 +34,7 @@ module pck.java {
 
     opens pck.java.fe.patient to javafx.fxml;
     exports pck.java.fe.patient;
+
+    opens pck.java.fe.manager.modal;
+    exports pck.java.fe.manager.modal to javafx.fxml;
 }
