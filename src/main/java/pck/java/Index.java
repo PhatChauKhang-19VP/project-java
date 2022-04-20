@@ -57,8 +57,9 @@ public class Index extends Application {
             stage = primaryStage;
 
             //gotoSignIn();
-            gotoManagerHomePage();
+            //gotoManagerHomePage();
             //gotoPatientHomePage();
+            gotoCreateAdminAccount();
 
             primaryStage.show();
         } catch (Exception ex) {
@@ -70,6 +71,14 @@ public class Index extends Application {
         try {
             replaceSceneContent("mainPage.loginPage.fxml");
                     } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void gotoCreateAdminAccount() {
+        try {
+            replaceSceneContent("mainPage.createAdminAccount.fxml");
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
