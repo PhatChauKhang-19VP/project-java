@@ -25,8 +25,8 @@ public class PackagePaneManager {
 
         pane = new Pane();
         //pane.setBorder(ne);
-        pane.setMinSize(242, 300);
-        pane.setPrefSize(242, 300);
+        pane.setMinSize(242, 320);
+        pane.setPrefSize(242, 320);
 
 //        pane.setBorder(new Border(new BorderStroke(Color.BLACK,
 //                BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
@@ -46,19 +46,19 @@ public class PackagePaneManager {
         packageName.setStyle("-fx-font-family: Arial;-fx-font-size:16; -fx-text-fill: #132ac1;");
         packageName.setPrefSize(200, 20);
         packageName.setLayoutX(20);
-        packageName.setLayoutY(200);
+        packageName.setLayoutY(220);
         packageName.setAlignment(Pos.CENTER);
         pane.getChildren().add(packageName);
 
         // label price
-        Label packagePrice = new Label(String.valueOf(pkg.getPrice()) + " VNĐ");
+        Label packagePrice = new Label(String.format("%.3f VNĐ", pkg.getPrice()));
         packagePrice.setAlignment(Pos.CENTER);
         packagePrice.setTextAlignment(TextAlignment.CENTER);
         packagePrice.setAlignment(Pos.CENTER);
         packagePrice.setStyle("-fx-font-family: Arial;");
         packagePrice.setPrefSize(200, 20);
         packagePrice.setLayoutX(20);
-        packagePrice.setLayoutY(230);
+        packagePrice.setLayoutY(250);
         pane.getChildren().add(packagePrice);
 
         // pane > btnAddProd
@@ -66,7 +66,7 @@ public class PackagePaneManager {
         btnAddProd.setAlignment(Pos.CENTER);
         btnAddProd.setPrefSize(120, 25);
         btnAddProd.setLayoutX(60);
-        btnAddProd.setLayoutY(260);
+        btnAddProd.setLayoutY(280);
         pane.getChildren().add(btnAddProd);
 
         btnAddProd.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {

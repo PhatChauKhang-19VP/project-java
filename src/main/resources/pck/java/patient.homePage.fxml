@@ -16,11 +16,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-
-<?import javafx.geometry.Insets?>
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0"
-            prefWidth="1024.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="pck.java.fe.patient.HomePageController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pck.java.fe.patient.HomePageController">
     <top>
         <Pane prefHeight="70.0" prefWidth="1024.0" style="-fx-background-color: A8ACFF;" BorderPane.alignment="CENTER">
             <children>
@@ -28,16 +24,21 @@
                     <graphic>
                         <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="https://res.cloudinary.com/phatchaukhang/image/upload/v1649213502/JAVA/Icon/logout_fw5lna.png"/>
+                                <Image url="https://res.cloudinary.com/phatchaukhang/image/upload/v1649213502/JAVA/Icon/logout_fw5lna.png" />
                             </image>
                         </ImageView>
                     </graphic>
                 </Button>
+            <Label layoutX="419.0" layoutY="12.0" text="Bệnh nhân">
+               <font>
+                  <Font name="Arial Bold" size="36.0" />
+               </font>
+            </Label>
             </children>
         </Pane>
     </top>
     <bottom>
-        <Pane prefHeight="70.0" prefWidth="1024.0" style="-fx-background-color: A8ACFF;" BorderPane.alignment="CENTER"/>
+        <Pane prefHeight="70.0" prefWidth="1024.0" style="-fx-background-color: A8ACFF;" BorderPane.alignment="CENTER" />
     </bottom>
     <center>
         <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
@@ -50,7 +51,7 @@
                                     <children>
                                         <Label layoutX="372.0" layoutY="22.0" text="Thông tin cá nhân">
                                             <font>
-                                                <Font name="Arial Bold" size="36.0"/>
+                                                <Font name="Arial Bold" size="36.0" />
                                             </font>
                                         </Label>
                                         <AnchorPane layoutY="80.0" prefHeight="430.0" prefWidth="1024.0">
@@ -59,13 +60,12 @@
                                                     <children>
                                                         <Label layoutY="10.0" text="Họ và tên:">
                                                             <font>
-                                                                <Font size="24.0"/>
+                                                                <Font size="24.0" />
                                                             </font>
                                                         </Label>
-                                                        <TextField editable="false" layoutX="230.0" prefHeight="51.0"
-                                                                   prefWidth="740.0" text="Nguyễn Văn A">
+                                                        <TextField editable="false" layoutX="230.0" prefHeight="51.0" prefWidth="740.0" text="Nguyễn Văn A">
                                                             <font>
-                                                                <Font size="24.0"/>
+                                                                <Font size="24.0" />
                                                             </font>
                                                         </TextField>
                                                     </children>
@@ -76,14 +76,12 @@
                                                             <children>
                                                                 <Label layoutY="10.0" text="CMND/CCCD:">
                                                                     <font>
-                                                                        <Font size="24.0"/>
+                                                                        <Font size="24.0" />
                                                                     </font>
                                                                 </Label>
-                                                                <TextField editable="false" layoutX="230.0"
-                                                                           prefHeight="51.0" prefWidth="325.0"
-                                                                           text="123456789">
+                                                                <TextField editable="false" layoutX="230.0" prefHeight="51.0" prefWidth="325.0" text="123456789">
                                                                     <font>
-                                                                        <Font size="24.0"/>
+                                                                        <Font size="24.0" />
                                                                     </font>
                                                                 </TextField>
                                                             </children>
@@ -92,66 +90,56 @@
                                                             <children>
                                                                 <Label layoutX="10.0" layoutY="10.0" text="Năm sinh:">
                                                                     <font>
-                                                                        <Font size="24.0"/>
+                                                                        <Font size="24.0" />
                                                                     </font>
                                                                 </Label>
-                                                                <TextField editable="false" layoutX="140.0"
-                                                                           prefHeight="51.0" prefWidth="265.0"
-                                                                           text="1999">
+                                                                <TextField editable="false" layoutX="140.0" prefHeight="51.0" prefWidth="265.0" text="1999">
                                                                     <font>
-                                                                        <Font size="24.0"/>
+                                                                        <Font size="24.0" />
                                                                     </font>
                                                                 </TextField>
                                                             </children>
                                                         </Pane>
                                                     </children>
                                                 </Pane>
-                                                <Pane layoutX="25.0" layoutY="140.0" prefHeight="51.0"
-                                                      prefWidth="970.0">
+                                                <Pane layoutX="25.0" layoutY="140.0" prefHeight="51.0" prefWidth="970.0">
                                                     <children>
                                                         <Label layoutY="10.0" text="Địa chỉ nơi ở:">
                                                             <font>
-                                                                <Font size="24.0"/>
+                                                                <Font size="24.0" />
                                                             </font>
                                                         </Label>
-                                                        <TextField editable="false" layoutX="230.0" prefHeight="51.0"
-                                                                   prefWidth="740.0"
-                                                                   text="abc Đường số 1, Phường 1, Quận 1, TP.HCM">
+                                                        <TextField editable="false" layoutX="230.0" prefHeight="51.0" prefWidth="740.0" text="abc Đường số 1, Phường 1, Quận 1, TP.HCM">
                                                             <font>
-                                                                <Font size="24.0"/>
+                                                                <Font size="24.0" />
                                                             </font>
                                                         </TextField>
                                                     </children>
                                                 </Pane>
-                                                <Pane layoutX="25.0" layoutY="210.0" prefHeight="51.0"
-                                                      prefWidth="970.0">
+                                                <Pane layoutX="25.0" layoutY="210.0" prefHeight="51.0" prefWidth="970.0">
                                                     <children>
                                                         <Label layoutY="10.0" text="Trạng thái hiện tại:">
                                                             <font>
-                                                                <Font size="24.0"/>
+                                                                <Font size="24.0" />
                                                             </font>
                                                         </Label>
-                                                        <TextField editable="false" layoutX="230.0" prefHeight="51.0"
-                                                                   prefWidth="740.0" text="F0">
+                                                        <TextField editable="false" layoutX="230.0" prefHeight="51.0" prefWidth="740.0" text="F0">
                                                             <font>
-                                                                <Font size="24.0"/>
+                                                                <Font size="24.0" />
                                                             </font>
                                                         </TextField>
                                                     </children>
                                                 </Pane>
-                                                <Pane layoutX="25.0" layoutY="280.0" prefHeight="51.0"
-                                                      prefWidth="970.0">
+                                                <Pane layoutX="25.0" layoutY="280.0" prefHeight="51.0" prefWidth="970.0">
                                                     <children>
                                                         <Label layoutY="10.0" text="Nơi điều trị/cách ly:">
                                                             <font>
-                                                                <Font size="24.0"/>
+                                                                <Font size="24.0" />
                                                             </font>
                                                         </Label>
-                                                        <TextField editable="false" layoutX="230.0" prefHeight="51.0"
-                                                                   prefWidth="740.0"
-                                                                   text="abc Đường số 1, Phường 1, Quận 1, TP.HCM">
+                                                        <TextField editable="false" layoutX="230.0" prefHeight="51.0" prefWidth="740.0" text="abc Đường số 1, Phường 1, Quận 1, TP.HCM">
                                                             <font>
-                                                                <Font size="24.0"/>
+                                                                <Font size="24.0" />
                                                             </font>
                                                         </TextField>
                                                     </children>
@@ -172,25 +160,21 @@
                                     <children>
                                         <Label layoutX="364.0" layoutY="20.0" text="Gói nhu yếu phẩm">
                                             <font>
-                                                <Font name="Arial Bold" size="36.0"/>
+                                                <Font name="Arial Bold" size="36.0" />
                                             </font>
                                         </Label>
                                         <AnchorPane layoutY="80.0" prefHeight="510.0" prefWidth="1024.0">
                                             <children>
-                                                <ScrollPane prefHeight="500.0" prefWidth="1024.0" fitToHeight="true"
-                                                            fitToWidth="true"
-                                                            AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="20"
-                                                            AnchorPane.rightAnchor="10"
-                                                            AnchorPane.topAnchor="0" visible="true" layoutY="100">
+                                                <ScrollPane fitToHeight="true" fitToWidth="true" layoutY="100" prefHeight="500.0" prefWidth="1024.0" visible="true" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="10" AnchorPane.topAnchor="0">
                                                     <content>
                                                         <GridPane fx:id="gridPanePackage" gridLinesVisible="true">
                                                             <columnConstraints>
-                                                                <ColumnConstraints/>
-                                                                <ColumnConstraints/>
+                                                                <ColumnConstraints />
+                                                                <ColumnConstraints />
                                                             </columnConstraints>
                                                             <rowConstraints>
-                                                                <RowConstraints/>
-                                                                <RowConstraints/>
+                                                                <RowConstraints />
+                                                                <RowConstraints />
                                                             </rowConstraints>
                                                         </GridPane>
                                                     </content>
@@ -205,7 +189,7 @@
                 </Tab>
                 <Tab style="-fx-pref-height: 30; -fx-font-size: 16;" text="Thanh toán dư nợ">
                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                     </content>
                 </Tab>
             </tabs>

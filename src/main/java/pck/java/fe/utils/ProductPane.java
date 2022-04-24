@@ -63,7 +63,7 @@ public class ProductPane {
         pane.getChildren().add(productName);
 
         // label price
-        Label productPrice = new Label(String.valueOf(product.getPrice()) + " VNĐ");
+        Label productPrice = new Label(String.format("%.3f VNĐ", product.getPrice()));
         productPrice.setTextAlignment(TextAlignment.CENTER);
         productPrice.setAlignment(Pos.CENTER);
         productPrice.setStyle("-fx-font-family: Arial;");
