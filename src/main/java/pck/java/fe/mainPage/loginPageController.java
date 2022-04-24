@@ -101,7 +101,6 @@ public class loginPageController {
                     userPassword.setStyle(successStyle);
 
                     invalidDetails.setText("Đăng nhập thành công.");
-
                 }
             }
         }
