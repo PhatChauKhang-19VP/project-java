@@ -1,7 +1,7 @@
 package pck.java.be.app.user;
 
 import pck.java.be.app.App;
-import pck.java.be.app.database.*;
+import pck.java.database.*;
 import pck.java.be.app.product.Package;
 import pck.java.be.app.product.Product;
 import pck.java.be.app.util.Pair;

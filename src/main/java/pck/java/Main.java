@@ -1,6 +1,6 @@
 package pck.java;
 
-import pck.java.be.app.database.DatabaseCommunication;
+import pck.java.database.DatabaseCommunication;
 
 public class Main {
     public static void main(String[] args) {
