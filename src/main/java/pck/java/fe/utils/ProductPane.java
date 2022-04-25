@@ -38,8 +38,8 @@ public class ProductPane {
 
         pane = new Pane();
         //pane.setBorder(ne);
-        pane.setMinSize(242, 300);
-        pane.setPrefSize(242, 300);
+        pane.setMinSize(252, 300);
+        pane.setPrefSize(252, 300);
 //        pane.setStyle("-fx-background-color: #FFFFFF");
 //        pane.setBorder(new Border(new BorderStroke(Color.BLACK,
 //                BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));

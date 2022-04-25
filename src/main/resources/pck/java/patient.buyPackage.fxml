@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0"
+            prefWidth="1024.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pck.java.fe.patient.BuyPackageController">
+    <top>
+        <Pane prefHeight="70.0" prefWidth="1024.0" style="-fx-background-color: A8ACFF;" BorderPane.alignment="CENTER">
+            <children>
+                <Button fx:id="logoutButton" layoutX="964.0" layoutY="10.0" mnemonicParsing="false" prefHeight="50.0"
+                        prefWidth="50.0" onAction="#onLogoutButtonCliked">
+                    <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="https://res.cloudinary.com/phatchaukhang/image/upload/v1649213502/JAVA/Icon/logout_fw5lna.png"/>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Label layoutX="421.0" layoutY="14.0" text="Bệnh nhân">
+                    <font>
+                        <Font name="Arial Bold" size="36.0"/>
+                    </font>
+                </Label>
+                <Button fx:id="backButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="50.0"
+                        prefWidth="50.0" onAction="#onBackButtonCliked">
+                    <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="https://res.cloudinary.com/phatchaukhang/image/upload/v1650789225/JAVA/Icon/back-arrow_jkinur.png"/>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+            </children>
+        </Pane>
+    </top>
+    <bottom>
+        <Pane prefHeight="70.0" prefWidth="1024.0" style="-fx-background-color: A8ACFF;" BorderPane.alignment="CENTER"/>
+    </bottom>
+    <center>
+        <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                <children>
+                    <AnchorPane prefHeight="593.0" prefWidth="1024.0">
+                        <children>
+                            <Label layoutX="364.0" layoutY="20.0" text="Gói nhu yếu phẩm">
+                                <font>
+                                    <Font name="Arial Bold" size="36.0"/>
+                                </font>
+                            </Label>
+                            <AnchorPane layoutY="80.0" prefHeight="510.0" prefWidth="1024.0">
+                                <children>
+                                    <ScrollPane fitToHeight="true" fitToWidth="true" layoutY="100" prefHeight="500.0"
+                                                prefWidth="1024.0" visible="true" AnchorPane.bottomAnchor="0"
+                                                AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="10"
+                                                AnchorPane.topAnchor="0">
+                                        <content>
+                                            <GridPane fx:id="gridPanePackage" gridLinesVisible="true">
+                                                <columnConstraints>
+                                                    <ColumnConstraints/>
+                                                    <ColumnConstraints/>
+                                                </columnConstraints>
+                                                <rowConstraints>
+                                                    <RowConstraints/>
+                                                    <RowConstraints/>
+                                                </rowConstraints>
+                                            </GridPane>
+                                        </content>
+                                    </ScrollPane>
+                                </children>
+                            </AnchorPane>
+                        </children>
+                    </AnchorPane>
+                </children>
+            </AnchorPane>
+        </Pane>
+
+    </center>
+</BorderPane>

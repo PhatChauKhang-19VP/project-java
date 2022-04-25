@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+    <top>
+        <Pane prefHeight="70.0" prefWidth="1024.0" style="-fx-background-color: A8ACFF;" BorderPane.alignment="CENTER">
+            <children>
+                <Button fx:id="logoutButton" layoutX="964.0" layoutY="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0">
+                    <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="https://res.cloudinary.com/phatchaukhang/image/upload/v1649213502/JAVA/Icon/logout_fw5lna.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Label layoutX="287.0" layoutY="14.0" text="Quản lý thông tin COVID-19">
+                    <font>
+                        <Font name="Arial Bold" size="36.0" />
+                    </font>
+                </Label>
+            <Button fx:id="backButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0">
+               <graphic>
+                  <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="https://res.cloudinary.com/phatchaukhang/image/upload/v1650789225/JAVA/Icon/back-arrow_jkinur.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            </children>
+        </Pane>
+    </top>
+    <bottom>
+        <Pane prefHeight="70.0" prefWidth="1024.0" style="-fx-background-color: A8ACFF;" BorderPane.alignment="CENTER" />
+    </bottom>
+    <center>
+    </center>
+   <center>
+      <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </center>
+</BorderPane>

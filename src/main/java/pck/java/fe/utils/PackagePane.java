@@ -46,7 +46,7 @@ public class PackagePane {
         packageName.setStyle("-fx-font-family: Arial;-fx-font-size:16; -fx-text-fill: #132ac1;");
         packageName.setPrefSize(200, 20);
         packageName.setLayoutX(20);
-        packageName.setLayoutY(200);
+        packageName.setLayoutY(230);
         packageName.setAlignment(Pos.CENTER);
         pane.getChildren().add(packageName);
 
@@ -58,14 +58,14 @@ public class PackagePane {
         packagePrice.setStyle("-fx-font-family: Arial;");
         packagePrice.setPrefSize(200, 20);
         packagePrice.setLayoutX(20);
-        packagePrice.setLayoutY(230);
+        packagePrice.setLayoutY(255);
         pane.getChildren().add(packagePrice);
 
         // pane quantity = pq
         Pane paneQuantity = new Pane();
         paneQuantity.setPrefSize(200, 30);
         paneQuantity.setLayoutX(20);
-        paneQuantity.setLayoutY(260);
+        paneQuantity.setLayoutY(275);
         pane.getChildren().add(paneQuantity);
 
         // pq > text quantity = tq
@@ -146,7 +146,7 @@ public class PackagePane {
         btnAddProd.setAlignment(Pos.CENTER);
         btnAddProd.setPrefSize(120, 25);
         btnAddProd.setLayoutX(60);
-        btnAddProd.setLayoutY(300);
+        btnAddProd.setLayoutY(310);
         pane.getChildren().add(btnAddProd);
 
         btnAddProd.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {

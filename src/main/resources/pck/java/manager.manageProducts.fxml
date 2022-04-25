@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0"
+            prefWidth="1024.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="pck.java.fe.manager.ManageProductsController">
+    <top>
+        <Pane prefHeight="70.0" prefWidth="1024.0" style="-fx-background-color: A8ACFF;" BorderPane.alignment="CENTER">
+            <children>
+                <Button fx:id="logoutButton" layoutX="964.0" layoutY="10.0" mnemonicParsing="false"
+                        onAction="#onLogoutButtonCliked" prefHeight="50.0" prefWidth="50.0">
+                    <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="https://res.cloudinary.com/phatchaukhang/image/upload/v1649213502/JAVA/Icon/logout_fw5lna.png"/>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Label layoutX="456.0" layoutY="8.0" style="-fx-font-size: 36; -fx-font-weight: 900;" text="Quản lý">
+                    <font>
+                        <Font name="Arial Bold" size="36.0"/>
+                    </font>
+                </Label>
+                <Button fx:id="backButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false"
+                        onAction="#onBackButtonCliked" prefHeight="50.0" prefWidth="50.0">
+                    <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="https://res.cloudinary.com/phatchaukhang/image/upload/v1650789225/JAVA/Icon/back-arrow_jkinur.png"/>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+            </children>
+        </Pane>
+    </top>
+    <bottom>
+        <Pane prefHeight="70.0" prefWidth="1024.0" style="-fx-background-color: A8ACFF;" BorderPane.alignment="CENTER"/>
+    </bottom>
+    <center>
+        <Pane prefWidth="1024.0" BorderPane.alignment="CENTER">
+            <Label layoutX="323.0" layoutY="20.0" style="-fx-font-size: 36; -fx-font-weight: 900;"
+                   text="Sản phẩm nhu yếu phẩm">
+                <font>
+                    <Font name="Arial Bold" size="28.0"/>
+                </font>
+            </Label>
+            <Pane layoutY="160.0" prefHeight="480.0" prefWidth="1024.0">
+                <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="480.0" prefWidth="1024.0">
+                    <GridPane fx:id="gridPaneProduct" layoutY="20.0" gridLinesVisible="true" prefHeight="489.0"
+                              prefWidth="1024.0">
+                        <columnConstraints>
+                            <ColumnConstraints/>
+                            <ColumnConstraints/>
+                        </columnConstraints>
+                        <rowConstraints>
+                            <RowConstraints/>
+                            <RowConstraints/>
+                        </rowConstraints>
+                    </GridPane>
+                </ScrollPane>
+            </Pane>
+            <Button fx:id="btnAddProd" layoutX="964.0" layoutY="90.0" mnemonicParsing="false" prefHeight="50.0"
+                    prefWidth="50.0">
+                <graphic>
+                    <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="https://res.cloudinary.com/phatchaukhang/image/upload/v1649065784/JAVA/Icon/plus.png"/>
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+            <Pane layoutX="20.0" layoutY="90.0" prefHeight="50.0" prefWidth="420.0">
+                <TextField prefHeight="50.0" prefWidth="300.0">
+                    <font>
+                        <Font size="24.0"/>
+                    </font>
+                </TextField>
+                <Button layoutX="305.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0">
+                    <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="https://res.cloudinary.com/phatchaukhang/image/upload/v1649066475/JAVA/Icon/search-interface-symbol_lcd55i.png"/>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button layoutX="369.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0">
+                    <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="https://res.cloudinary.com/phatchaukhang/image/upload/v1649067481/JAVA/Icon/filter-filled-tool-symbol_xnxwga.png"/>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+            </Pane>
+        </Pane>
+    </center>
+</BorderPane>

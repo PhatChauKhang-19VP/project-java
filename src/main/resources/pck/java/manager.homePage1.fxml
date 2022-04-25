@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0"
+            prefWidth="1024.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="pck.java.fe.manager.HomePageController">
+    <top>
+        <Pane prefHeight="70.0" prefWidth="1024.0" style="-fx-background-color: A8ACFF;" BorderPane.alignment="CENTER">
+            <children>
+                <Button layoutX="954.0" layoutY="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0">
+                    <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="https://res.cloudinary.com/phatchaukhang/image/upload/v1649213502/JAVA/Icon/logout_fw5lna.png"/>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Label layoutX="446.0" layoutY="14.0" text="Quản lý">
+                    <font>
+                        <Font name="Arial Bold" size="36.0"/>
+                    </font>
+                </Label>
+            </children>
+        </Pane>
+    </top>
+    <bottom>
+        <Pane prefHeight="70.0" prefWidth="1024.0" style="-fx-background-color: A8ACFF;" BorderPane.alignment="CENTER"/>
+    </bottom>
+    <center>
+        <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+            <tabs>
+                <Tab style="-fx-pref-height: 30; -fx-font-size: 16;" text="Quản lý danh sách người liên quan COVID-19">
+                    <content>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                            <AnchorPane prefHeight="595.0" prefWidth="1024.0">
+                                <Label layoutX="281.0" layoutY="10.0"
+                                       style="-fx-font-size: 28; -fx-font-weight: 900;"
+                                       text="Danh sách người liên quan COVID-19">
+                                </Label>
+                                <ScrollPane fitToHeight="true" fitToWidth="true" layoutY="127.0"
+                                            prefHeight="465.0" prefWidth="1024.0" visible="true"
+                                            AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0.0"
+                                            AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="127.0">
+                                    <content>
+                                        <TableView fx:id="tableViewPatient" layoutY="50.0" prefHeight="466.0"
+                                                   prefWidth="1022.0">
+                                            <columns>
+                                                <TableColumn fx:id="colNO" maxWidth="35.0" prefWidth="35.0"
+                                                             style="-fx-font-size: 14;" text="STT"/>
+                                                <TableColumn fx:id="colName" maxWidth="150.0" minWidth="100.0"
+                                                             prefWidth="150.0" resizable="false"
+                                                             style="-fx-font-size: 14;" text="Họ và tên"/>
+                                                <TableColumn fx:id="colUsername" maxWidth="130.0"
+                                                             minWidth="100.0" prefWidth="130.0"
+                                                             resizable="false" style="-fx-font-size: 14;"
+                                                             text="CMND/CCCD"/>
+                                                <TableColumn fx:id="colDob" maxWidth="100.0" minWidth="70.0"
+                                                             prefWidth="100.0" resizable="false"
+                                                             style="-fx-font-size: 14;" text="Năm sinh"/>
+                                                <TableColumn fx:id="colAddress" maxWidth="400.0"
+                                                             minWidth="100.0" prefWidth="200.0"
+                                                             style="-fx-font-size: 14;" text="Địa chỉ nơi ở"/>
+                                                <TableColumn fx:id="colStatus" maxWidth="100.0" minWidth="20.0"
+                                                             prefWidth="100.0" resizable="false"
+                                                             style="-fx-font-size: 14;" text="Trạng thái"/>
+                                                <TableColumn fx:id="colTLoc" maxWidth="200.0" minWidth="100.0"
+                                                             prefWidth="200.0" resizable="false"
+                                                             style="-fx-font-size: 14;"
+                                                             text="Nơi điều trị/cách ly"/>
+                                                <TableColumn fx:id="colBtnMod" maxWidth="45.0" prefWidth="45.0"
+                                                             resizable="false"/>
+                                                <TableColumn fx:id="colBtnDel" maxWidth="45.0" prefWidth="45.0"
+                                                             resizable="false"/>
+                                            </columns>
+                                        </TableView>
+                                    </content>
+                                </ScrollPane>
+                                <Pane layoutX="20.0" layoutY="60.0" prefHeight="50.0" prefWidth="420.0">
+                                    <children>
+                                        <TextField prefHeight="50.0" prefWidth="300.0">
+                                            <font>
+                                                <Font size="24.0"/>
+                                            </font>
+                                        </TextField>
+                                        <Button layoutX="305.0" mnemonicParsing="false" prefHeight="50.0"
+                                                prefWidth="50.0">
+                                            <graphic>
+                                                <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true"
+                                                           preserveRatio="true">
+                                                    <image>
+                                                        <Image url="https://res.cloudinary.com/phatchaukhang/image/upload/v1649066475/JAVA/Icon/search-interface-symbol_lcd55i.png"/>
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                        </Button>
+                                        <Button layoutX="369.0" mnemonicParsing="false" prefHeight="50.0"
+                                                prefWidth="50.0">
+                                            <graphic>
+                                                <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true"
+                                                           preserveRatio="true">
+                                                    <image>
+                                                        <Image url="https://res.cloudinary.com/phatchaukhang/image/upload/v1649067481/JAVA/Icon/filter-filled-tool-symbol_xnxwga.png"/>
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                        </Button>
+                                    </children>
+                                </Pane>
+                            </AnchorPane>
+                            <Button layoutX="954.0" layoutY="10.0" mnemonicParsing="false" prefHeight="50.0"
+                                    prefWidth="50.0">
+                                <graphic>
+                                    <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true"
+                                               preserveRatio="true">
+                                        <image>
+                                            <Image url="https://res.cloudinary.com/phatchaukhang/image/upload/v1649065784/JAVA/Icon/plus.png"/>
+                                        </image>
+                                    </ImageView>
+                                </graphic>
+                            </Button>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab style="-fx-pref-height: 30; -fx-font-size: 16;" text="Quản lý sản phẩm nhu yếu phẩm">
+                    <content>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                            <children>
+                                <AnchorPane prefHeight="593.0" prefWidth="1024.0">
+                                    <Label layoutX="368.0" layoutY="10.0"
+                                           style="-fx-font-size: 28; -fx-font-weight: 900;"
+                                           text="Sản phẩm nhu yếu phẩm">
+                                        <font>
+                                            <Font name="Arial Bold" size="28.0"/>
+                                        </font>
+                                    </Label>
+                                    <AnchorPane layoutY="128.0" prefHeight="464.0" prefWidth="1024.0">
+                                        <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="465.0"
+                                                    prefWidth="994.0" visible="true" AnchorPane.bottomAnchor="0"
+                                                    AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20.0"
+                                                    AnchorPane.topAnchor="1.0">
+                                            <GridPane fx:id="gridPaneProduct" gridLinesVisible="true" prefHeight="447.0"
+                                                      prefWidth="992.0">
+                                                <columnConstraints>
+                                                    <ColumnConstraints/>
+                                                    <ColumnConstraints/>
+                                                </columnConstraints>
+                                                <rowConstraints>
+                                                    <RowConstraints/>
+                                                    <RowConstraints/>
+                                                </rowConstraints>
+                                            </GridPane>
+                                        </ScrollPane>
+                                    </AnchorPane>
+                                    <Button fx:id="btnAddProd" layoutX="954.0" layoutY="10.0" mnemonicParsing="false"
+                                            prefHeight="50.0" prefWidth="50.0">
+                                        <graphic>
+                                            <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true"
+                                                       preserveRatio="true">
+                                                <image>
+                                                    <Image url="https://res.cloudinary.com/phatchaukhang/image/upload/v1649065784/JAVA/Icon/plus.png"/>
+                                                </image>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+                                    <Pane layoutX="20.0" layoutY="60.0" prefHeight="50.0" prefWidth="420.0">
+                                        <children>
+                                            <TextField prefHeight="50.0" prefWidth="300.0">
+                                                <font>
+                                                    <Font size="24.0"/>
+                                                </font>
+                                            </TextField>
+                                            <Button layoutX="305.0" mnemonicParsing="false" prefHeight="50.0"
+                                                    prefWidth="50.0">
+                                                <graphic>
+                                                    <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true"
+                                                               preserveRatio="true">
+                                                        <image>
+                                                            <Image url="https://res.cloudinary.com/phatchaukhang/image/upload/v1649066475/JAVA/Icon/search-interface-symbol_lcd55i.png"/>
+                                                        </image>
+                                                    </ImageView>
+                                                </graphic>
+                                            </Button>
+                                            <Button layoutX="369.0" mnemonicParsing="false" prefHeight="50.0"
+                                                    prefWidth="50.0">
+                                                <graphic>
+                                                    <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true"
+                                                               preserveRatio="true">
+                                                        <image>
+                                                            <Image url="https://res.cloudinary.com/phatchaukhang/image/upload/v1649067481/JAVA/Icon/filter-filled-tool-symbol_xnxwga.png"/>
+                                                        </image>
+                                                    </ImageView>
+                                                </graphic>
+                                            </Button>
+                                        </children>
+                                    </Pane>
+                                </AnchorPane>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab style="-fx-pref-height: 30; -fx-font-size: 16;" text="Quản lý gói nhu yếu phẩm">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <Label layoutX="387.0" layoutY="7.0" style="-fx-font-size: 28; -fx-font-weight: 900;"
+                                       text="Các gói nhu yếu phẩm">
+                                    <font>
+                                        <Font name="Arial Bold" size="28.0"/>
+                                    </font>
+                                </Label>
+                                <AnchorPane layoutY="128.0" prefHeight="464.0" prefWidth="1024.0">
+                                    <ScrollPane fitToHeight="true" fitToWidth="true" layoutY="-1.0" prefHeight="465.0"
+                                                prefWidth="994.0" visible="true" AnchorPane.bottomAnchor="0"
+                                                AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20.0"
+                                                AnchorPane.topAnchor="-1.0">
+                                        <content>
+                                            <GridPane fx:id="gridPanePackage" gridLinesVisible="true" prefHeight="437.0"
+                                                      prefWidth="992.0">
+                                                <columnConstraints>
+                                                    <ColumnConstraints/>
+                                                    <ColumnConstraints/>
+                                                </columnConstraints>
+                                                <rowConstraints>
+                                                    <RowConstraints/>
+                                                    <RowConstraints/>
+                                                </rowConstraints>
+                                            </GridPane>
+                                        </content>
+                                    </ScrollPane>
+                                </AnchorPane>
+                                <Pane layoutX="20.0" layoutY="60.0" prefHeight="50.0" prefWidth="420.0">
+                                    <children>
+                                        <TextField prefHeight="50.0" prefWidth="300.0">
+                                            <font>
+                                                <Font size="24.0"/>
+                                            </font>
+                                        </TextField>
+                                        <Button layoutX="305.0" mnemonicParsing="false" prefHeight="50.0"
+                                                prefWidth="50.0">
+                                            <graphic>
+                                                <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true"
+                                                           preserveRatio="true">
+                                                    <image>
+                                                        <Image url="https://res.cloudinary.com/phatchaukhang/image/upload/v1649066475/JAVA/Icon/search-interface-symbol_lcd55i.png"/>
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                        </Button>
+                                        <Button layoutX="369.0" mnemonicParsing="false" prefHeight="50.0"
+                                                prefWidth="50.0">
+                                            <graphic>
+                                                <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true"
+                                                           preserveRatio="true">
+                                                    <image>
+                                                        <Image url="https://res.cloudinary.com/phatchaukhang/image/upload/v1649067481/JAVA/Icon/filter-filled-tool-symbol_xnxwga.png"/>
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                        </Button>
+                                    </children>
+                                </Pane>
+                                <Button fx:id="btnDEBUGmodPkg" layoutX="954.0" layoutY="10.0" mnemonicParsing="false"
+                                        prefHeight="50.0" prefWidth="50.0">
+                                    <graphic>
+                                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true"
+                                                   preserveRatio="true">
+                                            <image>
+                                                <Image url="https://res.cloudinary.com/phatchaukhang/image/upload/v1649418126/JAVA/Icon/minus_1_sbikin.png"/>
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+                                <Button fx:id="btnAddPkg" layoutX="890.0" layoutY="10.0" mnemonicParsing="false"
+                                        prefHeight="50.0" prefWidth="50.0">
+                                    <graphic>
+                                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true"
+                                                   preserveRatio="true">
+                                            <image>
+                                                <Image url="https://res.cloudinary.com/phatchaukhang/image/upload/v1649065784/JAVA/Icon/plus.png"/>
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </center>
+</BorderPane>
