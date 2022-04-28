@@ -43,4 +43,10 @@ public class HomePageController {
             pck.java.Index.getInstance().gotoManagerProducts();
         }
     }
+
+    public void onManagePackagesButtonCliked(ActionEvent actionEvent) {
+        if (actionEvent.getSource() == managePackagesButton) {
+            pck.java.Index.getInstance().gotoManagerPackages();
+        }
+    }
 }

@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 import pck.java.be.app.App;
 import pck.java.be.app.user.IUser;
 
@@ -16,6 +17,9 @@ public class loginPageController {
     public PasswordField userPassword;
     public Button btnSignIn;
     public Label invalidDetails;
+    public Label invalidDetails1;
+    public Button btnContinue;
+    public Pane passwordPane;
 
     protected
     String successMessage = String.format("-fx-text-fill: GREEN;");
@@ -27,8 +31,24 @@ public class loginPageController {
         return invalidDetails;
     }
 
-    public void onBtnSignInClick(ActionEvent ae) throws InterruptedException {
+    public void onBtnContinueClick(ActionEvent ae) throws InterruptedException {
+        if(ae.getSource() == btnContinue) {
+            if (usernameTextField.getText().isBlank()) {
+                invalidDetails1.setText("Tên tài khoản không được bỏ trống!");
+                usernameTextField.setStyle(errorStyle);
+                invalidDetails1.setStyle(errorMessage);
+                new animatefx.animation.Shake(usernameTextField).play();
+            }
+            else {
+                btnContinue.setVisible(false);
+                invalidDetails1.setVisible(false);
+                passwordPane.setVisible(true);
+                btnSignIn.setVisible(true);
+            }
+        }
+    }
 
+    public void onBtnSignInClick(ActionEvent ae) throws InterruptedException {
         if (ae.getSource() == btnSignIn) {
             // In case the Username and Password fields are left blank then display the error message
             if (usernameTextField.getText().isBlank() || userPassword.getText().isBlank()) {

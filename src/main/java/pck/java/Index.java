@@ -1,17 +1,22 @@
 package pck.java;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.TextAlignment;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import org.kordamp.bootstrapfx.BootstrapFX;
 import pck.java.be.app.App;
 import pck.java.be.app.product.Product;
 import pck.java.database.DatabaseCommunication;
@@ -24,7 +29,10 @@ import pck.java.fe.manager.ManagePatientInfoController;
 import pck.java.fe.patient.BuyPackageController;
 import pck.java.fe.utils.LineNumbersCellFactory;
 import pck.java.fe.utils.PackagePane;
+import pck.java.fe.utils.PackagePaneManager;
 import pck.java.fe.utils.ProductPane;
+
+import java.io.IOException;
 
 public class Index extends Application {
     private static Index instance;
@@ -53,7 +61,7 @@ public class Index extends Application {
 
             //gotoSignIn();
             //gotoAdminHomePage();
-            gotoManagerHomePage();
+            //gotoManagerHomePage();
             //gotoPatientHomePage();
 
 
@@ -342,52 +350,30 @@ public class Index extends Application {
                 }
             }
 
-//            gp = controller.gridPanePackage;
-//
-//            row = 0;
-//            col = 0;
-//            for (String key : App.getInstance().getProductManagement().getPackageList().keySet()) {
-//                Package pkg = App.getInstance().getProductManagement().getPackageList().get(key);
-//
-//                if (pkg.getImg_src().contains("http")) {
-//                    PackagePaneManager packagePane = new PackagePaneManager(pkg);
-//
-//                    Pane pTemp = packagePane.getPane();
-//
-//                    GridPane.setConstraints(pTemp, col, row);
-//                    gp.getChildren().add(pTemp);
-//                    col += 1;
-//                    if (col == 4) {
-//                        col = 0;
-//                        row += 1;
-//                    }
-//                }
-//            }
-//
-//            controller.btnAddProd.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-//                @Override
-//                public void handle(MouseEvent mouseEvent) {
-//                    try {
-//                        System.out.println(getClass() + "btn add prod clicked");
-//                        Stage modalAddProd = new Stage();
-//                        FXMLLoader loader = new FXMLLoader(Index.class.getResource("manager.modalMngrAddProd.fxml"), null, new JavaFXBuilderFactory());
-//                        Parent root = loader.load();
-//                        modalAddProd.initOwner(getInstance().stage);
-//                        modalAddProd.setScene(new Scene(root));
-//                        modalAddProd.setTitle("Thêm nhu yếu phẩm");
-//                        modalAddProd.initModality(Modality.APPLICATION_MODAL);
-//
-//                        modalAddProd.getIcons().add(new Image("https://res.cloudinary.com/phatchaukhang/image/upload/v1649255070/HQTCSDL/Icon/icon-shop_d9bmh0.png"));
-//                        modalAddProd.getScene().getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
-//                        modalAddProd.setResizable(false);
-//                        modalAddProd.setFullScreen(false);
-//                        modalAddProd.sizeToScene();
-//                        modalAddProd.show();
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            });
+            controller.btnAddProd.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    try {
+                        System.out.println(getClass() + "btn add prod clicked");
+                        Stage modalAddProd = new Stage();
+                        FXMLLoader loader = new FXMLLoader(Index.class.getResource("manager.modalMngrAddProd.fxml"), null, new JavaFXBuilderFactory());
+                        Parent root = loader.load();
+                        modalAddProd.initOwner(getInstance().stage);
+                        modalAddProd.setScene(new Scene(root));
+                        modalAddProd.setTitle("Thêm nhu yếu phẩm");
+                        modalAddProd.initModality(Modality.APPLICATION_MODAL);
+
+                        modalAddProd.getIcons().add(new Image("https://res.cloudinary.com/phatchaukhang/image/upload/v1649255070/HQTCSDL/Icon/icon-shop_d9bmh0.png"));
+                        modalAddProd.getScene().getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
+                        modalAddProd.setResizable(false);
+                        modalAddProd.setFullScreen(false);
+                        modalAddProd.sizeToScene();
+                        modalAddProd.show();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
 //
 //            controller.btnAddPkg.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
 //                @Override
@@ -443,6 +429,86 @@ public class Index extends Application {
         }
     }
 
+    public void gotoManagerPackages() {
+        try {
+            replaceSceneContent("manager.managePackages.fxml");
+            pck.java.fe.manager.ManagePackagesController controller = loader.getController();
+
+            GridPane gp = controller.gridPanePackage;
+
+            int row = 0, col = 0;
+            for (String key : App.getInstance().getProductManagement().getPackageList().keySet()) {
+                Package pkg = App.getInstance().getProductManagement().getPackageList().get(key);
+
+                if (pkg.getImg_src().contains("http")) {
+                    PackagePaneManager packagePane = new PackagePaneManager(pkg);
+
+                    Pane pTemp = packagePane.getPane();
+
+                    GridPane.setConstraints(pTemp, col, row);
+                    gp.getChildren().add(pTemp);
+                    col += 1;
+                    if (col == 4) {
+                        col = 0;
+                        row += 1;
+                    }
+                }
+            }
+
+            controller.btnAddPkg.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    try {
+                        System.out.println(getClass() + "btn add pkg clicked");
+                        Stage modalAddProd = new Stage();
+                        FXMLLoader loader = new FXMLLoader(Index.class.getResource("manager.modalMngrAddPkg.fxml"), null, new JavaFXBuilderFactory());
+                        Parent root = loader.load();
+                        modalAddProd.initOwner(getInstance().stage);
+                        modalAddProd.setScene(new Scene(root));
+                        modalAddProd.setTitle("Thêm gói nhu yếu phẩm");
+                        modalAddProd.initModality(Modality.APPLICATION_MODAL);
+
+                        modalAddProd.getIcons().add(new Image("https://res.cloudinary.com/phatchaukhang/image/upload/v1649255070/HQTCSDL/Icon/icon-shop_d9bmh0.png"));
+                        modalAddProd.getScene().getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
+                        modalAddProd.setResizable(false);
+                        modalAddProd.setFullScreen(false);
+                        modalAddProd.sizeToScene();
+                        modalAddProd.show();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+
+            controller.btnDEBUGmodPkg.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    try {
+                        System.out.println(getClass() + "btn mod pkg clicked");
+                        Stage modalAddProd = new Stage();
+                        FXMLLoader loader = new FXMLLoader(Index.class.getResource("manager.modalMngrModPkg.fxml"), null, new JavaFXBuilderFactory());
+                        Parent root = loader.load();
+                        modalAddProd.initOwner(getInstance().stage);
+                        modalAddProd.setScene(new Scene(root));
+                        modalAddProd.setTitle("Chỉnh sửa gói nhu yếu phẩm");
+                        modalAddProd.initModality(Modality.APPLICATION_MODAL);
+
+                        modalAddProd.getIcons().add(new Image("https://res.cloudinary.com/phatchaukhang/image/upload/v1649255070/HQTCSDL/Icon/icon-shop_d9bmh0.png"));
+                        modalAddProd.getScene().getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
+                        modalAddProd.setResizable(false);
+                        modalAddProd.setFullScreen(false);
+                        modalAddProd.sizeToScene();
+                        modalAddProd.show();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
     //Patient
     public void gotoPatientHomePage() throws Exception {
         try {
@@ -490,6 +556,14 @@ public class Index extends Application {
         }
     }
 
+    public void gotoPayOutstandingBalance() throws Exception {
+        try {
+            replaceSceneContent("patient.payOutstandingBalance.fxml");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
     private Parent replaceSceneContent(String fxml) throws Exception {
         FXMLLoader loader = new FXMLLoader(Index.class.getResource(fxml), null, new JavaFXBuilderFactory());
         Parent page = loader.load();
@@ -505,7 +579,7 @@ public class Index extends Application {
         }
         stage.setTitle("Quản lý thông tin covid-19");
         //stage.getScene().getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
-
+        stage.getIcons().add(new Image("https://res.cloudinary.com/phatchaukhang/image/upload/v1649057250/JAVA/Icon/covid-test-purple-128_za151v.png"));
         stage.setResizable(false);
         stage.setFullScreen(false);
         stage.sizeToScene();

@@ -42,6 +42,7 @@
                             text="Xem danh sách người liên quan COVID-19 " textAlignment="CENTER"/>
                     <Button fx:id="managePackagesButton" layoutY="140.0" mnemonicParsing="false"
                             prefHeight="51.0" prefWidth="585.0" style="-fx-font-size: 24;"
+                            onAction="#onManagePackagesButtonCliked"
                             text="Quản lý gói nhu yếu phẩm"/>
                     <Button fx:id="manageProductsButton" layoutY="70.0" mnemonicParsing="false"
                             prefHeight="50.0" prefWidth="585.0" style="-fx-font-size: 24;"

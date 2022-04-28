@@ -5,7 +5,6 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
@@ -13,144 +12,116 @@
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pck.java.fe.patient.InformationController">
     <top>
         <Pane prefHeight="70.0" prefWidth="1024.0" style="-fx-background-color: A8ACFF;" BorderPane.alignment="CENTER">
-            <children>
-                <Button fx:id="logoutButton" layoutX="964.0" layoutY="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" onAction="#onLogoutButtonCliked">
-                    <graphic>
-                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="https://res.cloudinary.com/phatchaukhang/image/upload/v1649213502/JAVA/Icon/logout_fw5lna.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-                <Label layoutX="421.0" layoutY="14.0" text="Bệnh nhân">
-                    <font>
-                        <Font name="Arial Bold" size="36.0" />
-                    </font>
-                </Label>
-                <Button fx:id="backButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" onAction="#onBackButtonCliked">
-                    <graphic>
-                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="https://res.cloudinary.com/phatchaukhang/image/upload/v1650789225/JAVA/Icon/back-arrow_jkinur.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-            </children>
+            <Button fx:id="logoutButton" layoutX="964.0" layoutY="10.0" mnemonicParsing="false" onAction="#onLogoutButtonCliked" prefHeight="50.0" prefWidth="50.0">
+                <graphic>
+                    <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="https://res.cloudinary.com/phatchaukhang/image/upload/v1649213502/JAVA/Icon/logout_fw5lna.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+            <Label layoutX="421.0" layoutY="14.0" text="Bệnh nhân">
+                <font>
+                    <Font name="Arial Bold" size="36.0" />
+                </font>
+            </Label>
+            <Button fx:id="backButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#onBackButtonCliked" prefHeight="50.0" prefWidth="50.0">
+                <graphic>
+                    <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="https://res.cloudinary.com/phatchaukhang/image/upload/v1650789225/JAVA/Icon/back-arrow_jkinur.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
         </Pane>
     </top>
     <bottom>
         <Pane prefHeight="70.0" prefWidth="1024.0" style="-fx-background-color: A8ACFF;" BorderPane.alignment="CENTER" />
     </bottom>
     <center>
-        <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-            <AnchorPane prefHeight="200.0" prefWidth="200.0">
-                <children>
-                    <AnchorPane prefHeight="500.0" prefWidth="1024.0">
-                        <children>
-                            <Label layoutX="351.0" layoutY="20.0" text="Thông tin cá nhân">
+        <Pane prefWidth="1024.0" BorderPane.alignment="CENTER">
+            <Pane prefHeight="500.0" prefWidth="1024.0">
+                <Label layoutX="351.0" layoutY="20.0" style="-fx-font-size: 36; -fx-font-weight: 900;" text="Thông tin cá nhân">
+                </Label>
+                <Pane layoutY="80.0" prefHeight="430.0" prefWidth="1024.0">
+                    <Pane layoutX="25.0" prefHeight="51.0" prefWidth="970.0">
+                        <Label layoutY="10.0" text="Họ và tên:">
+                            <font>
+                                <Font size="24.0" />
+                            </font>
+                        </Label>
+                        <TextField disable="true" editable="false" layoutX="230.0" prefHeight="51.0" prefWidth="740.0" text="Nguyễn Văn A">
+                            <font>
+                                <Font size="24.0" />
+                            </font>
+                        </TextField>
+                    </Pane>
+                    <Pane layoutX="25.0" layoutY="70.0" prefHeight="51.0" prefWidth="970.0">
+                        <Pane prefHeight="51.0" prefWidth="555.0">
+                            <Label layoutY="10.0" text="CMND/CCCD:">
                                 <font>
-                                    <Font name="Arial Bold" size="36.0" />
+                                    <Font size="24.0" />
                                 </font>
                             </Label>
-                            <AnchorPane layoutY="80.0" prefHeight="430.0" prefWidth="1024.0">
-                                <children>
-                                    <Pane layoutX="25.0" prefHeight="51.0" prefWidth="970.0">
-                                        <children>
-                                            <Label layoutY="10.0" text="Họ và tên:">
-                                                <font>
-                                                    <Font size="24.0" />
-                                                </font>
-                                            </Label>
-                                            <TextField editable="false" layoutX="230.0" prefHeight="51.0" prefWidth="740.0" text="Nguyễn Văn A">
-                                                <font>
-                                                    <Font size="24.0" />
-                                                </font>
-                                            </TextField>
-                                        </children>
-                                    </Pane>
-                                    <Pane layoutX="25.0" layoutY="70.0" prefHeight="51.0" prefWidth="970.0">
-                                        <children>
-                                            <Pane prefHeight="51.0" prefWidth="555.0">
-                                                <children>
-                                                    <Label layoutY="10.0" text="CMND/CCCD:">
-                                                        <font>
-                                                            <Font size="24.0" />
-                                                        </font>
-                                                    </Label>
-                                                    <TextField editable="false" layoutX="230.0" prefHeight="51.0" prefWidth="325.0" text="123456789">
-                                                        <font>
-                                                            <Font size="24.0" />
-                                                        </font>
-                                                    </TextField>
-                                                </children>
-                                            </Pane>
-                                            <Pane layoutX="565.0" prefHeight="51.0" prefWidth="405.0">
-                                                <children>
-                                                    <Label layoutX="10.0" layoutY="10.0" text="Năm sinh:">
-                                                        <font>
-                                                            <Font size="24.0" />
-                                                        </font>
-                                                    </Label>
-                                                    <TextField editable="false" layoutX="140.0" prefHeight="51.0" prefWidth="265.0" text="1999">
-                                                        <font>
-                                                            <Font size="24.0" />
-                                                        </font>
-                                                    </TextField>
-                                                </children>
-                                            </Pane>
-                                        </children>
-                                    </Pane>
-                                    <Pane layoutX="25.0" layoutY="140.0" prefHeight="51.0" prefWidth="970.0">
-                                        <children>
-                                            <Label layoutY="10.0" text="Địa chỉ nơi ở:">
-                                                <font>
-                                                    <Font size="24.0" />
-                                                </font>
-                                            </Label>
-                                            <TextField editable="false" layoutX="230.0" prefHeight="51.0" prefWidth="740.0" text="abc Đường số 1, Phường 1, Quận 1, TP.HCM">
-                                                <font>
-                                                    <Font size="24.0" />
-                                                </font>
-                                            </TextField>
-                                        </children>
-                                    </Pane>
-                                    <Pane layoutX="25.0" layoutY="210.0" prefHeight="51.0" prefWidth="970.0">
-                                        <children>
-                                            <Label layoutY="10.0" text="Trạng thái hiện tại:">
-                                                <font>
-                                                    <Font size="24.0" />
-                                                </font>
-                                            </Label>
-                                            <TextField editable="false" layoutX="230.0" prefHeight="51.0" prefWidth="740.0" text="F0">
-                                                <font>
-                                                    <Font size="24.0" />
-                                                </font>
-                                            </TextField>
-                                        </children>
-                                    </Pane>
-                                    <Pane layoutX="25.0" layoutY="280.0" prefHeight="51.0" prefWidth="970.0">
-                                        <children>
-                                            <Label layoutY="10.0" text="Nơi điều trị/cách ly:">
-                                                <font>
-                                                    <Font size="24.0" />
-                                                </font>
-                                            </Label>
-                                            <TextField editable="false" layoutX="230.0" prefHeight="51.0" prefWidth="740.0" text="abc Đường số 1, Phường 1, Quận 1, TP.HCM">
-                                                <font>
-                                                    <Font size="24.0" />
-                                                </font>
-                                            </TextField>
-                                        </children>
-                                    </Pane>
-                                </children>
-                            </AnchorPane>
-                        </children>
-                    </AnchorPane>
-                </children>
-            </AnchorPane>
+                            <TextField disable="true" editable="false" layoutX="230.0" prefHeight="51.0" prefWidth="325.0" text="123456789">
+                                <font>
+                                    <Font size="24.0" />
+                                </font>
+                            </TextField>
+                        </Pane>
+                        <Pane layoutX="565.0" prefHeight="51.0" prefWidth="405.0">
+                            <Label layoutX="10.0" layoutY="10.0" text="Năm sinh:">
+                                <font>
+                                    <Font size="24.0" />
+                                </font>
+                            </Label>
+                            <TextField disable="true" editable="false" layoutX="140.0" prefHeight="51.0" prefWidth="265.0" text="1999">
+                                <font>
+                                    <Font size="24.0" />
+                                </font>
+                            </TextField>
+                        </Pane>
+                    </Pane>
+                    <Pane layoutX="25.0" layoutY="140.0" prefHeight="51.0" prefWidth="970.0">
+                        <Label layoutY="10.0" text="Địa chỉ nơi ở:">
+                            <font>
+                                <Font size="24.0" />
+                            </font>
+                        </Label>
+                        <TextField disable="true" editable="false" layoutX="230.0" prefHeight="51.0" prefWidth="740.0" text="abc Đường số 1, Phường 1, Quận 1, TP.HCM">
+                            <font>
+                                <Font size="24.0" />
+                            </font>
+                        </TextField>
+                    </Pane>
+                    <Pane layoutX="25.0" layoutY="210.0" prefHeight="51.0" prefWidth="970.0">
+                        <Label layoutY="10.0" text="Trạng thái hiện tại:">
+                            <font>
+                                <Font size="24.0" />
+                            </font>
+                        </Label>
+                        <TextField disable="true" editable="false" layoutX="230.0" prefHeight="51.0" prefWidth="740.0" text="F0">
+                            <font>
+                                <Font size="24.0" />
+                            </font>
+                        </TextField>
+                    </Pane>
+                    <Pane layoutX="25.0" layoutY="280.0" prefHeight="51.0" prefWidth="970.0">
+                        <Label layoutY="10.0" text="Nơi điều trị/cách ly:">
+                            <font>
+                                <Font size="24.0" />
+                            </font>
+                        </Label>
+                        <TextField disable="true" editable="false" layoutX="230.0" prefHeight="51.0" prefWidth="740.0" text="abc Đường số 1, Phường 1, Quận 1, TP.HCM">
+                            <font>
+                                <Font size="24.0" />
+                            </font>
+                        </TextField>
+                    </Pane>
+                </Pane>
+            </Pane>
         </Pane>
-
     </center>
 </BorderPane>

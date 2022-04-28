@@ -7,45 +7,49 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pck.java.fe.patient.HomePageController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0"
+            prefWidth="1024.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="pck.java.fe.patient.HomePageController">
     <top>
         <Pane prefHeight="70.0" prefWidth="1024.0" style="-fx-background-color: A8ACFF;" BorderPane.alignment="CENTER">
             <children>
-                <Button fx:id="logoutButton" layoutX="964.0" layoutY="10.0" mnemonicParsing="false" onAction="#onLogoutButtonCliked" prefHeight="50.0" prefWidth="50.0">
+                <Button fx:id="logoutButton" layoutX="964.0" layoutY="10.0" mnemonicParsing="false"
+                        onAction="#onLogoutButtonCliked" prefHeight="50.0" prefWidth="50.0">
                     <graphic>
                         <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="https://res.cloudinary.com/phatchaukhang/image/upload/v1649213502/JAVA/Icon/logout_fw5lna.png" />
+                                <Image url="https://res.cloudinary.com/phatchaukhang/image/upload/v1649213502/JAVA/Icon/logout_fw5lna.png"/>
                             </image>
                         </ImageView>
                     </graphic>
                 </Button>
-                <Label layoutX="288.0" layoutY="6.0" style="-fx-font-size: 36; -fx-font-weight: 900;" text="Quản lý thông tin COVID-19" />
+                <Label layoutX="288.0" layoutY="6.0" style="-fx-font-size: 36; -fx-font-weight: 900;"
+                       text="Quản lý thông tin COVID-19"/>
             </children>
         </Pane>
     </top>
     <bottom>
-        <Pane prefHeight="70.0" prefWidth="1024.0" style="-fx-background-color: A8ACFF;" BorderPane.alignment="CENTER" />
+        <Pane prefHeight="70.0" prefWidth="1024.0" style="-fx-background-color: A8ACFF;" BorderPane.alignment="CENTER"/>
     </bottom>
     <center>
-    </center>
-    <center>
         <Pane prefWidth="1024.0" BorderPane.alignment="CENTER">
-            <children>
-                <Pane layoutX="112.0" layoutY="184.0" prefHeight="220.0" prefWidth="800.0">
-                    <children>
-                        <Label layoutX="320.0" layoutY="7.0" style="-fx-font-size: 36; -fx-font-weight: 900;" text="Bệnh nhân" />
-                        <Pane layoutX="110.0" layoutY="90.0" prefWidth="584.0">
-                            <children>
-                                <Button fx:id="infoButton" maxHeight="50.0" maxWidth="280.0" mnemonicParsing="false" onAction="#onInfoButtonCliked" prefHeight="50.0" prefWidth="280.0" style="-fx-font-size: 24;" text="Xem thông tin cá nhân" />
-                                <Button fx:id="buyPackageButton" layoutX="304.0" maxHeight="50.0" maxWidth="280.0" mnemonicParsing="false" onAction="#onBuyPackageButtonCliked" prefHeight="50.0" prefWidth="280.0" style="-fx-font-size: 24;" text="Mua gói nhu yếu phẩm" />
-                                <Button fx:id="cartButton" layoutX="304.0" layoutY="80.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="280.0" style="-fx-font-size: 24;" text="Giỏ hàng" />
-                                <Button fx:id="payBalanceButton" layoutY="80.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="280.0" style="-fx-font-size: 24;" text="Thanh toán dư nợ" />
-                            </children>
-                        </Pane>
-                    </children>
+            <Pane layoutX="112.0" layoutY="184.0" prefHeight="220.0" prefWidth="800.0">
+                <Label layoutX="320.0" layoutY="7.0" style="-fx-font-size: 36; -fx-font-weight: 900;"
+                       text="Bệnh nhân"/>
+                <Pane layoutX="110.0" layoutY="90.0" prefWidth="584.0">
+                    <Button fx:id="infoButton" maxHeight="50.0" maxWidth="280.0" mnemonicParsing="false"
+                            onAction="#onInfoButtonCliked" prefHeight="50.0" prefWidth="280.0"
+                            style="-fx-font-size: 24;" text="Xem thông tin cá nhân"/>
+                    <Button fx:id="buyPackageButton" layoutX="304.0" maxHeight="50.0" maxWidth="280.0"
+                            mnemonicParsing="false" onAction="#onBuyPackageButtonCliked" prefHeight="50.0"
+                            prefWidth="280.0" style="-fx-font-size: 24;" text="Mua gói nhu yếu phẩm"/>
+                    <Button fx:id="cartButton" layoutX="304.0" layoutY="80.0" mnemonicParsing="false"
+                            prefHeight="50.0" prefWidth="280.0" style="-fx-font-size: 24;" text="Giỏ hàng"/>
+                    <Button fx:id="payBalanceButton" layoutY="80.0" mnemonicParsing="false" prefHeight="50.0"
+                            prefWidth="280.0" style="-fx-font-size: 24;" onAction="#onPayBalanceButtonCliked"
+                            text="Thanh toán dư nợ"/>
                 </Pane>
-            </children>
+            </Pane>
         </Pane>
     </center>
 </BorderPane>

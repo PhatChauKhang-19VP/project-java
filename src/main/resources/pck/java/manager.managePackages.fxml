@@ -6,7 +6,6 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -16,7 +15,7 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0"
             prefWidth="1024.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="pck.java.fe.manager.ManageProductsController">
+            fx:controller="pck.java.fe.manager.ManagePackagesController">
     <top>
         <Pane prefHeight="70.0" prefWidth="1024.0" style="-fx-background-color: A8ACFF;" BorderPane.alignment="CENTER">
             <children>
@@ -53,54 +52,66 @@
     </bottom>
     <center>
         <Pane prefWidth="1024.0" BorderPane.alignment="CENTER">
-            <Label layoutX="323.0" layoutY="20.0" style="-fx-font-size: 36; -fx-font-weight: 900;"
-                   text="Sản phẩm nhu yếu phẩm">
-            </Label>
-            <Pane layoutY="160.0" prefHeight="480.0" prefWidth="1024.0">
-                <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="480.0" prefWidth="1024.0">
-                    <GridPane fx:id="gridPaneProduct" layoutY="20.0" gridLinesVisible="true" prefHeight="489.0"
-                              prefWidth="1024.0">
-                        <columnConstraints>
-                            <ColumnConstraints/>
-                            <ColumnConstraints/>
-                        </columnConstraints>
-                        <rowConstraints>
-                            <RowConstraints/>
-                            <RowConstraints/>
-                        </rowConstraints>
-                    </GridPane>
-                </ScrollPane>
-            </Pane>
-            <Button fx:id="btnAddProd" layoutX="964.0" layoutY="90.0" mnemonicParsing="false" prefHeight="50.0"
-                    prefWidth="50.0">
-                <graphic>
-                    <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                            <Image url="https://res.cloudinary.com/phatchaukhang/image/upload/v1649065784/JAVA/Icon/plus.png"/>
-                        </image>
-                    </ImageView>
-                </graphic>
-            </Button>
-            <Pane layoutX="20.0" layoutY="90.0" prefHeight="50.0" prefWidth="420.0">
-                <TextField prefHeight="50.0" prefWidth="300.0">
-                    <font>
-                        <Font size="24.0"/>
-                    </font>
-                </TextField>
-                <Button layoutX="305.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0">
+            <Pane prefHeight="630.0" prefWidth="1024.0">
+                <Label layoutX="323.0" layoutY="20.0" style="-fx-font-size: 36; -fx-font-weight: 900;"
+                       text="Các gói nhu yếu phẩm">
+                </Label>
+                <Pane layoutY="160.0" prefHeight="480.0" prefWidth="1024.0">
+                    <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="480.0" prefWidth="1024.0">
+                        <GridPane fx:id="gridPanePackage" gridLinesVisible="true" layoutY="20.0" prefHeight="480.0"
+                                  prefWidth="1024.0">
+                            <columnConstraints>
+                                <ColumnConstraints/>
+                                <ColumnConstraints/>
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints/>
+                                <RowConstraints/>
+                            </rowConstraints>
+                        </GridPane>
+                    </ScrollPane>
+                </Pane>
+                <Pane layoutX="20.0" layoutY="90.0" prefHeight="50.0" prefWidth="420.0">
+                    <TextField prefHeight="50.0" prefWidth="300.0">
+                        <font>
+                            <Font size="24.0"/>
+                        </font>
+                    </TextField>
+                    <Button layoutX="305.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0">
+                        <graphic>
+                            <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="https://res.cloudinary.com/phatchaukhang/image/upload/v1649066475/JAVA/Icon/search-interface-symbol_lcd55i.png"/>
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                    <Button layoutX="369.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0">
+                        <graphic>
+                            <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="https://res.cloudinary.com/phatchaukhang/image/upload/v1649067481/JAVA/Icon/filter-filled-tool-symbol_xnxwga.png"/>
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                </Pane>
+                <Button fx:id="btnDEBUGmodPkg" layoutX="964.0" layoutY="90.0" mnemonicParsing="false" prefHeight="50.0"
+                        prefWidth="50.0">
                     <graphic>
                         <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="https://res.cloudinary.com/phatchaukhang/image/upload/v1649066475/JAVA/Icon/search-interface-symbol_lcd55i.png"/>
+                                <Image url="https://res.cloudinary.com/phatchaukhang/image/upload/v1651128337/JAVA/Icon/edit_b5epyd.png"/>
                             </image>
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button layoutX="369.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0">
+                <Button fx:id="btnAddPkg" layoutX="900.0" layoutY="90.0" mnemonicParsing="false" prefHeight="50.0"
+                        prefWidth="50.0">
                     <graphic>
                         <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="https://res.cloudinary.com/phatchaukhang/image/upload/v1649067481/JAVA/Icon/filter-filled-tool-symbol_xnxwga.png"/>
+                                <Image url="https://res.cloudinary.com/phatchaukhang/image/upload/v1649065784/JAVA/Icon/plus.png"/>
                             </image>
                         </ImageView>
                     </graphic>

@@ -48,7 +48,7 @@ public class ProductPane {
         ImageView productImg = new ImageView(new Image(product.getImgSrc()));
         productImg.setFitWidth(180);
         productImg.setFitHeight(150);
-        productImg.setLayoutX(30);
+        productImg.setLayoutX(36);
         productImg.setLayoutY(20);
         pane.getChildren().add(productImg);
 
@@ -57,7 +57,7 @@ public class ProductPane {
         productName.setTextAlignment(TextAlignment.CENTER);
         productName.setStyle("-fx-font-family: Arial;-fx-font-size:16; -fx-text-fill: #132ac1;");
         productName.setPrefSize(200, 20);
-        productName.setLayoutX(20);
+        productName.setLayoutX(26);
         productName.setLayoutY(180);
         productName.setAlignment(Pos.CENTER);
         pane.getChildren().add(productName);
@@ -68,7 +68,7 @@ public class ProductPane {
         productPrice.setAlignment(Pos.CENTER);
         productPrice.setStyle("-fx-font-family: Arial;");
         productPrice.setPrefSize(200, 20);
-        productPrice.setLayoutX(20);
+        productPrice.setLayoutX(26);
         productPrice.setLayoutY(200);
         pane.getChildren().add(productPrice);
 
@@ -76,7 +76,7 @@ public class ProductPane {
         Button btnModProd = new Button("Chỉnh sửa");
         btnModProd.setAlignment(Pos.CENTER);
         btnModProd.setPrefSize(120, 25);
-        btnModProd.setLayoutX(60);
+        btnModProd.setLayoutX(66);
         btnModProd.setLayoutY(230);
         pane.getChildren().add(btnModProd);
 
@@ -110,7 +110,7 @@ public class ProductPane {
         Button btnDelProd = new Button("Xóa sản phẩm");
         btnDelProd.setAlignment(Pos.CENTER);
         btnDelProd.setPrefSize(120, 25);
-        btnDelProd.setLayoutX(60);
+        btnDelProd.setLayoutX(66);
         btnDelProd.setLayoutY(260);
         btnDelProd.getStyleClass().addAll("btn", "btn-danger");
         pane.getChildren().add(btnDelProd);

@@ -29,4 +29,10 @@ public class HomePageController {
             Index.getInstance().gotoBuyPackage();
         }
     }
+
+    public void onPayBalanceButtonCliked(ActionEvent actionEvent) throws Exception {
+        if(actionEvent.getSource() == payBalanceButton) {
+            Index.getInstance().gotoPayOutstandingBalance();
+        }
+    }
 }

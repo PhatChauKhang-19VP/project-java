@@ -14,7 +14,7 @@ public class ManageManagerAccController {
     public TableColumn colUsername;
     public TableColumn colName;
     public TableColumn colBtn;
-    public Button btnAddMng;
+    public Button addMngButton;
 
     public void onBackButtonCliked(ActionEvent actionEvent) throws Exception {
         if(actionEvent.getSource() == backButton) {
@@ -25,6 +25,12 @@ public class ManageManagerAccController {
     public void onLogoutButtonCliked(ActionEvent actionEvent) {
         if (actionEvent.getSource() == logoutButton) {
             pck.java.Index.getInstance().gotoSignIn();
+        }
+    }
+
+    public void onAddManagerButtonCliked(ActionEvent actionEvent) {
+        if (actionEvent.getSource() == addMngButton) {
+            pck.java.Index.getInstance().gotoCreateManagerAccount();
         }
     }
 }
