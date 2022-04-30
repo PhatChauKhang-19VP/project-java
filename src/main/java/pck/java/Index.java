@@ -27,12 +27,14 @@ import pck.java.be.app.user.Patient;
 import pck.java.be.app.util.TreatmentLocation;
 import pck.java.fe.manager.ManagePatientInfoController;
 import pck.java.fe.patient.BuyPackageController;
+import pck.java.fe.patient.CartController;
 import pck.java.fe.utils.LineNumbersCellFactory;
 import pck.java.fe.utils.PackagePane;
 import pck.java.fe.utils.PackagePaneManager;
 import pck.java.fe.utils.ProductPane;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class Index extends Application {
     private static Index instance;
@@ -59,11 +61,11 @@ public class Index extends Application {
         try {
             stage = primaryStage;
 
+            test();
             //gotoSignIn();
             //gotoAdminHomePage();
             //gotoManagerHomePage();
             //gotoPatientHomePage();
-
 
             primaryStage.show();
         } catch (Exception ex) {
@@ -559,6 +561,23 @@ public class Index extends Application {
     public void gotoPayOutstandingBalance() throws Exception {
         try {
             replaceSceneContent("patient.payOutstandingBalance.fxml");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void test() {
+        try {
+            replaceSceneContent("patient.cart.fxml");
+            CartController controller = loader.getController();
+
+            GridPane gp = controller.gridPanePackage;
+
+            int row = 0, col = 0;
+
+            for(String key : App.getInstance().getProductManagement().getOrderList().keySet()) {
+                System.out.println(App.getInstance().getProductManagement().getOrderList().get(key).getPackageList());
+            }
         } catch (Exception ex) {
             ex.printStackTrace();
         }

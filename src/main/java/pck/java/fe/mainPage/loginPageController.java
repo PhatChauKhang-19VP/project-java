@@ -7,8 +7,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
+import pck.java.Index;
 import pck.java.be.app.App;
 import pck.java.be.app.user.IUser;
+
+import java.util.Objects;
 
 import static java.lang.Thread.sleep;
 
@@ -27,8 +30,31 @@ public class loginPageController {
     String errorStyle = String.format("-fx-border-color: RED; -fx-border-width: 2; -fx-border-radius: 5;");
     String successStyle = String.format("-fx-border-color: #A9A9A9; -fx-border-width: 2; -fx-border-radius: 5;");
 
-    public Label getInvalidDetails() {
-        return invalidDetails;
+    public void checkUsername() throws Exception {
+        String username = usernameTextField.getText();
+
+        for (String key : App.getInstance().getUserList().keySet()) {
+            IUser iu = App.getInstance().getUserList().get(key);
+
+            String temp = iu.getUsername();
+
+            if (Objects.equals(temp, username)) {
+                if (iu.getRole() == IUser.Role.ADMIN) {
+                    pck.java.Index.getInstance().gotoAdminHomePage();
+                } else if (iu.getRole()  == IUser.Role.MANAGER) {
+                    pck.java.Index.getInstance().gotoManagerHomePage();
+                } else if (iu.getRole()  == IUser.Role.PATIENT) {
+                    pck.java.Index.getInstance().gotoPatientHomePage();
+                }
+                break;
+            }
+            else {
+                invalidDetails.setText("Tên đăng nhập không tồn tại!");
+                invalidDetails.setStyle(errorMessage);
+                usernameTextField.setStyle(errorStyle);
+                usernameTextField.setStyle(errorStyle);
+            }
+        }
     }
 
     public void onBtnContinueClick(ActionEvent ae) throws InterruptedException {
@@ -48,7 +74,7 @@ public class loginPageController {
         }
     }
 
-    public void onBtnSignInClick(ActionEvent ae) throws InterruptedException {
+    public void onBtnSignInClick(ActionEvent ae) throws Exception {
         if (ae.getSource() == btnSignIn) {
             // In case the Username and Password fields are left blank then display the error message
             if (usernameTextField.getText().isBlank() || userPassword.getText().isBlank()) {
@@ -121,6 +147,8 @@ public class loginPageController {
                     userPassword.setStyle(successStyle);
 
                     invalidDetails.setText("Đăng nhập thành công.");
+
+                    checkUsername();
                 }
             }
         }
