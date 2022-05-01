@@ -2,197 +2,54 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pck.java.fe.patient.HomePageController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0"
+            prefWidth="1024.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="pck.java.fe.patient.HomePageController">
     <top>
         <Pane prefHeight="70.0" prefWidth="1024.0" style="-fx-background-color: A8ACFF;" BorderPane.alignment="CENTER">
             <children>
-                <Button layoutX="954.0" layoutY="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0">
+                <Button fx:id="logoutButton" layoutX="964.0" layoutY="10.0" mnemonicParsing="false"
+                        onAction="#onLogoutButtonCliked" prefHeight="50.0" prefWidth="50.0">
                     <graphic>
                         <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="https://res.cloudinary.com/phatchaukhang/image/upload/v1649213502/JAVA/Icon/logout_fw5lna.png" />
+                                <Image url="https://res.cloudinary.com/phatchaukhang/image/upload/v1649213502/JAVA/Icon/logout_fw5lna.png"/>
                             </image>
                         </ImageView>
                     </graphic>
                 </Button>
-            <Label layoutX="419.0" layoutY="12.0" text="Bệnh nhân">
-               <font>
-                  <Font name="Arial Bold" size="36.0" />
-               </font>
-            </Label>
+                <Label layoutX="288.0" layoutY="6.0" style="-fx-font-size: 36; -fx-font-weight: 900;"
+                       text="Quản lý thông tin COVID-19"/>
             </children>
         </Pane>
     </top>
     <bottom>
-        <Pane prefHeight="70.0" prefWidth="1024.0" style="-fx-background-color: A8ACFF;" BorderPane.alignment="CENTER" />
+        <Pane prefHeight="70.0" prefWidth="1024.0" style="-fx-background-color: A8ACFF;" BorderPane.alignment="CENTER"/>
     </bottom>
     <center>
-        <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
-            <tabs>
-                <Tab style="-fx-pref-height: 30; -fx-font-size: 16;" text="Thông tin cá nhân">
-                    <content>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
-                            <children>
-                                <AnchorPane prefHeight="500.0" prefWidth="1024.0">
-                                    <children>
-                                        <Label layoutX="372.0" layoutY="22.0" text="Thông tin cá nhân">
-                                            <font>
-                                                <Font name="Arial Bold" size="36.0" />
-                                            </font>
-                                        </Label>
-                                        <AnchorPane layoutY="80.0" prefHeight="430.0" prefWidth="1024.0">
-                                            <children>
-                                                <Pane layoutX="25.0" prefHeight="51.0" prefWidth="970.0">
-                                                    <children>
-                                                        <Label layoutY="10.0" text="Họ và tên:">
-                                                            <font>
-                                                                <Font size="24.0" />
-                                                            </font>
-                                                        </Label>
-                                                        <TextField editable="false" layoutX="230.0" prefHeight="51.0" prefWidth="740.0" text="Nguyễn Văn A">
-                                                            <font>
-                                                                <Font size="24.0" />
-                                                            </font>
-                                                        </TextField>
-                                                    </children>
-                                                </Pane>
-                                                <Pane layoutX="25.0" layoutY="70.0" prefHeight="51.0" prefWidth="970.0">
-                                                    <children>
-                                                        <Pane prefHeight="51.0" prefWidth="555.0">
-                                                            <children>
-                                                                <Label layoutY="10.0" text="CMND/CCCD:">
-                                                                    <font>
-                                                                        <Font size="24.0" />
-                                                                    </font>
-                                                                </Label>
-                                                                <TextField editable="false" layoutX="230.0" prefHeight="51.0" prefWidth="325.0" text="123456789">
-                                                                    <font>
-                                                                        <Font size="24.0" />
-                                                                    </font>
-                                                                </TextField>
-                                                            </children>
-                                                        </Pane>
-                                                        <Pane layoutX="565.0" prefHeight="51.0" prefWidth="405.0">
-                                                            <children>
-                                                                <Label layoutX="10.0" layoutY="10.0" text="Năm sinh:">
-                                                                    <font>
-                                                                        <Font size="24.0" />
-                                                                    </font>
-                                                                </Label>
-                                                                <TextField editable="false" layoutX="140.0" prefHeight="51.0" prefWidth="265.0" text="1999">
-                                                                    <font>
-                                                                        <Font size="24.0" />
-                                                                    </font>
-                                                                </TextField>
-                                                            </children>
-                                                        </Pane>
-                                                    </children>
-                                                </Pane>
-                                                <Pane layoutX="25.0" layoutY="140.0" prefHeight="51.0" prefWidth="970.0">
-                                                    <children>
-                                                        <Label layoutY="10.0" text="Địa chỉ nơi ở:">
-                                                            <font>
-                                                                <Font size="24.0" />
-                                                            </font>
-                                                        </Label>
-                                                        <TextField editable="false" layoutX="230.0" prefHeight="51.0" prefWidth="740.0" text="abc Đường số 1, Phường 1, Quận 1, TP.HCM">
-                                                            <font>
-                                                                <Font size="24.0" />
-                                                            </font>
-                                                        </TextField>
-                                                    </children>
-                                                </Pane>
-                                                <Pane layoutX="25.0" layoutY="210.0" prefHeight="51.0" prefWidth="970.0">
-                                                    <children>
-                                                        <Label layoutY="10.0" text="Trạng thái hiện tại:">
-                                                            <font>
-                                                                <Font size="24.0" />
-                                                            </font>
-                                                        </Label>
-                                                        <TextField editable="false" layoutX="230.0" prefHeight="51.0" prefWidth="740.0" text="F0">
-                                                            <font>
-                                                                <Font size="24.0" />
-                                                            </font>
-                                                        </TextField>
-                                                    </children>
-                                                </Pane>
-                                                <Pane layoutX="25.0" layoutY="280.0" prefHeight="51.0" prefWidth="970.0">
-                                                    <children>
-                                                        <Label layoutY="10.0" text="Nơi điều trị/cách ly:">
-                                                            <font>
-                                                                <Font size="24.0" />
-                                                            </font>
-                                                        </Label>
-                                                        <TextField editable="false" layoutX="230.0" prefHeight="51.0" prefWidth="740.0" text="abc Đường số 1, Phường 1, Quận 1, TP.HCM">
-                                                            <font>
-                                                                <Font size="24.0" />
-                                                            </font>
-                                                        </TextField>
-                                                    </children>
-                                                </Pane>
-                                            </children>
-                                        </AnchorPane>
-                                    </children>
-                                </AnchorPane>
-                            </children>
-                        </AnchorPane>
-                    </content>
-                </Tab>
-                <Tab style="-fx-pref-height: 30; -fx-font-size: 16;" text="Mua nhu yếu phẩm">
-                    <content>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
-                            <children>
-                                <AnchorPane prefHeight="593.0" prefWidth="1024.0">
-                                    <children>
-                                        <Label layoutX="364.0" layoutY="20.0" text="Gói nhu yếu phẩm">
-                                            <font>
-                                                <Font name="Arial Bold" size="36.0" />
-                                            </font>
-                                        </Label>
-                                        <AnchorPane layoutY="80.0" prefHeight="510.0" prefWidth="1024.0">
-                                            <children>
-                                                <ScrollPane fitToHeight="true" fitToWidth="true" layoutY="100" prefHeight="500.0" prefWidth="1024.0" visible="true" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="10" AnchorPane.topAnchor="0">
-                                                    <content>
-                                                        <GridPane fx:id="gridPanePackage" gridLinesVisible="true">
-                                                            <columnConstraints>
-                                                                <ColumnConstraints />
-                                                                <ColumnConstraints />
-                                                            </columnConstraints>
-                                                            <rowConstraints>
-                                                                <RowConstraints />
-                                                                <RowConstraints />
-                                                            </rowConstraints>
-                                                        </GridPane>
-                                                    </content>
-                                                </ScrollPane>
-                                            </children>
-                                        </AnchorPane>
-                                    </children>
-                                </AnchorPane>
-                            </children>
-                        </AnchorPane>
-                    </content>
-                </Tab>
-                <Tab style="-fx-pref-height: 30; -fx-font-size: 16;" text="Thanh toán dư nợ">
-                    <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                    </content>
-                </Tab>
-            </tabs>
-        </TabPane>
+        <Pane prefWidth="1024.0" BorderPane.alignment="CENTER">
+            <Pane layoutX="112.0" layoutY="184.0" prefHeight="220.0" prefWidth="800.0">
+                <Label layoutX="320.0" layoutY="7.0" style="-fx-font-size: 36; -fx-font-weight: 900;"
+                       text="Bệnh nhân"/>
+                <Pane layoutX="110.0" layoutY="90.0" prefWidth="584.0">
+                    <Button fx:id="infoButton" maxHeight="50.0" maxWidth="280.0" mnemonicParsing="false"
+                            onAction="#onInfoButtonCliked" prefHeight="50.0" prefWidth="280.0"
+                            style="-fx-font-size: 24;" text="Xem thông tin cá nhân"/>
+                    <Button fx:id="buyPackageButton" layoutX="304.0" maxHeight="50.0" maxWidth="280.0"
+                            mnemonicParsing="false" onAction="#onBuyPackageButtonCliked" prefHeight="50.0"
+                            prefWidth="280.0" style="-fx-font-size: 24;" text="Mua gói nhu yếu phẩm"/>
+                    <Button fx:id="cartButton" layoutX="304.0" layoutY="80.0" mnemonicParsing="false"
+                            prefHeight="50.0" prefWidth="280.0" style="-fx-font-size: 24;" text="Giỏ hàng"/>
+                    <Button fx:id="payBalanceButton" layoutY="80.0" mnemonicParsing="false" prefHeight="50.0"
+                            prefWidth="280.0" style="-fx-font-size: 24;" onAction="#onPayBalanceButtonCliked"
+                            text="Thanh toán dư nợ"/>
+                </Pane>
+            </Pane>
+        </Pane>
     </center>
 </BorderPane>

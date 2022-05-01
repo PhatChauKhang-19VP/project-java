@@ -25,8 +25,8 @@ public class PackagePaneManager {
 
         pane = new Pane();
         //pane.setBorder(ne);
-        pane.setMinSize(242, 320);
-        pane.setPrefSize(242, 320);
+        pane.setMinSize(252, 320);
+        pane.setPrefSize(252, 320);
 
 //        pane.setBorder(new Border(new BorderStroke(Color.BLACK,
 //                BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
@@ -35,7 +35,7 @@ public class PackagePaneManager {
         ImageView packageImg = new ImageView(new Image(pkg.getImg_src()));
         packageImg.setFitWidth(242);
         packageImg.setFitHeight(242);
-        packageImg.setLayoutX(0);
+        packageImg.setLayoutX(5);
         packageImg.setLayoutY(-10);
         pane.getChildren().add(packageImg);
 
@@ -45,7 +45,7 @@ public class PackagePaneManager {
         packageName.setTextAlignment(TextAlignment.CENTER);
         packageName.setStyle("-fx-font-family: Arial;-fx-font-size:16; -fx-text-fill: #132ac1;");
         packageName.setPrefSize(200, 20);
-        packageName.setLayoutX(20);
+        packageName.setLayoutX(26);
         packageName.setLayoutY(220);
         packageName.setAlignment(Pos.CENTER);
         pane.getChildren().add(packageName);
@@ -57,23 +57,23 @@ public class PackagePaneManager {
         packagePrice.setAlignment(Pos.CENTER);
         packagePrice.setStyle("-fx-font-family: Arial;");
         packagePrice.setPrefSize(200, 20);
-        packagePrice.setLayoutX(20);
+        packagePrice.setLayoutX(26);
         packagePrice.setLayoutY(250);
         pane.getChildren().add(packagePrice);
 
         // pane > btnAddProd
-        Button btnAddProd = new Button("Xem chi tiết");
-        btnAddProd.setAlignment(Pos.CENTER);
-        btnAddProd.setPrefSize(120, 25);
-        btnAddProd.setLayoutX(60);
-        btnAddProd.setLayoutY(280);
-        pane.getChildren().add(btnAddProd);
+        Button btnDetailProd = new Button("Xem chi tiết");
+        btnDetailProd.setAlignment(Pos.CENTER);
+        btnDetailProd.setPrefSize(120, 25);
+        btnDetailProd.setLayoutX(66);
+        btnDetailProd.setLayoutY(280);
+        pane.getChildren().add(btnDetailProd);
 
-        btnAddProd.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+        btnDetailProd.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                System.out.println(getClass() + " add prod to cart");
-                // todo: add product to cart
+                System.out.println(getClass() + " pakages detail");
+                // todo: show package detail
             }
         });
     }

@@ -12637,7 +12637,7 @@ values
 	('product4', N'Thịt heo xay', N'https://res.cloudinary.com/phatchaukhang/image/upload/v1650081302/JAVA/Product/thit-heo-xay-cp-khay-300g_mhi5rx.jpg','Y', 34.5),
 	('product5', N'Thịt đùi heo', N'https://res.cloudinary.com/phatchaukhang/image/upload/v1650081302/JAVA/Product/thit-dui-heo-khay-300g_kfswl3.jpg','Y', 39),
 	('product6', N'Thịt ba rọi heo', N'https://res.cloudinary.com/phatchaukhang/image/upload/v1650081303/JAVA/Product/ba-roi-heo-khay-500g_dxfh5k.jpg','X', 88),
-	('product7', N'Thịt nạc vai heo', N'https://res.cloudinary.com/phatchaukhang/image/upload/v1650081301/JAVA/Product/nac-vai-heo-khay-300g_rgfxy5.jpgg', 'Y', 49),
+	('product7', N'Thịt nạc vai heo', N'https://res.cloudinary.com/phatchaukhang/image/upload/v1650081301/JAVA/Product/nac-vai-heo-khay-300g_rgfxy5.jpg', 'Y', 49),
 	('product8', N'Cá basa cắt khúc', N'https://res.cloudinary.com/phatchaukhang/image/upload/v1650081304/JAVA/Product/ca-basa-cat-khuc-khay-500g_jdsvnp.jpg','X', 55),
 	('product9', N'Tôm thẻ', N'https://res.cloudinary.com/phatchaukhang/image/upload/v1650081302/JAVA/Product/tom-the-nguyen-con-khay-300g_tnqocu.jpg','Y', 60),
 	('product10', N'Rau muống', N'https://res.cloudinary.com/phatchaukhang/image/upload/v1650081305/JAVA/Product/rau-muong-tuoi-xanh-4kfarm-goi-500g_ivzkbn.jpg','X', 9),
@@ -12684,7 +12684,7 @@ values
 	('package9', N'Gói trái cây', N'https://res.cloudinary.com/phatchaukhang/image/upload/v1650080708/JAVA/Package/goi-trai-cay_xn69iq.png', 2, 1, 82.5),
 	('package10', N'Gói y tế (1)', N'https://res.cloudinary.com/phatchaukhang/image/upload/v1650125522/JAVA/Package/goi-y-te-1_zpbqdy.png', 2, 1, 144),
 	('package11', N'Gói y tế (2)', N'https://res.cloudinary.com/phatchaukhang/image/upload/v1650178461/JAVA/Package/goi-y-te-2_ynprje.png', 2, 1, 125),
-	('package12', N'Gói y tế (3)', N'https://res.cloudinary.com/phatchaukhang/image/upload/v1650126267/JAVA/Package/goi-hai-san_evfgx4.png', 2, 1, 195),
+	('package12', N'Gói y tế (3)', N'https://res.cloudinary.com/phatchaukhang/image/upload/v1650125522/JAVA/Package/goi-y-te-3_mpbacn.png', 2, 1, 195),
 	('package13', N'Gói hải sản', N'https://res.cloudinary.com/phatchaukhang/image/upload/v1650126267/JAVA/Package/goi-hai-san_evfgx4.png', 2, 1, 115)
 go
 

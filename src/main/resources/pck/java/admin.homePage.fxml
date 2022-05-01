@@ -2,197 +2,47 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pck.java.fe.admin.HomePageController">
     <top>
         <Pane prefHeight="70.0" prefWidth="1024.0" style="-fx-background-color: A8ACFF;" BorderPane.alignment="CENTER">
-            <children>
-                <Button layoutX="954.0" layoutY="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0">
-                    <graphic>
-                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="https://res.cloudinary.com/phatchaukhang/image/upload/v1649213502/JAVA/Icon/logout_fw5lna.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-            <Label layoutX="459.0" layoutY="13.0" text="Admin">
-               <font>
-                  <Font name="Arial Bold" size="36.0" />
-               </font>
-            </Label>
-            </children>
+            <Button fx:id="logoutButton" layoutX="964.0" layoutY="10.0" mnemonicParsing="false" onAction="#onLogoutButtonCliked" prefHeight="50.0" prefWidth="50.0">
+                <graphic>
+                    <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="https://res.cloudinary.com/phatchaukhang/image/upload/v1649213502/JAVA/Icon/logout_fw5lna.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+            <Label layoutX="288.0" layoutY="6.0" style="-fx-font-size: 36; -fx-font-weight: 900;" text="Quản lý thông tin COVID-19" />
         </Pane>
     </top>
     <bottom>
         <Pane prefHeight="70.0" prefWidth="1024.0" style="-fx-background-color: A8ACFF;" BorderPane.alignment="CENTER" />
     </bottom>
     <center>
-        <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
-            <tabs>
-                <Tab style="-fx-pref-height: 30; -fx-font-size: 16;" text="Tạo tài khoản người quản lý">
-                    <content>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
-                            <children>
-                                <AnchorPane prefHeight="592.0" prefWidth="1024.0">
-                                    <children>
-                                        <Label layoutX="355.0" layoutY="20.0" style="-fx-font-size: 24; -fx-font-weight: 900;" text="Tạo tài khoản người quản lý">
-                                            <font>
-                                                <Font name="Arial Bold" size="36.0" />
-                                            </font>
-                                        </Label>
-                                        <AnchorPane layoutX="333.0" layoutY="90.0" prefHeight="450.0" prefWidth="400.0" style="-fx-background-color: #CFD1FC;">
-                                            <children>
-                                                <Pane layoutX="25.0" layoutY="20.0" prefHeight="100.0" prefWidth="350.0">
-                                                    <children>
-                                                        <Label layoutY="10.0" text="Tên đăng nhập:">
-                                                            <font>
-                                                                <Font size="24.0" />
-                                                            </font>
-                                                        </Label>
-                                                        <TextField editable="false" layoutY="50.0" prefHeight="50.0" prefWidth="350.0" promptText="Nhập tên đăng nhập">
-                                                            <font>
-                                                                <Font size="24.0" />
-                                                            </font>
-                                                        </TextField>
-                                                    </children>
-                                                </Pane>
-                                                <Pane layoutX="25.0" layoutY="132.0" prefHeight="100.0" prefWidth="350.0">
-                                                    <children>
-                                                        <Label layoutY="10.0" text="Mật khẩu:">
-                                                            <font>
-                                                                <Font size="24.0" />
-                                                            </font>
-                                                        </Label>
-                                                        <PasswordField layoutY="50.0" prefHeight="50.0" prefWidth="350.0" promptText="Nhập mật khẩu">
-                                                            <font>
-                                                                <Font name="Arial" size="24.0" />
-                                                            </font>
-                                                        </PasswordField>
-                                                    </children>
-                                                </Pane>
-                                                <Pane layoutX="25.0" layoutY="240.0" prefHeight="100.0" prefWidth="350.0">
-                                                    <children>
-                                                        <Label layoutY="10.0" text="Xác nhận mật khẩu:">
-                                                            <font>
-                                                                <Font size="24.0" />
-                                                            </font>
-                                                        </Label>
-                                                        <PasswordField layoutY="50.0" prefHeight="50.0" prefWidth="350.0" promptText="Nhập mật khẩu">
-                                                            <font>
-                                                                <Font name="Arial" size="24.0" />
-                                                            </font>
-                                                        </PasswordField>
-                                                    </children>
-                                                </Pane>
-                                                <Button layoutX="120.0" layoutY="372.0" mnemonicParsing="false" text="Tạo tài khoản">
-                                                    <font>
-                                                        <Font size="24.0" />
-                                                    </font>
-                                                </Button>
-                                            </children>
-                                        </AnchorPane>
-                                    </children>
-                                </AnchorPane>
-                            </children>
-                        </AnchorPane>
-                    </content>
-                </Tab>
-                <Tab style="-fx-pref-height: 30; -fx-font-size: 16;" text="Quản lý thông tin tài khoản người quản lý">
-                    <content>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
-                            <children>
-                                <AnchorPane prefHeight="593.0" prefWidth="1024.0">
-                                    <children>
-                                        <Button fx:id="btnAddMng" layoutX="976.0" layoutY="47.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0">
-                                            <graphic>
-                                                <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
-                                                    <image>
-                                                        <Image url="https://res.cloudinary.com/phatchaukhang/image/upload/v1649065784/JAVA/Icon/plus.png" />
-                                                    </image>
-                                                </ImageView>
-                                            </graphic>
-                                        </Button>
-                                        <Label layoutX="316.0" layoutY="20.0" style="-fx-font-size: 24; -fx-font-weight: 900;" text="Danh sách tài khoản người quản lý">
-                                            <font>
-                                                <Font name="Arial Bold" size="36.0" />
-                                            </font>
-                                        </Label>
-                                        <AnchorPane layoutY="80.0" prefHeight="510.0" prefWidth="1024.0">
-                                            <children>
-                                                <ScrollPane fitToHeight="true" fitToWidth="true" layoutY="100" prefHeight="500.0" prefWidth="1024.0" visible="true" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10" AnchorPane.topAnchor="0">
-                                                    <content>
-                                                        <TableView fx:id="tableViewManager" layoutY="50.0" prefHeight="450.0" prefWidth="800.0">
-                                                            <columns>
-                                                                <TableColumn fx:id="colNO" maxWidth="30.0" prefWidth="30.0" text="STT" />
-                                                                <TableColumn fx:id="colUsername" maxWidth="300.0" minWidth="100.0" prefWidth="200.0" resizable="false" text="Tên đăng nhập" />
-                                                                <TableColumn fx:id="colName" minWidth="0.0" prefWidth="250.0" resizable="false" text="Tên" />
-                                                                <TableColumn fx:id="colBtn" minWidth="0.0" prefWidth="200" resizable="false" text="" />
-                                                            </columns>
-                                                        </TableView>
-                                                    </content>
-                                                </ScrollPane>
-                                            </children>
-                                        </AnchorPane>
-                                    </children>
-                                </AnchorPane>
-                            </children>
-                        </AnchorPane>
-                    </content>
-                </Tab>
-                <Tab style="-fx-pref-height: 30; -fx-font-size: 16;" text="Quản lý địa điểm điều trị/cách ly">
-                    <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                            <children>
-                                <Label layoutX="315.0" layoutY="20.0" style="-fx-font-size: 24; -fx-font-weight: 900;" text="Danh sách địa điểm điều trị/cách ly">
-                                    <font>
-                                        <Font name="Arial Bold" size="36.0" />
-                                    </font>
-                                </Label>
-                                <AnchorPane layoutY="80.0" prefHeight="510.0" prefWidth="1024.0">
-                                    <children>
-                                        <ScrollPane fitToHeight="true" fitToWidth="true" layoutY="100" prefHeight="500.0" prefWidth="1024.0" visible="true" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10" AnchorPane.topAnchor="0">
-                                            <content>
-                                                <TableView fx:id="tableViewTreatmentLocation" layoutY="50.0" prefHeight="450.0" prefWidth="800.0">
-                                                    <columns>
-                                                        <TableColumn fx:id="colNO_1" maxWidth="30.0" prefWidth="30.0" text="STT" />
-                                                        <TableColumn fx:id="colName_1" maxWidth="600.0" minWidth="100.0" prefWidth="400.0" text="Tên" />
-                                                        <TableColumn fx:id="colCapacity" maxWidth="200.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Sức chứa" />
-                                                        <TableColumn fx:id="colCurrentRoom" maxWidth="200.0" minWidth="200" prefWidth="100.0" resizable="false" text="Số lượng tiếp nhận hiện tại" />
-                                                        <TableColumn fx:id="colBtn_1" prefWidth="150" resizable="false" />
-                                                    </columns>
-                                                </TableView>
-                                            </content>
-                                        </ScrollPane>
-                                    </children>
-                                </AnchorPane>
-                                <Button fx:id="btnAddTloc" layoutX="975.0" layoutY="43.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0">
-                                    <graphic>
-                                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
-                                            <image>
-                                                <Image url="https://res.cloudinary.com/phatchaukhang/image/upload/v1649065784/JAVA/Icon/plus.png" />
-                                            </image>
-                                        </ImageView>
-                                    </graphic>
-                                </Button>
-                            </children>
-                        </AnchorPane>
-                    </content>
-                </Tab>
-            </tabs>
-        </TabPane>
+        <Pane prefWidth="1024.0" BorderPane.alignment="CENTER">
+            <Pane layoutX="112.0" layoutY="154.0" prefHeight="280.0" prefWidth="800.0">
+                <Label layoutX="346.0" layoutY="7.0" style="-fx-font-size: 36; -fx-font-weight: 900;" text="Admin"/>
+                <Pane layoutX="110.0" layoutY="90.0">
+                    <Button fx:id="createManagerAccButton" alignment="CENTER" contentDisplay="CENTER"
+                            maxHeight="86.0" maxWidth="585.0" mnemonicParsing="false"
+                            onAction="#onCreateManagerButtonCliked" prefHeight="50.0" prefWidth="585.0"
+                            style="-fx-font-size: 24;" text="Tạo tài khoản người quản lý"
+                            textAlignment="CENTER"/>
+                    <Button fx:id="treatmentLocButton" layoutY="140.0" mnemonicParsing="false"
+                            onAction="#onManageTLocButtonCliked" prefHeight="51.0" prefWidth="585.0"
+                            style="-fx-font-size: 24;" text="Quản lý địa điểm điều trị/cách ly"/>
+                    <Button fx:id="manageManagerAccButton" layoutY="70.0" mnemonicParsing="false"
+                            onAction="#onManageManagerButtonCliked" prefHeight="50.0" prefWidth="585.0"
+                            style="-fx-font-size: 24;" text="Quản lý thông tin tài khoản người quản lý"/>
+                </Pane>
+            </Pane>
+        </Pane>
     </center>
 </BorderPane>
