@@ -1,2 +1,4 @@
-package pck.java.fe.manager.modal;public class ViewPackageDetailsController {
+package pck.java.fe.manager.modal;
+
+public class ViewPackageDetailsController {
 }
