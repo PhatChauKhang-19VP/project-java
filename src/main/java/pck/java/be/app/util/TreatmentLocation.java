@@ -58,6 +58,6 @@ public class TreatmentLocation {
     }
     @Override
     public String toString() {
-        return "Name: " + name + "\nCapacity: " + currentRoom + "/" + capacity;
+        return name + "\n(" + currentRoom + "/" + capacity + ")";
     }
 }

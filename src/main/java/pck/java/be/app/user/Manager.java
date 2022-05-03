@@ -1,11 +1,13 @@
 package pck.java.be.app.user;
 
 import pck.java.be.app.App;
-import pck.java.database.*;
 import pck.java.be.app.product.Package;
 import pck.java.be.app.product.Product;
+import pck.java.be.app.util.Location;
 import pck.java.be.app.util.Pair;
+import pck.java.database.*;
 
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,29 +41,6 @@ public class Manager extends UserDecorator {
             System.out.println("You are not the manager");
         }
     }
-
-    // todo: change treatment_loc in patient to string or hashmap
-//    public Patient findPatientWithId(String username) {
-//        SelectQuery selectQuery = new SelectQuery();
-//        selectQuery.select("*").from("PATIENTS").where("username='"+ username + "'");
-//        try {
-//            List<Map<String, Object>> rs = DatabaseCommunication.getInstance().executeQuery(selectQuery.getQuery());
-//            rs.forEach(map -> {
-//                Patient p = new Patient(
-//                        new UserConcreteComponent(
-//                                username,
-//                                String.valueOf(map.get("name")),
-//                                "",
-//                                Role.PATIENT),
-//                        (Integer) map.get("f_status"),
-//                        LocalDate.parse(String.valueOf(map.get("dob"))),
-//
-//                )
-//            });
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//    }
 
     public void sortPatientList(ArrayList<String> orders) {
         if (getRole() == Role.MANAGER) {
@@ -182,17 +161,6 @@ public class Manager extends UserDecorator {
         }
     }
 
-    public void sortProductList(ArrayList<String> orders) {
-        SelectQuery selectQuery = new SelectQuery();
-        selectQuery.from("PRODUCTS").select("*").orderBy(orders);
-        try {
-            List<Map<String, Object>> rs = DatabaseCommunication.getInstance().executeQuery(selectQuery.getQuery());
-            DatabaseCommunication.getInstance().printResult(rs);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
     public HashMap<String, Product> filterProduct(/*filter*/) {
         if (getRole() == Role.MANAGER) {
             return App.getInstance().getProductManagement().filterProduct(/*filter*/);
@@ -283,6 +251,95 @@ public class Manager extends UserDecorator {
             }
 
         }
+    }
+
+    public HashMap<String, Package> getPackages() {
+        DatabaseCommunication.getInstance().loadProductsAndPackages();
+        return App.getInstance().getProductManagement().getPackageList();
+    }
+
+    public HashMap<String, Product> getProducts() {
+        DatabaseCommunication.getInstance().loadProductsAndPackages();
+        return App.getInstance().getProductManagement().getProductList();
+    }
+
+    public HashMap<String, Product> getSortedProducts() {
+        try {
+            DatabaseCommunication dbc = DatabaseCommunication.getInstance();
+            SelectQuery selectProducts = new SelectQuery();
+            selectProducts
+                    .select("*")
+                    .from("PRODUCTS")
+                    .orderBy("price");
+
+            List<Map<String, Object>> rs = dbc.executeQuery(selectProducts.getQuery());
+            App.getInstance().getProductManagement().getProductList().clear();
+            rs.forEach(map -> {
+                String id = String.valueOf(map.get("product_id")),
+                        name = String.valueOf(map.get("name")),
+                        img_src = String.valueOf(map.get("img_src")),
+                        unit = String.valueOf(map.get("unit"));
+                double price = (double) map.get("price");
+
+                App.getInstance()
+                        .getProductManagement()
+                        .addProduct(new Product(id, name, img_src, unit, price));
+
+            });
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return App.getInstance().getProductManagement().getProductList();
+    }
+
+    public HashMap<String, Patient> getPatients() {
+        HashMap<String, Patient> patientList = new HashMap<>();
+        try {
+            DatabaseCommunication dbc = DatabaseCommunication.getInstance();
+            SelectQuery selectPatients = new SelectQuery();
+            selectPatients
+                    .select("l.username as 'username'")
+                    .select("l.password as 'password'")
+                    .select("p.name as 'name'")
+                    .select("p.f_status  as 'status'")
+                    .select("p.date_of_birth as 'dob'")
+                    .select("p.address_province_code as 'pcode'")
+                    .select("p.address_district_code as 'dcode'")
+                    .select("p.address_ward_code as 'wcode'")
+                    .select("p.address_line as 'al'")
+                    .select("p.treatment_location_code as 'tloc_code'")
+                    .from("PATIENTS as p join LOGIN_INFOS as l on p.username = l.username");
+
+            List<Map<String, Object>> rs = dbc.executeQuery(selectPatients.getQuery());
+
+            rs.forEach(map -> {
+                String username = String.valueOf(map.get("username")),
+                        password = String.valueOf(map.get("password")),
+                        name = String.valueOf(map.get("name")),
+                        p_code = String.valueOf(map.get("pcode")),
+                        d_code = String.valueOf(map.get("dcode")),
+                        w_code = String.valueOf(map.get("wcode")),
+                        address_line = String.valueOf(map.get("al")),
+                        tloc_code = (String) map.get("tloc_code");
+                int status = (int) map.get("status");
+                java.sql.Date dob = (Date) map.get("dob");
+                Patient p = new Patient(
+                        new UserConcreteComponent(username, name, password, IUser.Role.PATIENT),
+                        status,
+                        dob.toLocalDate(),
+                        new Location(address_line,
+                                App.getInstance().getWardList().get(w_code),
+                                App.getInstance().getDistrictList().get(d_code),
+                                App.getInstance().getProvinceList().get(p_code)),
+                        App.getInstance().getTreatmentLocationList().get(tloc_code),
+                        new ArrayList<>()
+                );
+                patientList.put(username, p);
+            });
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return patientList;
     }
 
     public ArrayList<Package> findPackageByName(String name) {

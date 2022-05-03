@@ -1,7 +1,7 @@
 package pck.java.be.app.user;
 
-import cyptography.RSA;
-import cyptography.StructClass;
+import pck.java.be.cryptography.RSA;
+import pck.java.be.cryptography.StructClass;
 import pck.java.database.DatabaseCommunication;
 import pck.java.database.SelectQuery;
 import pck.java.be.app.util.Location;
@@ -22,6 +22,15 @@ public class Patient extends UserDecorator {
     private TreatmentLocation treatmentLocation;
     private ArrayList<Patient> closeContacts;
 
+    public Patient(IUser user) {
+        super(user);
+        this.status = 0;
+        this.dob = null;
+        this.address = null;
+        this.treatmentLocation = null;
+        this.closeContacts = null;
+    }
+
     public Patient(
             IUser user,
             int status,
@@ -36,12 +45,13 @@ public class Patient extends UserDecorator {
         this.address = address;
         this.treatmentLocation = treatmentLocation;
 
-        if (!this.treatmentLocation.addPatient()) {
+        if (this.treatmentLocation != null && !this.treatmentLocation.addPatient()) {
             this.treatmentLocation = null;
         }
 
         this.closeContacts = new ArrayList<Patient>(closeContacts);
     }
+
 
     public void viewPackages() {
         try {

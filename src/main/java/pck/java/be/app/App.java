@@ -6,14 +6,21 @@ import pck.java.be.app.util.District;
 import pck.java.be.app.util.Province;
 import pck.java.be.app.util.TreatmentLocation;
 import pck.java.be.app.util.Ward;
+import pck.java.database.DatabaseCommunication;
+import pck.java.database.SelectQuery;
 
+import javax.crypto.interfaces.PBEKey;
+import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * App controller, implemented according to Singleton pattern.
  */
 public class App {
     private static App instance = null;
+    private IUser currentUser = null;
     private HashMap<String, Province> provinceList;
     private HashMap<String, District> districtList;
     private HashMap<String, Ward> wardList;
@@ -69,6 +76,20 @@ public class App {
     }
 
     public HashMap<String, Province> getProvinceList() {
+        DatabaseCommunication dbc = DatabaseCommunication.getInstance();
+        SelectQuery sq = new SelectQuery();
+        sq.select("*").from("PROVINCES");
+        try {
+            List<Map<String, Object>> rs = dbc.executeQuery(sq.getQuery());
+            rs.forEach(map -> {
+                String code = String.valueOf(map.get("code")),
+                        name = String.valueOf(map.get("name")),
+                        name_en = String.valueOf(map.get("name_en"));
+                provinceList.put(code, new Province(code, name, name_en));
+            });
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return provinceList;
     }
 
@@ -77,6 +98,21 @@ public class App {
     }
 
     public HashMap<String, District> getDistrictList() {
+        DatabaseCommunication dbc = DatabaseCommunication.getInstance();
+        SelectQuery sq = new SelectQuery();
+        sq.select("*").from("DISTRICTS");
+        try {
+            List<Map<String, Object>> rs = dbc.executeQuery(sq.getQuery());
+            rs.forEach(map -> {
+                String code = String.valueOf(map.get("code")),
+                        name = String.valueOf(map.get("name")),
+                        name_en = String.valueOf(map.get("name_en")),
+                        belong_to = String.valueOf(map.get("province_code"));
+                districtList.put(code, new District(code, name, name_en, provinceList.get(belong_to)));
+            });
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return districtList;
     }
 
@@ -85,6 +121,21 @@ public class App {
     }
 
     public HashMap<String, Ward> getWardList() {
+        DatabaseCommunication dbc = DatabaseCommunication.getInstance();
+        SelectQuery sq = new SelectQuery();
+        sq.select("*").from("WARDS");
+        try {
+            List<Map<String, Object>> rs = dbc.executeQuery(sq.getQuery());
+            rs.forEach(map -> {
+                String code = String.valueOf(map.get("code")),
+                        name = String.valueOf(map.get("name")),
+                        name_en = String.valueOf(map.get("name_en")),
+                        belong_to = String.valueOf(map.get("district_code"));
+                wardList.put(code, new Ward(code, name, name_en, districtList.get(belong_to)));
+            });
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return wardList;
     }
 
@@ -93,6 +144,21 @@ public class App {
     }
 
     public HashMap<String, TreatmentLocation> getTreatmentLocationList() {
+        DatabaseCommunication dbc = DatabaseCommunication.getInstance();
+        SelectQuery sq = new SelectQuery();
+        sq.select("*").from("TREATMENT_LOCATIONS");
+        try {
+            List<Map<String, Object>> rs = dbc.executeQuery(sq.getQuery());
+            rs.forEach(map -> {
+                String code = String.valueOf(map.get("treatment_location_code")),
+                        name = String.valueOf(map.get("name"));
+                Integer capacity = Integer.valueOf(String.valueOf(map.get("capacity"))),
+                        current_room = Integer.valueOf(String.valueOf(map.get("current_room")));
+                treatmentLocationList.put(code, new TreatmentLocation(code, name, capacity, current_room));
+            });
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return treatmentLocationList;
     }
 
@@ -126,5 +192,13 @@ public class App {
 
     public ProductManagement getProductManagement() {
         return productManagement;
+    }
+
+    public IUser getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(IUser currentUser) {
+        this.currentUser = currentUser;
     }
 }
