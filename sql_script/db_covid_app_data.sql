@@ -12544,9 +12544,11 @@ insert into MANAGERS (username, name) values
 go
 
 insert into TREATMENT_LOCATIONS (treatment_location_code, name, capacity, current_room) values
-	('loc1', 'treament location 1', 10, 0),
-	('loc2', 'treament location 2', 20, 0),
-	('loc3', 'treament location 3', 30, 0)
+	('loc1', N'Bệnh viện Bệnh Nhiệt đới TP HCM', 1000, 0),
+	('loc2', N'Bệnh viện Phạm Ngọc Thạch', 800, 0),
+	('loc3', N'Bệnh viện Nguyễn Tri Phương', 700, 0),
+	('loc4', N'Bệnh viện Hùng Vương', 1200, 0),
+	('loc5', N'Bệnh viện Nhân dân 115', 1400, 0)
 go
 
 insert into LOGIN_INFOS (username, password, account_status, user_type) values

@@ -106,6 +106,8 @@ go
 alter table MANAGERS with check add constraint managers_foreign_key foreign key (username) references LOGIN_INFOS(username) 
 go
 
+
+
 create table TREATMENT_LOCATIONS (
 	treatment_location_code varchar(20) not null,
 	name nvarchar(255) not null,
@@ -116,6 +118,7 @@ create table TREATMENT_LOCATIONS (
 	constraint treatment_locations_chk_valid_figure check (capacity >= 0 and current_room >= 0 and current_room <= capacity)
 )
 go
+
 
 create table PATIENTS (
 	username varchar(50) not null,	
@@ -135,6 +138,39 @@ create table PATIENTS (
 	constraint patients_chk_valid_debit_balance check (debit_balance >= 0)
 )
 go
+
+--create or alter function dbo.fn_count_patients(@tloc_code varchar(20))
+--returns int
+--as begin
+--	if (not exists(select * from PATIENTS as p where p.treatment_location_code = @tloc_code))
+--		return 0
+--	declare @count int = (select count(*) from PATIENTS as p where p.treatment_location_code = @tloc_code)
+--	return @count
+--end
+--go
+
+--alter table dbo.TREATMENT_LOCATIONS
+--	add current_room as (dbo.fn_count_patients(treatment_location_code)) persisted
+--go
+
+--create or alter function dbo.fn_treatment_locations_chk_valid_figure(@tloc_code varchar(20))
+--returns varchar(10)
+--as begin
+--	declare @cr int, @capa int
+--	select @cr = current_room, @capa = capacity
+--		from TREATMENT_LOCATIONS as TLOC
+--		where TLOC.treatment_location_code = @tloc_code
+--	if (@capa >= @cr)
+--		return 'True'
+--	return 'False'
+--end 
+--go
+
+--alter table dbo.TREATMENT_LOCATIONS with check add constraint treatment_locations_chk_valid_figure check (dbo.fn_treatment_locations_chk_valid_figure(treatment_location_code) = 'True')
+--go
+
+--alter table dbo.TREATMENT_LOCATIONS with check add constraint treatment_locations_chk_valid_figure2 check (capacity >= current_room);
+--go
 
 alter table PATIENTS with check add constraint patients_fkey_to_login_infos foreign key (username) references LOGIN_INFOS(username)
 alter table PATIENTS with check add constraint patients_fkey_to_provinces foreign key (address_province_code) references PROVINCES(code)
