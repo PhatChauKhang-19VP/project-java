@@ -1,16 +1,20 @@
 package pck.java.fe.mainPage;
 
 import javafx.event.ActionEvent;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import pck.java.Index;
+import pck.java.database.DatabaseCommunication;
+import pck.java.database.InsertQuery;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Optional;
 
 public class createAdminAccController {
     public TextField usernameTextField;
     public PasswordField userPassword;
     public PasswordField userPassword1;
-    public Button btnSignIn;
+    public Button btnSignUp;
     public Label invalidDetails;
 
     protected
@@ -21,7 +25,7 @@ public class createAdminAccController {
 
     public void onBtnSignInClick(ActionEvent ae) throws InterruptedException {
 
-        if (ae.getSource() == btnSignIn) {
+        if (ae.getSource() == btnSignUp) {
             // In case the Username and Password fields are left blank then display the error message
             if (usernameTextField.getText().isBlank() || userPassword.getText().isBlank() || userPassword1.getText().isBlank()) {
                 invalidDetails.setStyle(errorMessage);
@@ -74,7 +78,62 @@ public class createAdminAccController {
                     userPassword.setStyle(successStyle);
                     userPassword1.setStyle(successStyle);
 
-                    invalidDetails.setText("Đăng nhập thành công.");
+                    DatabaseCommunication dbc = DatabaseCommunication.getInstance();
+                    InsertQuery iq = new InsertQuery();
+                    ArrayList<String> cols = new ArrayList<>() {
+                        {
+                            add("username");
+                            add("password");
+                            add("account_status");
+                            add("user_type");
+                        }
+                    };
+                    ArrayList<String> vals = new ArrayList<>() {
+                        {
+                            add("'" + usernameTextField.getText() + "'");
+                            add("'" + userPassword.getText() + "'");
+                            add("'ACTIVE'");
+                            add("'ADMIN'");
+                        }
+                    };
+                    iq.insertInto("LOGIN_INFOS").columns(cols).values(vals);
+
+                    try {
+                        dbc.execute(iq.getQuery());
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+
+                    iq.clear();
+                    cols = new ArrayList<>() {
+                        {
+                            add("username");
+                            add("name");
+                        }
+                    };
+                    vals = new ArrayList<>() {
+                        {
+                            add("'" + usernameTextField.getText() + "'");
+                            add("'" + usernameTextField.getText() + "'");
+                        }
+                    };
+                    iq.insertInto("ADMINS").columns(cols).values(vals);
+
+                    try {
+                        dbc.execute(iq.getQuery());
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Đăng ký tài khoản Admin");
+                    alert.setHeaderText("Bạn đã đăng ký thành công!");
+
+                    Optional<ButtonType> option = alert.showAndWait();
+
+                    if (option.isPresent() && option.get() == ButtonType.OK) {
+                        Index.getInstance().gotoAdminHomePage();
+                    }
                 }
             }
         }

@@ -1,12 +1,16 @@
 package pck.java.fe.mainPage;
 
 import javafx.event.ActionEvent;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
+import javafx.scene.control.*;
+import pck.java.Index;
+import pck.java.database.DatabaseCommunication;
+import pck.java.database.UpdateQuery;
+
+import java.sql.SQLException;
+import java.util.Optional;
 
 public class changeManagerPassController {
-    public PasswordField currentPassword;
+    public String username;
     public PasswordField newPassword;
     public PasswordField confirmPassword;
     public Button btnSignIn;
@@ -21,15 +25,9 @@ public class changeManagerPassController {
     public void onBtnSignInClick(ActionEvent ae) throws InterruptedException {
         if (ae.getSource() == btnSignIn) {
             // In case all the Password fields are left blank then display the error message
-            if (currentPassword.getText().isBlank() || newPassword.getText().isBlank() || confirmPassword.getText().isBlank()) {
+            if (newPassword.getText().isBlank() || confirmPassword.getText().isBlank()) {
                 invalidDetails.setStyle(errorMessage);
                 invalidDetails.setText("Mật khẩu không được bỏ trống!");
-
-                // When the current password are blank
-                if (currentPassword.getText().isBlank()) {
-                    currentPassword.setStyle(errorStyle);
-                    new animatefx.animation.Shake(currentPassword).play();
-                }
 
                 // When the new password are blank
                 if (newPassword.getText().isBlank()) {
@@ -56,14 +54,33 @@ public class changeManagerPassController {
                     confirmPassword.setStyle(errorStyle);
                     new animatefx.animation.Shake(confirmPassword).play();
                 }
-                // If all change password details are entered as required then display success message
+                // If all details are entered as required
+                // then display success message
                 else {
                     invalidDetails.setStyle(successMessage);
-                    currentPassword.setStyle(successStyle);
                     newPassword.setStyle(successStyle);
                     confirmPassword.setStyle(successStyle);
 
-                    invalidDetails.setText("Đổi mật khẩu thành công.");
+                    DatabaseCommunication dbc = DatabaseCommunication.getInstance();
+                    UpdateQuery uq = new UpdateQuery();
+                    uq.update("LOGIN_INFOS").set("password", "'" + newPassword.getText() + "'").where("username", "'" + username + "'");
+
+                    try {
+                        dbc.execute(uq.getQuery());
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Thông báo");
+                    alert.setHeaderText("Tạo mật khẩu thành công!");
+
+                    Optional<ButtonType> option = alert.showAndWait();
+
+                    if (option.isPresent() && option.get() == ButtonType.OK) {
+                        Index.getInstance().gotoSignIn();
+                    }
+                    invalidDetails.setText("Tạo mật khẩu thành công.");
                 }
             }
         }
