@@ -23,6 +23,9 @@ module pck.java {
     opens pck.java.be.app.user to javafx.base;
     exports pck.java.be.app.user;
 
+    opens pck.java.be.app.product to javafx.base;
+    exports pck.java.be.app.product;
+
     opens pck.java.fe.mainPage to javafx.fxml;
     exports pck.java.fe.mainPage;
 
