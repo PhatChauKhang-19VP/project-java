@@ -1,44 +1,31 @@
 package pck.java;
 
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.text.TextAlignment;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import org.kordamp.bootstrapfx.BootstrapFX;
 import pck.java.be.app.App;
-import pck.java.be.app.product.Product;
-import pck.java.database.DatabaseCommunication;
 import pck.java.be.app.product.Package;
-import pck.java.be.app.user.IUser;
-import pck.java.be.app.user.Manager;
-import pck.java.be.app.user.Patient;
 import pck.java.be.app.util.TreatmentLocation;
+import pck.java.database.DatabaseCommunication;
 import pck.java.database.SelectQuery;
 import pck.java.fe.mainPage.changeManagerPassController;
-import pck.java.fe.mainPage.loginPageController;
-import pck.java.fe.manager.ManagePatientInfoController;
+import pck.java.fe.manager.modal.ViewPackageDetailsController;
 import pck.java.fe.patient.BuyPackageController;
 import pck.java.fe.patient.CartController;
 import pck.java.fe.utils.LineNumbersCellFactory;
 import pck.java.fe.utils.PackagePane;
-import pck.java.fe.utils.PackagePaneManager;
-import pck.java.fe.utils.ProductPane;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -102,7 +89,7 @@ public class Index extends Application {
     public void gotoCreateAdminAccount() {
         try {
             replaceSceneContent("mainPage.createAdminAccount.fxml");
-        } catch (Exception ex)  {
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
@@ -226,6 +213,16 @@ public class Index extends Application {
         }
     }
 
+    public void gotoPackageDetails(String packageID) {
+        try {
+            ViewPackageDetailsController ctrl = new ViewPackageDetailsController();
+            ctrl.setPackageID(packageID);
+            replaceSceneContent("manager.modalMngrPkgDetails.fxml");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
     public void gotoManagerPackages() {
         try {
             replaceSceneContent("manager.managePackages.fxml");
@@ -298,7 +295,7 @@ public class Index extends Application {
 
             int row = 0, col = 0;
 
-            for(String key : App.getInstance().getProductManagement().getOrderList().keySet()) {
+            for (String key : App.getInstance().getProductManagement().getOrderList().keySet()) {
                 System.out.println(App.getInstance().getProductManagement().getOrderList().get(key).getPackageList());
             }
         } catch (Exception ex) {

@@ -24,23 +24,23 @@ public class Product {
     }
 
     public String getId() {
-        return id;
+        return this.id;
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public String getImgSrc() {
-        return imgSrc;
+        return this.imgSrc;
     }
 
     public String getUnit() {
-        return unit;
+        return this.unit;
     }
 
     public double getPrice() {
-        return price;
+        return this.price;
     }
 
     public void setPrice(double price) {

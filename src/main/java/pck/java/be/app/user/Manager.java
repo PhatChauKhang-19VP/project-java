@@ -292,6 +292,31 @@ public class Manager extends UserDecorator {
         return App.getInstance().getProductManagement().getProductList();
     }
 
+    public HashMap<String, Product> getProductsInPackage(String packageID) {
+        HashMap<String, Product> hm = new HashMap<>();
+        try {
+            DatabaseCommunication dbc = DatabaseCommunication.getInstance();
+            SelectQuery selectProducts = new SelectQuery();
+            selectProducts
+                    .select("*")
+                    .from("PRODUCTS pr join PRODUCTS_IN_PACKAGES pkg on pr.product_id = pkg.product_id")
+                    .where("pkg.package_id = '" + packageID + "'");
+
+            List<Map<String, Object>> rs = dbc.executeQuery(selectProducts.getQuery());
+            rs.forEach(map -> {
+                String id = String.valueOf(map.get("product_id")),
+                        name = String.valueOf(map.get("name")),
+                        img_src = String.valueOf(map.get("img_src")),
+                        unit = String.valueOf(map.get("unit"));
+                double price = (double) map.get("price");
+                hm.put(id, new Product(id, name, img_src, unit, price));
+            });
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return hm;
+    }
+
     public HashMap<String, Patient> getPatients() {
         HashMap<String, Patient> patientList = new HashMap<>();
         try {
