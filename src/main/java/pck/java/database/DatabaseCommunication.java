@@ -20,7 +20,7 @@ public class DatabaseCommunication {
     private Connection conn;
     private Statement stmt;
     private static final String user = "sa";
-    private static final String password = "1";
+    private static final String password = "Thoai1234";
 
     private DatabaseCommunication() {
     }
