@@ -1,7 +1,7 @@
-package transaction;
+package pck.java.be.transaction;
 
-import cyptography.RSA;
-import cyptography.StructClass;
+import pck.java.be.cryptography.StructClass;
+import pck.java.be.cryptography.RSA;
 
 import java.io.*;
 import java.net.Socket;
