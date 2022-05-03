@@ -25,6 +25,9 @@ import pck.java.be.app.user.IUser;
 import pck.java.be.app.user.Manager;
 import pck.java.be.app.user.Patient;
 import pck.java.be.app.util.TreatmentLocation;
+import pck.java.database.SelectQuery;
+import pck.java.fe.mainPage.changeManagerPassController;
+import pck.java.fe.mainPage.loginPageController;
 import pck.java.fe.manager.ManagePatientInfoController;
 import pck.java.fe.patient.BuyPackageController;
 import pck.java.fe.patient.CartController;
@@ -34,7 +37,10 @@ import pck.java.fe.utils.PackagePaneManager;
 import pck.java.fe.utils.ProductPane;
 
 import java.io.IOException;
-import java.util.Objects;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Index extends Application {
     private static Index instance;
@@ -60,13 +66,15 @@ public class Index extends Application {
     public void start(Stage primaryStage) {
         try {
             stage = primaryStage;
-
-            test();
-            //gotoSignIn();
-            //gotoAdminHomePage();
-            //gotoManagerHomePage();
-            //gotoPatientHomePage();
-
+            DatabaseCommunication dbc = DatabaseCommunication.getInstance();
+            SelectQuery sq = new SelectQuery();
+            sq.select("1").from("login_infos");
+            List<Map<String, Object>> rs = dbc.executeQuery(sq.getQuery());
+            if (rs.size() == 0) {
+                gotoCreateAdminAccount();
+            } else {
+                gotoSignIn();
+            }
             primaryStage.show();
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -82,6 +90,7 @@ public class Index extends Application {
         return loader;
     }
 
+    // mainPage
     public void gotoSignIn() {
         try {
             replaceSceneContent("mainPage.loginPage.fxml");
@@ -93,6 +102,24 @@ public class Index extends Application {
     public void gotoCreateAdminAccount() {
         try {
             replaceSceneContent("mainPage.createAdminAccount.fxml");
+        } catch (Exception ex)  {
+            ex.printStackTrace();
+        }
+    }
+
+    public void gotoFirstStart() {
+        try {
+            replaceSceneContent("mainPage.firstStart.fxml");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void gotoChangeManagerPassword(String username) {
+        try {
+            replaceSceneContent("mainPage.changeManagerPassword.fxml");
+            changeManagerPassController ctrl = loader.getController();
+            ctrl.username = username;
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -118,50 +145,6 @@ public class Index extends Application {
     public void gotoManageManagerAccount() {
         try {
             replaceSceneContent("admin.manageManagerAccount.fxml");
-            pck.java.fe.admin.ManageManagerAccController controller = loader.getController();
-
-            DatabaseCommunication.getInstance().loadManagers();
-            controller.colNO.setCellFactory(new LineNumbersCellFactory<>());
-            controller.colUsername.setCellValueFactory(new PropertyValueFactory<Manager, String>("username"));
-            controller.colName.setCellValueFactory(new PropertyValueFactory<Manager, String>("name"));
-            Callback<TableColumn<Manager, String>, TableCell<Manager, String>> cellFactory
-                    =
-                    new Callback<>() {
-                        @Override
-                        public TableCell call(final TableColumn<Manager, String> param) {
-                            final TableCell<Manager, String> cell = new TableCell<Manager, String>() {
-
-                                final Button btn = new Button("Khoá tài khoản");
-
-                                @Override
-                                public void updateItem(String item, boolean empty) {
-                                    super.updateItem(item, empty);
-                                    if (empty) {
-                                        setGraphic(null);
-                                        setText(null);
-                                    } else {
-                                        btn.setOnAction(event -> {
-                                            System.out.println(getClass() + "btn ban manager click");
-                                        });
-                                        btn.getStyleClass().addAll("btn", "btn-danger");
-                                        setGraphic(btn);
-                                        setText(null);
-                                    }
-                                }
-                            };
-                            return cell;
-                        }
-                    };
-            controller.colBtn.setCellFactory(cellFactory);
-            //DatabaseCommunication.getInstance().loadManagers();
-
-            for (String key : App.getInstance().getUserList().keySet()) {
-                IUser iu = App.getInstance().getUserList().get(key);
-
-                if (iu.getRole() == IUser.Role.MANAGER) {
-                    controller.tableViewManager.getItems().add((Manager) iu);
-                }
-            }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -230,97 +213,6 @@ public class Index extends Application {
     public void gotoManagePatientInfo() {
         try {
             replaceSceneContent("manager.managePatientInfo.fxml");
-            ManagePatientInfoController controller = loader.getController();
-
-            DatabaseCommunication.getInstance().loadPatients();
-            DatabaseCommunication.getInstance().loadTreatmentLocations();
-
-            TableView tableView = controller.tableViewPatient;
-
-            tableView.setRowFactory(param -> {
-                return new TableRow() {
-                    @Override
-                    public void updateIndex(int i) {
-                        super.updateIndex(i);
-                        setTextAlignment(TextAlignment.JUSTIFY);
-                        setMinHeight(70);
-                    }
-                };
-            });
-
-            controller.colNO.setCellFactory(new LineNumbersCellFactory<>());
-            controller.colName.setCellValueFactory(new PropertyValueFactory<Patient, String>("name"));
-            controller.colUsername.setCellValueFactory(new PropertyValueFactory<Patient, String>("username"));
-            controller.colDob.setCellValueFactory(new PropertyValueFactory<Patient, String>("dobAsString"));
-            controller.colAddress.setCellValueFactory(new PropertyValueFactory<Patient, String>("addressAsString"));
-            controller.colStatus.setCellValueFactory(new PropertyValueFactory<Patient, String>("statusAsString"));
-            controller.colTLoc.setCellValueFactory(new PropertyValueFactory<Patient, String>("treatmentLocationAsString"));
-
-            Callback<TableColumn<Patient, String>, TableCell<Patient, String>> cellFactoryMod
-                    =
-                    new Callback<>() {
-                        @Override
-                        public TableCell call(final TableColumn<Patient, String> param) {
-                            final TableCell<Patient, String> cell = new TableCell<>() {
-
-                                final Button btn = new Button("Sửa");
-
-                                @Override
-                                public void updateItem(String item, boolean empty) {
-                                    super.updateItem(item, empty);
-                                    if (empty) {
-                                        setGraphic(null);
-                                        setText(null);
-                                    } else {
-                                        btn.setOnAction(event -> {
-                                            System.out.println(getClass() + "btn mod Patient click");
-                                        });
-                                        btn.getStyleClass().addAll("btn", "btn-info");
-                                        setGraphic(btn);
-                                        setText(null);
-                                    }
-                                }
-                            };
-                            return cell;
-                        }
-                    };
-            controller.colBtnMod.setCellFactory(cellFactoryMod);
-
-            Callback<TableColumn<Patient, String>, TableCell<Patient, String>> cellFactoryDel
-                    =
-                    new Callback<>() {
-                        @Override
-                        public TableCell call(final TableColumn<Patient, String> param) {
-                            final TableCell<Patient, String> cell = new TableCell<>() {
-
-                                final Button btn = new Button("Xóa");
-
-                                @Override
-                                public void updateItem(String item, boolean empty) {
-                                    super.updateItem(item, empty);
-                                    if (empty) {
-                                        setGraphic(null);
-                                        setText(null);
-                                    } else {
-                                        btn.setOnAction(event -> {
-                                            System.out.println(getClass() + "btn ban Patient click");
-                                        });
-                                        btn.getStyleClass().addAll("btn", "btn-danger");
-                                        setGraphic(btn);
-                                        setText(null);
-                                    }
-                                }
-                            };
-                            return cell;
-                        }
-                    };
-            controller.colBtnDel.setCellFactory(cellFactoryDel);
-
-            for (String key : App.getInstance().getUserList().keySet()) {
-                if (App.getInstance().getUserList().get(key).getRole() == IUser.Role.PATIENT) {
-                    tableView.getItems().add(App.getInstance().getUserList().get(key));
-                }
-            }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -329,103 +221,6 @@ public class Index extends Application {
     public void gotoManagerProducts() {
         try {
             replaceSceneContent("manager.manageProducts.fxml");
-            pck.java.fe.manager.ManageProductsController controller = loader.getController();
-
-            GridPane gp = controller.gridPaneProduct;
-
-            int row = 0, col = 0;
-            for (String key : App.getInstance().getProductManagement().getProductList().keySet()) {
-                Product product = App.getInstance().getProductManagement().getProductList().get(key);
-
-                if (product.getImgSrc().contains("http")) {
-                    ProductPane productPane = new ProductPane(product);
-
-                    Pane pTemp = productPane.getPane();
-
-                    GridPane.setConstraints(pTemp, col, row);
-                    gp.getChildren().add(pTemp);
-                    col += 1;
-                    if (col == 4) {
-                        col = 0;
-                        row += 1;
-                    }
-                }
-            }
-
-            controller.btnAddProd.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent mouseEvent) {
-                    try {
-                        System.out.println(getClass() + "btn add prod clicked");
-                        Stage modalAddProd = new Stage();
-                        FXMLLoader loader = new FXMLLoader(Index.class.getResource("manager.modalMngrAddProd.fxml"), null, new JavaFXBuilderFactory());
-                        Parent root = loader.load();
-                        modalAddProd.initOwner(getInstance().stage);
-                        modalAddProd.setScene(new Scene(root));
-                        modalAddProd.setTitle("Thêm nhu yếu phẩm");
-                        modalAddProd.initModality(Modality.APPLICATION_MODAL);
-
-                        modalAddProd.getIcons().add(new Image("https://res.cloudinary.com/phatchaukhang/image/upload/v1649255070/HQTCSDL/Icon/icon-shop_d9bmh0.png"));
-                        modalAddProd.getScene().getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
-                        modalAddProd.setResizable(false);
-                        modalAddProd.setFullScreen(false);
-                        modalAddProd.sizeToScene();
-                        modalAddProd.show();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-//
-//            controller.btnAddPkg.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-//                @Override
-//                public void handle(MouseEvent mouseEvent) {
-//                    try {
-//                        System.out.println(getClass() + "btn add pkg clicked");
-//                        Stage modalAddProd = new Stage();
-//                        FXMLLoader loader = new FXMLLoader(Index.class.getResource("manager.modalMngrAddPkg.fxml"), null, new JavaFXBuilderFactory());
-//                        Parent root = loader.load();
-//                        modalAddProd.initOwner(getInstance().stage);
-//                        modalAddProd.setScene(new Scene(root));
-//                        modalAddProd.setTitle("Thêm gói nhu yếu phẩm");
-//                        modalAddProd.initModality(Modality.APPLICATION_MODAL);
-//
-//                        modalAddProd.getIcons().add(new Image("https://res.cloudinary.com/phatchaukhang/image/upload/v1649255070/HQTCSDL/Icon/icon-shop_d9bmh0.png"));
-//                        modalAddProd.getScene().getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
-//                        modalAddProd.setResizable(false);
-//                        modalAddProd.setFullScreen(false);
-//                        modalAddProd.sizeToScene();
-//                        modalAddProd.show();
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            });
-//
-//            controller.btnDEBUGmodPkg.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-//                @Override
-//                public void handle(MouseEvent mouseEvent) {
-//                    try {
-//                        System.out.println(getClass() + "btn mod pkg clicked");
-//                        Stage modalAddProd = new Stage();
-//                        FXMLLoader loader = new FXMLLoader(Index.class.getResource("manager.modalMngrModPkg.fxml"), null, new JavaFXBuilderFactory());
-//                        Parent root = loader.load();
-//                        modalAddProd.initOwner(getInstance().stage);
-//                        modalAddProd.setScene(new Scene(root));
-//                        modalAddProd.setTitle("Chỉnh sửa gói nhu yếu phẩm");
-//                        modalAddProd.initModality(Modality.APPLICATION_MODAL);
-//
-//                        modalAddProd.getIcons().add(new Image("https://res.cloudinary.com/phatchaukhang/image/upload/v1649255070/HQTCSDL/Icon/icon-shop_d9bmh0.png"));
-//                        modalAddProd.getScene().getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
-//                        modalAddProd.setResizable(false);
-//                        modalAddProd.setFullScreen(false);
-//                        modalAddProd.sizeToScene();
-//                        modalAddProd.show();
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            });
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -434,85 +229,13 @@ public class Index extends Application {
     public void gotoManagerPackages() {
         try {
             replaceSceneContent("manager.managePackages.fxml");
-            pck.java.fe.manager.ManagePackagesController controller = loader.getController();
-
-            GridPane gp = controller.gridPanePackage;
-
-            int row = 0, col = 0;
-            for (String key : App.getInstance().getProductManagement().getPackageList().keySet()) {
-                Package pkg = App.getInstance().getProductManagement().getPackageList().get(key);
-
-                if (pkg.getImg_src().contains("http")) {
-                    PackagePaneManager packagePane = new PackagePaneManager(pkg);
-
-                    Pane pTemp = packagePane.getPane();
-
-                    GridPane.setConstraints(pTemp, col, row);
-                    gp.getChildren().add(pTemp);
-                    col += 1;
-                    if (col == 4) {
-                        col = 0;
-                        row += 1;
-                    }
-                }
-            }
-
-            controller.btnAddPkg.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent mouseEvent) {
-                    try {
-                        System.out.println(getClass() + "btn add pkg clicked");
-                        Stage modalAddProd = new Stage();
-                        FXMLLoader loader = new FXMLLoader(Index.class.getResource("manager.modalMngrAddPkg.fxml"), null, new JavaFXBuilderFactory());
-                        Parent root = loader.load();
-                        modalAddProd.initOwner(getInstance().stage);
-                        modalAddProd.setScene(new Scene(root));
-                        modalAddProd.setTitle("Thêm gói nhu yếu phẩm");
-                        modalAddProd.initModality(Modality.APPLICATION_MODAL);
-
-                        modalAddProd.getIcons().add(new Image("https://res.cloudinary.com/phatchaukhang/image/upload/v1649255070/HQTCSDL/Icon/icon-shop_d9bmh0.png"));
-                        modalAddProd.getScene().getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
-                        modalAddProd.setResizable(false);
-                        modalAddProd.setFullScreen(false);
-                        modalAddProd.sizeToScene();
-                        modalAddProd.show();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-
-            controller.btnDEBUGmodPkg.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent mouseEvent) {
-                    try {
-                        System.out.println(getClass() + "btn mod pkg clicked");
-                        Stage modalAddProd = new Stage();
-                        FXMLLoader loader = new FXMLLoader(Index.class.getResource("manager.modalMngrModPkg.fxml"), null, new JavaFXBuilderFactory());
-                        Parent root = loader.load();
-                        modalAddProd.initOwner(getInstance().stage);
-                        modalAddProd.setScene(new Scene(root));
-                        modalAddProd.setTitle("Chỉnh sửa gói nhu yếu phẩm");
-                        modalAddProd.initModality(Modality.APPLICATION_MODAL);
-
-                        modalAddProd.getIcons().add(new Image("https://res.cloudinary.com/phatchaukhang/image/upload/v1649255070/HQTCSDL/Icon/icon-shop_d9bmh0.png"));
-                        modalAddProd.getScene().getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
-                        modalAddProd.setResizable(false);
-                        modalAddProd.setFullScreen(false);
-                        modalAddProd.sizeToScene();
-                        modalAddProd.show();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 
     //Patient
-    public void gotoPatientHomePage() throws Exception {
+    public void gotoPatientHomePage() {
         try {
             replaceSceneContent("patient.homePage.fxml");
         } catch (Exception ex) {
