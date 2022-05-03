@@ -1,17 +1,15 @@
 package pck.java.fe.utils;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.TextAlignment;
+import pck.java.Index;
 import pck.java.be.app.product.Package;
 
 public class PackagePaneManager {
@@ -25,8 +23,8 @@ public class PackagePaneManager {
 
         pane = new Pane();
         //pane.setBorder(ne);
-        pane.setMinSize(252, 320);
-        pane.setPrefSize(252, 320);
+        pane.setMinSize(252, 350);
+        pane.setPrefSize(252, 350);
 
 //        pane.setBorder(new Border(new BorderStroke(Color.BLACK,
 //                BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
@@ -62,20 +60,29 @@ public class PackagePaneManager {
         pane.getChildren().add(packagePrice);
 
         // pane > btnAddProd
-        Button btnDetailProd = new Button("Xem chi tiết");
-        btnDetailProd.setAlignment(Pos.CENTER);
-        btnDetailProd.setPrefSize(120, 25);
-        btnDetailProd.setLayoutX(66);
-        btnDetailProd.setLayoutY(280);
-        pane.getChildren().add(btnDetailProd);
+        Button btnDetailPackage = new Button("Xem chi tiết");
+        btnDetailPackage.setAlignment(Pos.CENTER);
+        btnDetailPackage.setPrefSize(120, 25);
+        btnDetailPackage.setLayoutX(66);
+        btnDetailPackage.setLayoutY(280);
+        pane.getChildren().add(btnDetailPackage);
 
-        btnDetailProd.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+        btnDetailPackage.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 System.out.println(getClass() + " pakages detail");
-                // todo: show package detail
+                Index.getInstance().gotoPackageDetails(pkg.getId());
             }
         });
+
+        // pane > btnModProd
+        Button btnModPackage = new Button("Chỉnh sửa");
+        btnModPackage.setAlignment(Pos.CENTER);
+        btnModPackage.setPrefSize(120, 25);
+        btnModPackage.setLayoutX(66);
+        btnModPackage.setLayoutY(310);
+        pane.getChildren().add(btnModPackage);
+
     }
 
     public Pane getPane() {

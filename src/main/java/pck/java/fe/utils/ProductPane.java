@@ -1,31 +1,32 @@
 package pck.java.fe.utils;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.kordamp.bootstrapfx.BootstrapFX;
 import pck.java.Index;
-import pck.java.be.app.product.Package;
 import pck.java.be.app.product.Product;
+import pck.java.database.DatabaseCommunication;
+import pck.java.database.DeleteQuery;
+import pck.java.fe.manager.modal.ModProdController;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.Optional;
 
 public class ProductPane {
     private static final String iconMinusURL = "https://res.cloudinary.com/phatchaukhang/image/upload/v1649646897/HQTCSDL/Icon/minus-button_ukufql.png";
@@ -90,6 +91,12 @@ public class ProductPane {
                     Parent root = loader.load();
                     modalModProd.initOwner(Index.getInstance().getStage());
                     modalModProd.setScene(new Scene(root));
+                    ModProdController ctrl = loader.getController();
+                    ctrl.setProduct(product);
+                    ctrl.prodUnit.setValue(product.getUnit());
+                    ctrl.imageView.setImage(new Image(product.getImgSrc()));
+                    ctrl.prodName.setText(product.getName());
+                    ctrl.prodPrice.setText(String.valueOf(product.getPrice()));
                     modalModProd.setTitle("Sửa thông tin nhu yếu phẩm");
                     modalModProd.initModality(Modality.APPLICATION_MODAL);
 
@@ -114,6 +121,37 @@ public class ProductPane {
         btnDelProd.setLayoutY(260);
         btnDelProd.getStyleClass().addAll("btn", "btn-danger");
         pane.getChildren().add(btnDelProd);
+
+        btnDelProd.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                System.out.println(getClass() + "btn del prod clicked");
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Thông báo");
+                alert.setHeaderText("Xác nhận xoá sản phẩm " + product.getName() + "?");
+
+                Optional<ButtonType> option = alert.showAndWait();
+
+                if (option.isPresent() && option.get() == ButtonType.OK) {
+                    try {
+                        DatabaseCommunication dbc = DatabaseCommunication.getInstance();
+                        DeleteQuery dq = new DeleteQuery();
+                        dq.deleteFrom("PRODUCTS_IN_PACKAGES").where("product_id='" + product.getId() + "'");
+                        dbc.execute(dq.getQuery());
+                        try {
+                            dq.clear();
+                            dq.deleteFrom("PRODUCTS").where("product_id='" + product.getId() + "'");
+                            dbc.execute(dq.getQuery());
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                            throw e;
+                        }
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
     }
 
     public Pane getPane() {
