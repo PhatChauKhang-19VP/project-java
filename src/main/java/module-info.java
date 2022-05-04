@@ -14,6 +14,8 @@ module pck.java {
     requires java.sql;
     requires mssql.jdbc;
     requires AnimateFX;
+    requires cloudinary.http42;
+    requires cloudinary.core;
 
     opens pck.java to javafx.base;
     exports pck.java;
