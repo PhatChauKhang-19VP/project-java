@@ -1,5 +1,7 @@
 package pck.java.fe.manager.modal;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
@@ -14,12 +16,10 @@ import pck.java.database.DatabaseCommunication;
 import pck.java.database.InsertQuery;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Optional;
-import java.util.Random;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class AddProdController implements Initializable {
     public TextField prodName;
@@ -39,6 +39,10 @@ public class AddProdController implements Initializable {
     String errorMessage = String.format("-fx-text-fill: RED;");
     String errorStyle = String.format("-fx-border-color: RED; -fx-border-width: 2; -fx-border-radius: 5;");
     String successStyle = String.format("-fx-border-color: #A9A9A9; -fx-border-width: 2; -fx-border-radius: 5;");
+
+    private boolean isNumeric(String str) {
+        return str.matches("-?\\d+(\\.\\d+)?");  //match a number with optional '-' and decimal.
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -76,10 +80,11 @@ public class AddProdController implements Initializable {
                 prodPrice.setStyle(errorStyle);
                 invalidDetails.setStyle(errorMessage);
                 new animatefx.animation.Shake(prodPrice).play();
-            } else if (Double.valueOf(prodPrice.getText()) <= 0) {
+            } else if (!isNumeric(prodPrice.getText()) || Double.valueOf(prodPrice.getText()) <= 0) {
                 required = false;
                 prodPrice.setStyle(errorStyle);
                 invalidDetails.setStyle(errorMessage);
+                invalidDetails.setText("Vui lòng điền thông tin hợp lệ.");
                 new animatefx.animation.Shake(prodPrice).play();
             } else {
                 prodPrice.setStyle(successStyle);
@@ -90,10 +95,11 @@ public class AddProdController implements Initializable {
                 quantity.setStyle(errorStyle);
                 invalidDetails.setStyle(errorMessage);
                 new animatefx.animation.Shake(quantity).play();
-            } else if (Integer.valueOf(quantity.getText()) <= 0) {
+            } else if (!isNumeric(quantity.getText()) || Integer.valueOf(quantity.getText()) <= 0) {
                 required = false;
                 quantity.setStyle(errorStyle);
                 invalidDetails.setStyle(errorMessage);
+                invalidDetails.setText("Vui lòng điền thông tin hợp lệ.");
                 new animatefx.animation.Shake(quantity).play();
             } else {
                 quantity.setStyle(successStyle);
@@ -142,6 +148,17 @@ public class AddProdController implements Initializable {
                             .toString();
                 } while (App.getInstance().getProductManagement().getProductList().containsKey(productID));
 
+                Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
+                        "cloud_name", "phatchaukhang",
+                        "api_key", "471685925227765",
+                        "api_secret", "L--pAliKsFYLbtu2pXa_mAeZQio"));
+                try {
+                    Map uploader = cloudinary.uploader().upload(new File(imgSrc), ObjectUtils.emptyMap());
+                    imgSrc = (String) uploader.get("secure_url");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                
                 ArrayList<String> cols = new ArrayList<>();
                 cols.add("product_id");
                 cols.add("name");

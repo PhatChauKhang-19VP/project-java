@@ -38,6 +38,10 @@ public class ModProdController implements Initializable {
     String errorStyle = String.format("-fx-border-color: RED; -fx-border-width: 2; -fx-border-radius: 5;");
     String successStyle = String.format("-fx-border-color: #A9A9A9; -fx-border-width: 2; -fx-border-radius: 5;");
 
+    private boolean isNumeric(String str) {
+        return str.matches("-?\\d+(\\.\\d+)?");  //match a number with optional '-' and decimal.
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         prodUnit.getItems().addAll(App.getInstance().getProductUnitList());
@@ -62,7 +66,7 @@ public class ModProdController implements Initializable {
     public void onBtnUpdateProductClicked(ActionEvent ae) {
         boolean required = false;
         if (ae.getSource() == btnUpdateProduct) {
-            if (Double.valueOf(prodPrice.getText()) <= 0) {
+            if (!isNumeric(prodPrice.getText()) || Double.valueOf(prodPrice.getText()) <= 0) {
                 required = false;
                 prodPrice.setStyle(errorStyle);
                 invalidDetails.setStyle(errorMessage);
