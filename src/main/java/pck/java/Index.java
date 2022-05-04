@@ -223,6 +223,14 @@ public class Index extends Application {
         }
     }
 
+    public void gotoAddProdToPkg() {
+        try {
+            replaceSceneContent("manager.modalMngrAddProdToPkg.fxml");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
     public void gotoManagerPackages() {
         try {
             replaceSceneContent("manager.managePackages.fxml");
