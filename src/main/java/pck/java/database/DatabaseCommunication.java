@@ -273,6 +273,10 @@ public class DatabaseCommunication {
     public boolean loadProductsAndPackages() {
         // load products
         try {
+            App.getInstance()
+                    .getProductManagement().getProductList().clear();
+            App.getInstance()
+                    .getProductManagement().getPackageList().clear();
             SelectQuery selectProducts = new SelectQuery();
             selectProducts
                     .select("*")
