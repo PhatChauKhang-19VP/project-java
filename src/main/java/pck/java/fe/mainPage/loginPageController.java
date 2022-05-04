@@ -1,6 +1,5 @@
 package pck.java.fe.mainPage;
 
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
@@ -11,9 +10,10 @@ import pck.java.database.DatabaseCommunication;
 import pck.java.database.SelectQuery;
 
 import java.sql.SQLException;
-import java.util.*;
-
-import static java.lang.Thread.sleep;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 
 public class loginPageController {
     public TextField usernameTextField;
@@ -41,14 +41,13 @@ public class loginPageController {
             if (Objects.equals(temp, username)) {
                 if (iu.getRole() == IUser.Role.ADMIN) {
                     pck.java.Index.getInstance().gotoAdminHomePage();
-                } else if (iu.getRole()  == IUser.Role.MANAGER) {
+                } else if (iu.getRole() == IUser.Role.MANAGER) {
                     pck.java.Index.getInstance().gotoManagerHomePage();
-                } else if (iu.getRole()  == IUser.Role.PATIENT) {
+                } else if (iu.getRole() == IUser.Role.PATIENT) {
                     pck.java.Index.getInstance().gotoPatientHomePage();
                 }
                 break;
-            }
-            else {
+            } else {
                 invalidDetails.setText("Tên đăng nhập không tồn tại!");
                 invalidDetails.setStyle(errorMessage);
                 usernameTextField.setStyle(errorStyle);
@@ -58,19 +57,18 @@ public class loginPageController {
     }
 
     public void onBtnContinueClick(ActionEvent ae) throws InterruptedException {
-        if(ae.getSource() == btnContinue) {
+        if (ae.getSource() == btnContinue) {
             if (usernameTextField.getText().isBlank()) {
                 invalidDetails1.setText("Tên tài khoản không được bỏ trống!");
                 usernameTextField.setStyle(errorStyle);
                 invalidDetails1.setStyle(errorMessage);
                 new animatefx.animation.Shake(usernameTextField).play();
-            }
-            else {
+            } else {
                 DatabaseCommunication dbc = DatabaseCommunication.getInstance();
                 SelectQuery sq = new SelectQuery();
 
                 sq.select("*").from("LOGIN_INFOS")
-                        .where("username='"+usernameTextField.getText()+"'")
+                        .where("username='" + usernameTextField.getText() + "'")
                         .where("user_type='MANAGER'")
                         .where("password is NULL");
 
@@ -95,15 +93,18 @@ public class loginPageController {
         try {
             DatabaseCommunication dbc = DatabaseCommunication.getInstance();
             SelectQuery sq = new SelectQuery();
-            sq.select("*").from("LOGIN_INFOS").where("username", "'"+username+"'")
-                    .where("password", "'"+password+"'").where("account_status='ACTIVE'");
+            sq.select("*").from("LOGIN_INFOS").where("username", "'" + username + "'")
+                    .where("password", "HASHBYTES('SHA2_512', '" + password + "')").where("account_status='ACTIVE'");
+
+            System.out.println(sq.getQuery());
+
             List<Map<String, Object>> rs = dbc.executeQuery(sq.getQuery());
             if (rs.size() == 0) {
                 return false;
             }
 
             Map<String, Object> map = rs.get(0);
-            switch(String.valueOf(map.get("user_type"))) {
+            switch (String.valueOf(map.get("user_type"))) {
                 case "ADMIN":
                     Admin admin = Admin.getInstance();
                     admin.setUsername(username);
@@ -196,9 +197,9 @@ public class loginPageController {
                             IUser iu = App.getInstance().getCurrentUser();
                             if (iu.getRole() == IUser.Role.ADMIN) {
                                 pck.java.Index.getInstance().gotoAdminHomePage();
-                            } else if (iu.getRole()  == IUser.Role.MANAGER) {
+                            } else if (iu.getRole() == IUser.Role.MANAGER) {
                                 pck.java.Index.getInstance().gotoManagerHomePage();
-                            } else if (iu.getRole()  == IUser.Role.PATIENT) {
+                            } else if (iu.getRole() == IUser.Role.PATIENT) {
                                 pck.java.Index.getInstance().gotoPatientHomePage();
                             }
                         }

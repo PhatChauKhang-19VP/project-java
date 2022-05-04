@@ -1,16 +1,18 @@
 package pck.java.be.app.user;
 
+import pck.java.be.app.util.Location;
+import pck.java.be.app.util.TreatmentLocation;
 import pck.java.be.cryptography.RSA;
 import pck.java.be.cryptography.StructClass;
 import pck.java.database.DatabaseCommunication;
 import pck.java.database.SelectQuery;
-import pck.java.be.app.util.Location;
-import pck.java.be.app.util.TreatmentLocation;
+import pck.java.database.UpdateQuery;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.*;
@@ -21,6 +23,7 @@ public class Patient extends UserDecorator {
     private Location address;
     private TreatmentLocation treatmentLocation;
     private ArrayList<Patient> closeContacts;
+    private double debitBalance = 0;
 
     public Patient(IUser user) {
         super(user);
@@ -45,7 +48,7 @@ public class Patient extends UserDecorator {
         this.address = address;
         this.treatmentLocation = treatmentLocation;
 
-        if (this.treatmentLocation != null && !this.treatmentLocation.addPatient()) {
+        if (this.treatmentLocation != null && treatmentLocation.getCurrentRoom() == treatmentLocation.getCapacity()) {
             this.treatmentLocation = null;
         }
 
@@ -82,17 +85,12 @@ public class Patient extends UserDecorator {
      *
      * @return true if successfully purchase.
      */
-    public boolean payBill() {
+    public boolean payBill(String password, int amount) {
         try {
-            _payBill();
-        } catch (IOException e) {
+            return _payBill(password, amount);
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
             return false;
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-            return false;
-        } finally {
-            return true;
         }
     }
 
@@ -102,7 +100,7 @@ public class Patient extends UserDecorator {
      * @throws IOException
      * @throws InterruptedException
      */
-    private void _payBill() throws IOException, InterruptedException {
+    private boolean _payBill(String password, int amount) throws IOException, InterruptedException {
         String SERVER_IP = "127.0.0.1";
         int SERVER_PORT = 7;
 
@@ -115,15 +113,23 @@ public class Patient extends UserDecorator {
             HashMap<String, String> requestData = new HashMap<>();
             requestData.put("type", "paybill");
             requestData.put("username", this.getUsername());
-            requestData.put("amount", "100");
+            requestData.put("password", password);
+            requestData.put("amount", String.valueOf(amount));
 
             String request = StructClass.pack(requestData);
 
             sendRequest(socket, request);
             String response = receiveServerResponse(socket);
-            System.out.println("Response: " + response);
+
+            HashMap<String, String> responseData = StructClass.unpack(response);
+
+            System.out.println("Response: " + responseData);
+
+            return responseData.get("status").equals("success");
         } catch (IOException ioe) {
             System.out.println("Can’t connect to server");
+
+            return false;
         } finally {
             if (socket != null) {
                 socket.close();
@@ -135,20 +141,19 @@ public class Patient extends UserDecorator {
         return status;
     }
 
-    public String getStatusAsString() {
-       return "F" + status;
-    }
-
     public void setStatus(int status) {
         // add to history
         // format date to save update history
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         String date = formatter.format(new Date());
         String content = "Update status: " + this.status + " -> " + status;
         this.addRecord(date + " " + content);
+        DatabaseCommunication.getInstance().savePatientHistory(this,
+                "CHANGE_STATUS;Chuyển từ f" + this.status + " -> f" + status);
 
         // update status and close contacts' status
         this.status = status;
+        updatePatient();
         for (Patient contact : closeContacts) {
             if (contact.status > this.status) {
                 contact.setStatus(this.status + 1);
@@ -156,20 +161,45 @@ public class Patient extends UserDecorator {
         }
     }
 
-    public LocalDate getDob() {
-        return dob;
+    public String getStatusAsString() {
+        return "F" + status;
     }
 
-    public String getDobAsString() {
-        return dob.toString();
+    public boolean updatePatient() {
+        UpdateQuery uq = new UpdateQuery();
+
+        uq.update("PATIENTS")
+                .set("f_status = " + this.getStatus())
+                .where("username = '" + this.getUsername() + "'");
+
+        try {
+            DatabaseCommunication.getInstance().execute(uq.getQuery());
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
+    }
+
+    public LocalDate getDob() {
+        return dob;
     }
 
     public void setDob(LocalDate dob) {
         this.dob = dob;
     }
 
+    public String getDobAsString() {
+        return dob.toString();
+    }
+
     public Location getAddress() {
         return address;
+    }
+
+    public void setAddress(Location address) {
+        this.address = address;
     }
 
     public String getAddressAsString() {
@@ -177,10 +207,6 @@ public class Patient extends UserDecorator {
                 + address.getWard() + ",\n"
                 + address.getDistrict() + ",\n"
                 + address.getProvince();
-    }
-
-    public void setAddress(Location address) {
-        this.address = address;
     }
 
     public ArrayList<Patient> getCloseContacts() {
@@ -202,12 +228,12 @@ public class Patient extends UserDecorator {
         return treatmentLocation;
     }
 
-    public String getTreatmentLocationAsString() {
-        return treatmentLocation.toString();
-    }
-
     public void setTreatmentLocation(TreatmentLocation treatmentLocation) {
         this.treatmentLocation = treatmentLocation;
+    }
+
+    public String getTreatmentLocationAsString() {
+        return treatmentLocation.toString();
     }
 
     /**

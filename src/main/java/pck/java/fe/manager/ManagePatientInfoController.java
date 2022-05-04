@@ -5,23 +5,29 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.fxml.JavaFXBuilderFactory;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.text.TextAlignment;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.util.Callback;
-import javafx.util.Pair;
 import pck.java.Index;
 import pck.java.be.app.App;
 import pck.java.be.app.user.Manager;
 import pck.java.be.app.user.Patient;
 import pck.java.database.DatabaseCommunication;
+import pck.java.fe.manager.modal.ModPatientController;
 import pck.java.fe.utils.LineNumbersCellFactory;
 
-import java.net.URI;
+import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class ManagePatientInfoController implements Initializable {
@@ -38,6 +44,7 @@ public class ManagePatientInfoController implements Initializable {
     public TableColumn colBtnMod;
     public TableColumn colBtnDel;
     public TextField searchField;
+    public Button btnAddPatient;
 
     private final ObservableList<Patient> dataList = FXCollections.observableArrayList();
 
@@ -48,6 +55,7 @@ public class ManagePatientInfoController implements Initializable {
         HashMap<String, Patient> patientList = mng.getPatients();
 
         DatabaseCommunication.getInstance().loadTreatmentLocations();
+        System.out.println(App.getInstance().getTreatmentLocationList());
 
         TableView tableView = tableViewPatient;
 
@@ -88,6 +96,46 @@ public class ManagePatientInfoController implements Initializable {
                                 } else {
                                     btn.setOnAction(event -> {
                                         System.out.println(getClass() + "btn mod Patient click");
+
+                                        //show up modal mod patient
+                                        try {
+                                            System.out.println(getClass() + "btn add prod clicked");
+                                            Stage modalModPatient = new Stage();
+                                            FXMLLoader loader = new FXMLLoader(Index.class.getResource("manager.modalModPatient.fxml"), null, new JavaFXBuilderFactory());
+                                            Parent root = loader.load();
+
+                                            ModPatientController ctrl = loader.getController();
+                                            ctrl.patient = getTableView().getItems().get(getIndex());
+
+                                            ctrl.patient.showInfo();
+
+                                            ctrl.tfName.setText(ctrl.patient.getName());
+                                            ctrl.tfID.setText(ctrl.patient.getUsername());
+                                            ctrl.tfDob.setValue(ctrl.patient.getDob());
+                                            ctrl.tfFStat.setText(ctrl.patient.getStatusAsString());
+
+                                            ctrl.cbTloc.setValue(ctrl.patient.getTreatmentLocation());
+
+                                            ctrl.cbProvince.setValue(ctrl.patient.getAddress().getProvince());
+                                            ctrl.cbDistrict.setValue(ctrl.patient.getAddress().getDistrict());
+                                            ctrl.cbWard.setValue(ctrl.patient.getAddress().getWard());
+                                            ctrl.tfAL.setText(ctrl.patient.getAddress().getAddressLine());
+
+
+                                            modalModPatient.initOwner(Index.getInstance().getStage());
+                                            modalModPatient.setScene(new Scene(root));
+                                            modalModPatient.setTitle("Sửa thông tin bệnh nhân");
+                                            modalModPatient.initModality(Modality.APPLICATION_MODAL);
+
+                                            modalModPatient.getIcons().add(new Image("https://res.cloudinary.com/phatchaukhang/image/upload/v1649255070/HQTCSDL/Icon/icon-shop_d9bmh0.png"));
+                                            //modalModPatient.getScene().getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
+                                            modalModPatient.setResizable(false);
+                                            modalModPatient.setFullScreen(false);
+                                            modalModPatient.sizeToScene();
+                                            modalModPatient.show();
+                                        } catch (IOException e) {
+                                            e.printStackTrace();
+                                        }
                                     });
                                     btn.getStyleClass().addAll("btn", "btn-info");
                                     setGraphic(btn);
@@ -165,6 +213,12 @@ public class ManagePatientInfoController implements Initializable {
     public void onLogoutButtonCliked(ActionEvent actionEvent) {
         if (actionEvent.getSource() == logoutButton) {
             pck.java.Index.getInstance().gotoSignIn();
+        }
+    }
+
+    public void onBtnAddPatientClick(ActionEvent ae){
+        if (ae.getSource() == btnAddPatient){
+            Index.getInstance().gotoAddPatient();
         }
     }
 }

@@ -80,7 +80,7 @@ public class ManageProductsController implements Initializable {
         });
     }
 
-    public void onBackButtonCliked(ActionEvent actionEvent) throws Exception {
+    public void onBackButtonCliked(ActionEvent actionEvent) {
         if (actionEvent.getSource() == backButton) {
             Index.getInstance().gotoManagerHomePage();
         }
