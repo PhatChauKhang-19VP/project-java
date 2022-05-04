@@ -56,7 +56,7 @@ alter table WARDS add constraint wards_district_code_fkey FOREIGN KEY (district_
 
 create table LOGIN_INFOS (
 	username varchar(50) not null,
-	password varchar(128),
+	password BINARY(64),
 	account_status varchar(20) not null,
 	user_type varchar(20) not null,
 	constraint login_infos_pkey primary key (username),
@@ -277,7 +277,7 @@ alter table ORDERS_DETAILS with check add constraint orders_details_fkey_to_pack
 
 create table BANK_ACCOUNTS (
 	bank_account int identity(1,1) not null,
-	password varchar(128) null,
+	password BINARY(64) null,
 	belong_to_username varchar(50) not null,
 	balance float not null,
 	created_at datetime not null,
