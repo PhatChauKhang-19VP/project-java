@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pck.java.fe.manager.ManagePatientInfoController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pck.java.fe.manager.ManagePatientInfoController">
     <top>
         <Pane prefHeight="70.0" prefWidth="1024.0" style="-fx-background-color: A8ACFF;" BorderPane.alignment="CENTER">
             <Button fx:id="logoutButton" layoutX="964.0" layoutY="10.0" mnemonicParsing="false" onAction="#onLogoutButtonCliked" prefHeight="50.0" prefWidth="50.0">
@@ -55,18 +55,19 @@
                             <columns>
                                 <TableColumn fx:id="colNO" maxWidth="35.0" prefWidth="35.0" style="-fx-font-size: 14;" text="STT" />
                                 <TableColumn fx:id="colName" maxWidth="150.0" minWidth="100.0" prefWidth="150.0" resizable="false" style="-fx-font-size: 14;" text="Họ và tên" />
-                                <TableColumn fx:id="colUsername" maxWidth="130.0" minWidth="100.0" prefWidth="130.0" resizable="false" style="-fx-font-size: 14;" text="CMND/CCCD" />
+                                <TableColumn fx:id="colUsername" maxWidth="110.0" minWidth="100.0" prefWidth="110.0" resizable="false" style="-fx-font-size: 14;" text="CMND/CCCD" />
                                 <TableColumn fx:id="colDob" maxWidth="100.0" minWidth="70.0" prefWidth="100.0" resizable="false" style="-fx-font-size: 14;" text="Năm sinh" />
-                                <TableColumn fx:id="colAddress" maxWidth="400.0" minWidth="100.0" prefWidth="200.0" style="-fx-font-size: 14;" text="Địa chỉ nơi ở" />
-                                <TableColumn fx:id="colStatus" maxWidth="100.0" minWidth="20.0" prefWidth="100.0" resizable="false" style="-fx-font-size: 14;" text="Trạng thái" />
-                                <TableColumn fx:id="colTLoc" maxWidth="200.0" minWidth="100.0" prefWidth="200.0" resizable="false" style="-fx-font-size: 14;" text="Nơi điều trị/cách ly" />
+                                <TableColumn fx:id="colAddress" maxWidth="150.0" minWidth="100.0" prefWidth="150.0" style="-fx-font-size: 14;" text="Địa chỉ nơi ở" />
+                                <TableColumn fx:id="colStatus" maxWidth="80.0" minWidth="20.0" resizable="false" style="-fx-font-size: 14;" text="Trạng thái" />
+                                <TableColumn fx:id="colTLoc" maxWidth="180.0" minWidth="100.0" prefWidth="180.0" resizable="false" style="-fx-font-size: 14;" text="Nơi điều trị/cách ly" />
                                 <TableColumn fx:id="colBtnMod" maxWidth="45.0" prefWidth="45.0" resizable="false" />
                                 <TableColumn fx:id="colBtnDel" maxWidth="45.0" prefWidth="45.0" resizable="false" />
+                                <TableColumn fx:id="colBtnList" maxWidth="110.0" prefWidth="110.0" />
                             </columns>
                         </TableView>
                     </content>
                 </ScrollPane>
-                <Button layoutX="964.0" layoutY="90.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0">
+                <Button fx:id="btnAddPatient" layoutX="964.0" layoutY="90.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0">
                     <graphic>
                         <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                             <image>

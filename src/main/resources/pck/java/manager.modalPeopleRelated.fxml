@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
+            prefWidth="800.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="pck.java.fe.manager.modal.ShowPeopleRelated">
+    <children>
+        <Label layoutX="253.0" layoutY="23.0" style="-fx-font-size: 28; -fx-font-weight: 900;"
+               text="Danh sách người liên đới"/>
+        <Pane layoutY="90.0" prefHeight="512.0" prefWidth="800.0">
+            <children>
+                <ScrollPane prefHeight="512.0" prefWidth="800.0">
+                    <content>
+                        <TableView fx:id="tableViewList" prefHeight="512.0" prefWidth="784.0">
+                            <columns>
+                                <TableColumn fx:id="colNO" maxWidth="40.0" prefWidth="40.0" text="STT"/>
+                                <TableColumn fx:id="colName" maxWidth="130.0" prefWidth="130.0" text="Họ và tên"/>
+                                <TableColumn fx:id="colUsername" maxWidth="100.0" prefWidth="100.0" text="CMND/CCCD"/>
+                                <TableColumn fx:id="colDob" maxWidth="100.0" prefWidth="100.0" text="Năm sinh"/>
+                                <TableColumn fx:id="colAddress" maxWidth="180.0" prefWidth="180.0"
+                                             text="Địa chỉ nơi ở"/>
+                                <TableColumn fx:id="colStatus" prefWidth="75.0" text="Trạng thái"/>
+                                <TableColumn fx:id="colTLoc" maxWidth="160.0" prefWidth="160.0"
+                                             text="Nơi điều trị/cách ly"/>
+                            </columns>
+                        </TableView>
+                    </content>
+                </ScrollPane>
+            </children>
+        </Pane>
+    </children>
+</AnchorPane>

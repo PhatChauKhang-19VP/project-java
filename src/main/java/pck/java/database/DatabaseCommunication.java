@@ -355,7 +355,7 @@ public class DatabaseCommunication {
                 App.getInstance()
                         .getUserList()
                         .get(belong_to_username)
-                        .addRecord("[" + timestamp.toString() + "]" + history_content);
+                        .addRecord(timestamp.toString() + ";" + history_content);
             });
 
             return true;

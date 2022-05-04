@@ -44,7 +44,8 @@
                             mnemonicParsing="false" onAction="#onBuyPackageButtonCliked" prefHeight="50.0"
                             prefWidth="280.0" style="-fx-font-size: 24;" text="Mua gói nhu yếu phẩm"/>
                     <Button fx:id="cartButton" layoutX="304.0" layoutY="80.0" mnemonicParsing="false"
-                            prefHeight="50.0" prefWidth="280.0" style="-fx-font-size: 24;" text="Giỏ hàng"/>
+                            prefHeight="50.0" prefWidth="280.0" style="-fx-font-size: 24;" onAction="#onCartButtonCliked"
+                            text="Giỏ hàng"/>
                     <Button fx:id="payBalanceButton" layoutY="80.0" mnemonicParsing="false" prefHeight="50.0"
                             prefWidth="280.0" style="-fx-font-size: 24;" onAction="#onPayBalanceButtonCliked"
                             text="Thanh toán dư nợ"/>

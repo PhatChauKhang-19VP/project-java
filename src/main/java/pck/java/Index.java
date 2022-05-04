@@ -1,6 +1,8 @@
 package pck.java;
 
 import javafx.application.Application;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
@@ -18,7 +20,11 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import org.kordamp.bootstrapfx.BootstrapFX;
 import pck.java.be.app.App;
+import pck.java.be.app.product.Order;
 import pck.java.be.app.product.Product;
+import pck.java.be.app.util.History;
+import pck.java.be.app.util.HistoryDetail;
+import pck.java.be.app.util.Pair;
 import pck.java.database.DatabaseCommunication;
 import pck.java.be.app.product.Package;
 import pck.java.be.app.user.IUser;
@@ -26,15 +32,15 @@ import pck.java.be.app.user.Manager;
 import pck.java.be.app.user.Patient;
 import pck.java.be.app.util.TreatmentLocation;
 import pck.java.fe.manager.ManagePatientInfoController;
-import pck.java.fe.patient.BuyPackageController;
-import pck.java.fe.patient.CartController;
+import pck.java.fe.patient.*;
 import pck.java.fe.utils.LineNumbersCellFactory;
 import pck.java.fe.utils.PackagePane;
 import pck.java.fe.utils.PackagePaneManager;
 import pck.java.fe.utils.ProductPane;
 
 import java.io.IOException;
-import java.util.Objects;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Index extends Application {
     private static Index instance;
@@ -61,11 +67,11 @@ public class Index extends Application {
         try {
             stage = primaryStage;
 
-            test();
+            //test();
             //gotoSignIn();
             //gotoAdminHomePage();
             //gotoManagerHomePage();
-            //gotoPatientHomePage();
+            gotoPatientHomePage();
 
             primaryStage.show();
         } catch (Exception ex) {
@@ -321,6 +327,66 @@ public class Index extends Application {
                     tableView.getItems().add(App.getInstance().getUserList().get(key));
                 }
             }
+
+            Callback<TableColumn<Patient, String>, TableCell<Patient, String>> cellPane
+                    =
+                    new Callback<>() {
+                        @Override
+                        public TableCell<Patient, String> call(final TableColumn<Patient, String> param) {
+                            final TableCell<Patient, String> cell = new TableCell<>() {
+
+                                final Pane pane = new Pane();
+
+                                @Override
+                                public void updateItem(String item, boolean empty) {
+                                    super.updateItem(item, empty);
+                                    if (empty) {
+                                        setGraphic(null);
+                                        setText(null);
+                                    } else {
+                                        getTableView().getItems().get(getIndex());
+                                        Patient p = getTableView().getItems().get(getIndex());
+
+                                        Label lbl = new Label(p.getStatusAsString());
+                                        // todo set size, color
+
+                                        Button btn = new Button("Xem danh sách\nngười liên đới");
+                                        // todo set size, color
+
+                                        btn.setOnAction((event) -> {
+                                            Stage modalPeopleRelated = new Stage();
+                                            FXMLLoader loader = new FXMLLoader(Index.class.getResource("manager.modalPeopleRelated.fxml"), null, new JavaFXBuilderFactory());
+                                            Parent root = null;
+                                            try {
+                                                root = loader.load();
+                                            } catch (IOException e) {
+                                                e.printStackTrace();
+                                            }
+                                            modalPeopleRelated.initOwner(getInstance().stage);
+                                            modalPeopleRelated.setScene(new Scene(root));
+                                            modalPeopleRelated.setTitle("Danh sách người liên đới");
+                                            modalPeopleRelated.initModality(Modality.APPLICATION_MODAL);
+
+                                            modalPeopleRelated.getIcons().add(new Image("https://res.cloudinary.com/phatchaukhang/image/upload/v1651599499/JAVA/Icon/add-user_1_o9hhlz.png"));
+                                            modalPeopleRelated.setResizable(false);
+                                            modalPeopleRelated.setFullScreen(false);
+                                            modalPeopleRelated.sizeToScene();
+                                            modalPeopleRelated.show();
+
+                                            ArrayList<Patient> cc = p.getCloseContacts();
+                                        });
+                                        pane.getChildren().addAll(lbl, btn);
+                                        // todo set size, color
+
+                                        setGraphic(pane);
+                                        setText(null);
+                                    }
+                                }
+                            };
+                            return cell;
+                        }
+                    };
+            controller.colBtnList.setCellFactory(cellPane);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -528,6 +594,134 @@ public class Index extends Application {
         }
     }
 
+    public void gotoManagedHistory() {
+        try {
+            replaceSceneContent("patient.managedHistory.fxml");
+            ManagedHistoryController controller = loader.getController();
+
+            TableView tableView = controller.tableViewHistory;
+
+            tableView.setRowFactory(param -> {
+                return new TableRow() {
+                    @Override
+                    public void updateIndex(int i) {
+                        super.updateIndex(i);
+                        setTextAlignment(TextAlignment.JUSTIFY);
+                        setMinHeight(70);
+                    }
+                };
+            });
+
+            controller.colNO.setCellFactory(new LineNumbersCellFactory<>());
+            controller.colUsername.setCellValueFactory(new PropertyValueFactory<>("username"));
+            controller.colTime.setCellValueFactory(new PropertyValueFactory<>("time"));
+            controller.colContent.setCellValueFactory(new PropertyValueFactory<>("content"));
+
+            for (String key : App.getInstance().getUserList().keySet()) {
+                if (App.getInstance().getUserList().get(key).getRole() == IUser.Role.PATIENT) {
+                    ArrayList<String> histories = App.getInstance().getUserList().get(key).getHistory().getHistory();
+                    for (String history : histories) {
+                        HistoryDetail historyDetail = new HistoryDetail(key,
+                                history.split(";")[0],
+                                history.split(";")[2],
+                                history.split(";")[1]);
+                        if (historyDetail.getType().equals("CHANGE_STATUS")) {
+                            tableView.getItems().add(historyDetail);
+                        }
+                    }
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void gotoConsumptionHistory() {
+        try {
+            replaceSceneContent("patient.consumptionHistory.fxml");
+            ConsumptionHistoryController controller = loader.getController();
+
+            TableView<HistoryDetail> tableView = controller.tableViewHistory;
+
+            tableView.setRowFactory(param -> {
+                return new TableRow() {
+                    @Override
+                    public void updateIndex(int i) {
+                        super.updateIndex(i);
+                        setTextAlignment(TextAlignment.JUSTIFY);
+                        setMinHeight(70);
+                    }
+                };
+            });
+
+            controller.colNO.setCellFactory(new LineNumbersCellFactory<>());
+            controller.colUsername.setCellValueFactory(new PropertyValueFactory<>("username"));
+            controller.colTime.setCellValueFactory(new PropertyValueFactory<>("time"));
+            controller.colContent.setCellValueFactory(new PropertyValueFactory<>("content"));
+
+            for (String key : App.getInstance().getUserList().keySet()) {
+                if (App.getInstance().getUserList().get(key).getRole() == IUser.Role.PATIENT) {
+                    ArrayList<String> histories = App.getInstance().getUserList().get(key).getHistory().getHistory();
+
+                    for (String history : histories) {
+                        HistoryDetail historyDetail = new HistoryDetail(key,
+                                history.split(";")[0],
+                                history.split(";")[2],
+                                history.split(";")[1]);
+                        if (historyDetail.getType().equals("BUY_PACKAGE")) {
+                            tableView.getItems().add(historyDetail);
+                        }
+                    }
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void gotoPaymentHistory() {
+        try {
+            replaceSceneContent("patient.paymentHistory.fxml");
+            PaymentHistoryController controller = loader.getController();
+
+            TableView tableView = controller.tableViewHistory;
+
+            tableView.setRowFactory(param -> {
+                return new TableRow() {
+                    @Override
+                    public void updateIndex(int i) {
+                        super.updateIndex(i);
+                        setTextAlignment(TextAlignment.JUSTIFY);
+                        setMinHeight(70);
+                    }
+                };
+            });
+
+            controller.colNO.setCellFactory(new LineNumbersCellFactory<>());
+            controller.colUsername.setCellValueFactory(new PropertyValueFactory<>("username"));
+            controller.colTime.setCellValueFactory(new PropertyValueFactory<>("time"));
+            controller.colContent.setCellValueFactory(new PropertyValueFactory<>("content"));
+
+            for (String key : App.getInstance().getUserList().keySet()) {
+                if (App.getInstance().getUserList().get(key).getRole() == IUser.Role.PATIENT) {
+                    ArrayList<String> histories = App.getInstance().getUserList().get(key).getHistory().getHistory();
+
+                    for (String history : histories) {
+                        HistoryDetail historyDetail = new HistoryDetail(key,
+                                history.split(";")[0],
+                                history.split(";")[2],
+                                history.split(";")[1]);
+                        if (historyDetail.getType().equals("PAYMENT")) {
+                            tableView.getItems().add(historyDetail);
+                        }
+                    }
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
     public void gotoBuyPackage() {
         try {
             replaceSceneContent("patient.buyPackage.fxml");
@@ -558,6 +752,43 @@ public class Index extends Application {
         }
     }
 
+    public void gotoPayPackage() {
+        try {
+            replaceSceneContent("patient.cart.fxml");
+            CartController controller = loader.getController();
+
+            GridPane gp = controller.gridPanePackage;
+
+            int row = 0, col = 0;
+            for (String key : App.getInstance().getProductManagement().getOrderList().keySet()) {
+                Order order = App.getInstance().getProductManagement().getOrderList().get(key);
+
+                HashMap<String, Pair<Package, Integer>> packageList = order.getPackageList();
+                for (String key1 : packageList.keySet()) {
+                    Package pkg = packageList.get(key1).getFirst();
+                    Integer quantity = packageList.get(key1).getSecond();
+
+                    if (pkg.getImg_src().contains("http")) {
+                        PackagePane packagePane = new PackagePane(pkg);
+                        packagePane.getTextQuantity().setText(String.valueOf(quantity));
+
+                        Pane pTemp = packagePane.getPane();
+
+                        GridPane.setConstraints(pTemp, col, row);
+                        gp.getChildren().add(pTemp);
+                        col += 1;
+                        if (col == 4) {
+                            col = 0;
+                            row += 1;
+                        }
+                    }
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
     public void gotoPayOutstandingBalance() throws Exception {
         try {
             replaceSceneContent("patient.payOutstandingBalance.fxml");
@@ -575,7 +806,7 @@ public class Index extends Application {
 
             int row = 0, col = 0;
 
-            for(String key : App.getInstance().getProductManagement().getOrderList().keySet()) {
+            for (String key : App.getInstance().getProductManagement().getOrderList().keySet()) {
                 System.out.println(App.getInstance().getProductManagement().getOrderList().get(key).getPackageList());
             }
         } catch (Exception ex) {

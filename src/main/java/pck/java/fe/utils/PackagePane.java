@@ -19,6 +19,7 @@ public class PackagePane {
     private static final String iconPlusURL = "https://res.cloudinary.com/phatchaukhang/image/upload/v1649646899/HQTCSDL/Icon/plus_arj0go.png";
     Pane pane;
     Package pkg;
+    TextField tq;
 
     public PackagePane(Package pkg) {
         this.pkg = pkg;
@@ -69,7 +70,7 @@ public class PackagePane {
         pane.getChildren().add(paneQuantity);
 
         // pq > text quantity = tq
-        TextField tq = new TextField();
+        tq = new TextField();
         tq.setPrefSize(50, 25);
         tq.setAlignment(Pos.CENTER);
         tq.setLayoutX(75);
@@ -157,6 +158,10 @@ public class PackagePane {
                 // todo: add product to cart
             }
         });
+    }
+
+    public TextField getTextQuantity() {
+        return tq;
     }
 
     public Pane getPane() {

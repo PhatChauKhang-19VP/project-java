@@ -19,6 +19,7 @@ module pck.java {
     exports pck.java;
 
     opens pck.java.be.app.util to javafx.base;
+    exports pck.java.be.app.util;
 
     opens pck.java.be.app.user to javafx.base;
     exports pck.java.be.app.user;
