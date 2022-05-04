@@ -1,4 +1,4 @@
-package cyptography;
+package pck.java.be.cryptography;
 
 import java.util.HashMap;
 

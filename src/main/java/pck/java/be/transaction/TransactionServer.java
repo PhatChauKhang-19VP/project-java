@@ -1,4 +1,4 @@
-package transaction;
+package pck.java.be.transaction;
 
 import java.io.IOException;
 import java.net.ServerSocket;

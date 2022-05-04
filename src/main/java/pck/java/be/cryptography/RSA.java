@@ -1,4 +1,4 @@
-package cyptography;
+package pck.java.be.cryptography;
 
 import javax.crypto.Cipher;
 import java.security.*;

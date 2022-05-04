@@ -17,7 +17,8 @@
         <Pane layoutY="100.0" prefHeight="350.0" prefWidth="400.0">
             <children>
                 <Pane layoutX="100.0" prefHeight="150.0" prefWidth="200.0"/>
-                <ImageView disable="true" fitHeight="150.0" fitWidth="200.0" layoutX="100.0" pickOnBounds="true"
+                <ImageView fx:id="imageView" disable="true" fitHeight="150.0" fitWidth="200.0" layoutX="100.0"
+                           pickOnBounds="true"
                            preserveRatio="true">
                     <image>
                         <Image url="https://res.cloudinary.com/ngo-minh-phat/image/upload/v1650184929/covid_app/products/placeholder-image_e7drvx.png"/>
@@ -28,14 +29,15 @@
                         <Font size="14.0"/>
                     </font>
                 </Label>
-                <TextField layoutX="150.0" layoutY="200.0" prefHeight="30.0" prefWidth="225.0"
+                <TextField fx:id="prodName" layoutX="150.0" layoutY="200.0" prefHeight="30.0" prefWidth="225.0"
                            promptText="Nhập tên sản phẩm"/>
                 <Label layoutX="25.0" layoutY="250.0" prefHeight="30.0" text="Giá sản phẩm">
                     <font>
                         <Font size="14.0"/>
                     </font>
                 </Label>
-                <TextField alignment="CENTER_RIGHT" layoutX="150.0" layoutY="250.0" prefHeight="30.0" prefWidth="50.0"
+                <TextField fx:id="prodPrice" alignment="CENTER_RIGHT" layoutX="150.0" layoutY="250.0" prefHeight="30.0"
+                           prefWidth="50.0"
                            promptText="Giá"/>
                 <Label alignment="CENTER_RIGHT" layoutX="205.0" layoutY="250.0" maxWidth="75.0" prefHeight="30.0"
                        prefWidth="30.0" text="VNĐ">
@@ -43,17 +45,20 @@
                         <Font size="14.0"/>
                     </font>
                 </Label>
-                <Button layoutX="250.0" layoutY="250.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="125.0"
+                <Button fx:id="btnSelectImg" layoutX="250.0" layoutY="250.0" mnemonicParsing="false" prefHeight="30.0"
+                        prefWidth="125.0"
                         text="Chọn hình ảnh"/>
                 <Label layoutX="25.0" layoutY="300.0" prefHeight="30.0" text="Đơn vị tính">
                     <font>
                         <Font size="14.0"/>
                     </font>
                 </Label>
-                <ComboBox layoutX="150.0" layoutY="300.0" prefHeight="30.0" prefWidth="99.0" promptText="Chọn"/>
+                <ComboBox fx:id="prodUnit" layoutX="150.0" layoutY="300.0" prefHeight="30.0" prefWidth="99.0"
+                          promptText="Chọn"/>
             </children>
         </Pane>
-        <Button layoutX="50.0" layoutY="475.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="300.0"
+        <Button fx:id="btnAddProduct" layoutX="50.0" layoutY="475.0" mnemonicParsing="false" prefHeight="40.0"
+                prefWidth="300.0"
                 text="Thêm sản phẩm">
             <font>
                 <Font name="Arial Bold" size="14.0"/>

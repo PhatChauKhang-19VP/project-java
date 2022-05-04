@@ -8,19 +8,20 @@ import pck.java.be.app.product.Product;
 import pck.java.be.app.user.*;
 import pck.java.be.app.util.*;
 
+import java.sql.Date;
 import java.sql.*;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 public class DatabaseCommunication {
+    private static final String user = "sa";
+    private static final String password = "Thoai1234";
     private static DatabaseCommunication instance;
     private Connection conn;
     private Statement stmt;
-    private static final String user = "sa";
-    private static final String password = "Thoai1234";
 
     private DatabaseCommunication() {
     }
@@ -50,7 +51,6 @@ public class DatabaseCommunication {
             SelectQuery selectAdmin = new SelectQuery();
             selectAdmin
                     .select("l.username as 'username'")
-                    .select("l.password as 'password'")
                     .select("a.name as 'name'")
                     .from("admins as a join login_infos as l on a.username = l.username");
 
@@ -59,7 +59,6 @@ public class DatabaseCommunication {
 
             rs.forEach((map) -> {
                 Admin.getInstance().setUsername((String) map.get("username"));
-                Admin.getInstance().setPassword((String) map.get("password"));
                 Admin.getInstance().setName((String) map.get("name"));
             });
 
@@ -251,12 +250,11 @@ public class DatabaseCommunication {
 
             rs.forEach((map) -> {
                 String username = (String) map.get("username"),
-                        password = (String) map.get("password"),
                         name = (String) map.get("name");
 
                 Manager manager = new Manager(
                         new UserConcreteComponent(
-                                username, name, password, IUser.Role.MANAGER
+                                username, name, "", IUser.Role.MANAGER
                         )
                 );
                 App.getInstance().addUser(manager);
@@ -355,7 +353,7 @@ public class DatabaseCommunication {
                 App.getInstance()
                         .getUserList()
                         .get(belong_to_username)
-                        .addRecord("[" + timestamp.toString() + "]" + history_content);
+                        .addRecord(timestamp.toString() + ";" + history_content);
             });
 
             return true;
@@ -463,7 +461,7 @@ public class DatabaseCommunication {
         List<Map<String, Object>> resultList = new ArrayList<Map<String, Object>>();
         Map<String, Object> row = null;
         ResultSetMetaData metaData = rs.getMetaData();
-        Integer columnCount = metaData.getColumnCount();
+        int columnCount = metaData.getColumnCount();
 
         while (rs.next()) {
             row = new HashMap<String, Object>();
@@ -479,6 +477,9 @@ public class DatabaseCommunication {
 
     public void execute(String sql) throws SQLException {
         open();
+
+        System.out.println(sql);
+
         Statement stmt = conn.createStatement();
         stmt.execute(sql);
         stmt.close();
@@ -504,4 +505,36 @@ public class DatabaseCommunication {
         }
     }
 
+    public boolean savePatientHistory(Patient p, String historyContent) {
+        try {
+            InsertQuery iq = new InsertQuery();
+
+            int leftLimit = 'a'; // letter 'a'
+            int rightLimit = 'z'; // letter 'z'
+            int targetStringLength = 20;
+            Random random = new Random();
+
+            String id = random.ints(leftLimit, rightLimit + 1)
+                    .limit(targetStringLength)
+                    .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+                    .toString();
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+            String date = formatter.format(new java.util.Date());
+            iq.insertInto("HISTORIES")
+                    .columns("history_id,belong_to_username,at_datetime,history_content")
+                    .values(new ArrayList<>(Arrays.asList(
+                            "'" + id + "'",
+                            "'" + p.getUsername() + "'",
+                            "'" + date + "'",
+                            "N'" + historyContent + "'")));
+
+            System.out.println(iq.getQuery());
+            execute(iq.getQuery());
+
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

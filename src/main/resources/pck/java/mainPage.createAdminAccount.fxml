@@ -115,7 +115,7 @@
                             <Font name="Arial Bold" size="30.0" />
                         </font>
                     </Label>
-                    <Button fx:id="btnSignIn" layoutX="100.0" layoutY="400.0" mnemonicParsing="false" onAction="#onBtnSignInClick" prefHeight="50.0" prefWidth="170.0" text="Đăng nhập">
+                    <Button fx:id="btnSignUp" layoutX="100.0" layoutY="400.0" mnemonicParsing="false" onAction="#onBtnSignInClick" prefHeight="50.0" prefWidth="170.0" text="Đăng nhập">
                         <font>
                             <Font name="Arial Bold" size="24.0" />
                         </font>

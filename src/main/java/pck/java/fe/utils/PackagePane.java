@@ -25,8 +25,8 @@ public class PackagePane {
 
         pane = new Pane();
         //pane.setBorder(ne);
-        pane.setMinSize(242, 350);
-        pane.setPrefSize(242, 350);
+        pane.setMinSize(252, 350);
+        pane.setPrefSize(252, 350);
 
 //        pane.setBorder(new Border(new BorderStroke(Color.BLACK,
 //                BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
@@ -35,7 +35,7 @@ public class PackagePane {
         ImageView packageImg = new ImageView(new Image(pkg.getImg_src()));
         packageImg.setFitWidth(242);
         packageImg.setFitHeight(242);
-        packageImg.setLayoutX(0);
+        packageImg.setLayoutX(5);
         packageImg.setLayoutY(-10);
         pane.getChildren().add(packageImg);
 
@@ -45,8 +45,8 @@ public class PackagePane {
         packageName.setTextAlignment(TextAlignment.CENTER);
         packageName.setStyle("-fx-font-family: Arial;-fx-font-size:16; -fx-text-fill: #132ac1;");
         packageName.setPrefSize(200, 20);
-        packageName.setLayoutX(20);
-        packageName.setLayoutY(200);
+        packageName.setLayoutX(26);
+        packageName.setLayoutY(230);
         packageName.setAlignment(Pos.CENTER);
         pane.getChildren().add(packageName);
 
@@ -57,15 +57,15 @@ public class PackagePane {
         packagePrice.setAlignment(Pos.CENTER);
         packagePrice.setStyle("-fx-font-family: Arial;");
         packagePrice.setPrefSize(200, 20);
-        packagePrice.setLayoutX(20);
-        packagePrice.setLayoutY(230);
+        packagePrice.setLayoutX(26);
+        packagePrice.setLayoutY(255);
         pane.getChildren().add(packagePrice);
 
         // pane quantity = pq
         Pane paneQuantity = new Pane();
         paneQuantity.setPrefSize(200, 30);
-        paneQuantity.setLayoutX(20);
-        paneQuantity.setLayoutY(260);
+        paneQuantity.setLayoutX(26);
+        paneQuantity.setLayoutY(275);
         pane.getChildren().add(paneQuantity);
 
         // pq > text quantity = tq
@@ -145,8 +145,8 @@ public class PackagePane {
         Button btnAddProd = new Button("Mua sản phẩm");
         btnAddProd.setAlignment(Pos.CENTER);
         btnAddProd.setPrefSize(120, 25);
-        btnAddProd.setLayoutX(60);
-        btnAddProd.setLayoutY(300);
+        btnAddProd.setLayoutX(66);
+        btnAddProd.setLayoutY(310);
         pane.getChildren().add(btnAddProd);
 
         btnAddProd.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {

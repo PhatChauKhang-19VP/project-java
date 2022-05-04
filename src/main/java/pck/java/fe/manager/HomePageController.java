@@ -20,21 +20,33 @@ import pck.java.be.app.user.Patient;
 import java.io.IOException;
 
 public class HomePageController {
-    public TableView<Patient> tableViewPatient;
-    public TableColumn colNO;
-    public TableColumn colName;
-    public TableColumn colUsername;
-    public TableColumn colDob;
-    public TableColumn colAddress;
-    public TableColumn colStatus;
-    public TableColumn colTLoc;
-    public TableColumn colBtnMod;
-    public TableColumn colBtnDel;
+    public Button logoutButton;
+    public Button managePatientInfoButton;
+    public Button manageProductsButton;
+    public Button managePackagesButton;
+    public Button statisticButton;
 
-    public GridPane gridPaneProduct;
-    public GridPane gridPanePackage;
-    public Button btnAddProd;
-    public Button btnAddPkg;
-    public Button btnDEBUGmodPkg;
+    public void onLogoutButtonCliked(ActionEvent actionEvent) {
+        if (actionEvent.getSource() == logoutButton) {
+            pck.java.Index.getInstance().gotoSignIn();
+        }
+    }
 
+    public void onManagePatientInfoButtonCliked(ActionEvent actionEvent) {
+        if (actionEvent.getSource() == managePatientInfoButton) {
+            pck.java.Index.getInstance().gotoManagePatientInfo();
+        }
+    }
+
+    public void onManageProductsButtonCliked(ActionEvent actionEvent) {
+        if (actionEvent.getSource() == manageProductsButton) {
+            pck.java.Index.getInstance().gotoManagerProducts();
+        }
+    }
+
+    public void onManagePackagesButtonCliked(ActionEvent actionEvent) {
+        if (actionEvent.getSource() == managePackagesButton) {
+            pck.java.Index.getInstance().gotoManagerPackages();
+        }
+    }
 }

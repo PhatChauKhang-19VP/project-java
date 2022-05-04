@@ -1,5 +1,6 @@
 package pck.java.be.app;
 
+import javafx.util.converter.LocalDateStringConverter;
 import pck.java.database.DatabaseCommunication;
 import pck.java.be.app.product.Package;
 import pck.java.be.app.product.Product;
@@ -15,30 +16,30 @@ public class Main {
     public static void main(String[] args) throws InterruptedException {
         App app = App.getInstance();
         DatabaseCommunication dbCom = DatabaseCommunication.getInstance();
-        dbCom.loadAll();
-        IUser admin = Admin.getInstance();
-
-        IUser m1 = new Manager(
-                new UserConcreteComponent(
-                        "mng6", "Manager 6", "123", IUser.Role.MANAGER
-                )
-        );
-        Location loc1 = new Location(
-                "123 Hong Bang",
-                app.getWardList().get("00001"),
-                app.getDistrictList().get("001"),
-                app.getProvinceList().get("01"));
-        TreatmentLocation tloc1 = new TreatmentLocation("loc1", "treatment location 1", 10, 0);
-        IUser p1 = new Patient(
-                new UserConcreteComponent(
-                        "patientz", "Patient 1", "abcd", IUser.Role.PATIENT
-                ),
-                1,
-                LocalDate.now(),
-                loc1,
-                tloc1,
-                new ArrayList<>()
-        );
+//        dbCom.loadAll();
+//        IUser admin = Admin.getInstance();
+//
+//        IUser m1 = new Manager(
+//                new UserConcreteComponent(
+//                        "manager1", "manager1 name", "1", IUser.Role.MANAGER
+//                )
+//        );
+//        Location loc1 = new Location(
+//                "123 nhà 1",
+//                app.getWardList().get("00001"),
+//                app.getDistrictList().get("867"),
+//                app.getProvinceList().get("87"));
+//        TreatmentLocation tloc1 = new TreatmentLocation("loc1", "Bệnh viện Bệnh Nhiệt đới TP HCM", 1000, 0);
+//        IUser p1 = new Patient(
+//                new UserConcreteComponent(
+//                        "patient1", "patient1 name", "abcd", IUser.Role.PATIENT
+//                ),
+//                0,
+//                LocalDate.parse("2001-06-01"),
+//                loc1,
+//                tloc1,
+//                new ArrayList<>()
+//        );
 
         // test login
 //        System.out.println(dbCom.login("admin1", "1"));
@@ -72,8 +73,7 @@ public class Main {
         /* load administrativeDivision */
         DatabaseCommunication.getInstance().loadAdministrativeDivisions();
 
-        DatabaseCommunication.getInstance().loadTreatmentLocations();
-
+//        DatabaseCommunication.getInstance().loadTreatmentLocations();
 
 //        app.getUserList().get("patient1").showInfo();
 //        App.getInstance().getProductManagement().showInfo();
@@ -90,7 +90,7 @@ public class Main {
 //        testDeletingPackage((Manager) m1);
 
         // Test client server
-        ((Patient) App.getInstance().getUserList().get("patient1")).payBill();
+//        ((Patient) App.getInstance().getUserList().get("patient1")).payBill();
     }
 
     private static void testAddingManager(Manager manager) {

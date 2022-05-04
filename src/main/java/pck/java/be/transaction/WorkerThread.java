@@ -1,11 +1,16 @@
-package transaction;
+package pck.java.be.transaction;
 
-import cyptography.RSA;
-import cyptography.StructClass;
+import pck.java.be.cryptography.StructClass;
+import pck.java.be.cryptography.RSA;
+import pck.java.database.DatabaseCommunication;
+import pck.java.database.SelectQuery;
 
 import java.io.*;
 import java.net.Socket;
+import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class WorkerThread extends Thread {
     private Socket socket;
@@ -35,16 +40,48 @@ public class WorkerThread extends Thread {
         }
     }
 
-    private String handleClientRequest(String request) {
+    private String handleClientRequest(String request){
         HashMap<String, String> requestData = StructClass.unpack(request);
-
+        HashMap<String, String> responseData = new HashMap<>();
         switch (requestData.get("type")) {
             case "paybill":
-                // todo: user payment query should be added here
-                return "Username  " + requestData.get("username") + " pay bill with amount = " + requestData.get("amount") + " successfully";
+                DatabaseCommunication dbc = DatabaseCommunication.getInstance();
+
+                SelectQuery sq = new SelectQuery();
+                sq.select("*").from("LOGIN_INFOS").where("username", "'" + requestData.get("username") + "'")
+                        .where("password", "HASHBYTES('SHA2_512', '" + requestData.get("password") + "')").where("account_status='ACTIVE'");
+
+                System.out.println(sq.getQuery());
+
+                List<Map<String, Object>> rs = null;
+                try {
+                    rs = dbc.executeQuery(sq.getQuery());
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    responseData.clear();
+                    responseData.put("status", "failed");
+                    responseData.put("msg", "db error");
+
+                    return StructClass.pack(responseData);
+                }
+                if (rs.size() == 0) {
+                    responseData.clear();
+                    responseData.put("status", "failed");
+                    responseData.put("msg", "login failed");
+
+                    return StructClass.pack(responseData);
+                }
+                requestData.clear();
+                responseData.put("status", "success");
+                responseData.put("amount", requestData.get("amount"));
+                responseData.put("new balance", "<NEW BALACE>");
+                return StructClass.pack(responseData);
 
             default:
-                return "FAILED";
+                responseData.put("status", "failed");
+
+                return StructClass.pack(responseData);
+
         }
     }
 
