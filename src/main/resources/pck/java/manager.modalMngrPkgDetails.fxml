@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pck.java.fe.manager.modal.ViewPackageDetailsController">
+    <top>
+        <Pane prefHeight="70.0" prefWidth="1024.0" style="-fx-background-color: A8ACFF;" BorderPane.alignment="CENTER">
+            <Button fx:id="logoutButton" layoutX="964.0" layoutY="10.0" mnemonicParsing="false" onAction="#onLogoutButtonCliked" prefHeight="50.0" prefWidth="50.0">
+                <graphic>
+                    <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="https://res.cloudinary.com/phatchaukhang/image/upload/v1649213502/JAVA/Icon/logout_fw5lna.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+            <Label layoutX="452.0" layoutY="7.0" style="-fx-font-size: 36; -fx-font-weight: 900;" text="Quản lý">
+                <font>
+                    <Font name="Arial Bold" size="36.0" />
+                </font>
+            </Label>
+            <Button fx:id="backButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#onBackButtonCliked" prefHeight="50.0" prefWidth="50.0">
+                <graphic>
+                    <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="https://res.cloudinary.com/phatchaukhang/image/upload/v1650789225/JAVA/Icon/back-arrow_jkinur.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+        </Pane>
+    </top>
+    <bottom>
+        <Pane prefHeight="70.0" prefWidth="1024.0" style="-fx-background-color: A8ACFF;" BorderPane.alignment="CENTER" />
+    </bottom>
+    <center>
+        <Pane prefWidth="1024.0" BorderPane.alignment="CENTER">
+            <Pane prefHeight="630.0" prefWidth="1024.0">
+                <Label layoutX="335.0" layoutY="18.0" style="-fx-font-size: 36; -fx-font-weight: 900;" text="Chi tiết gói nhu yếu phẩm">
+                </Label>
+                <Pane layoutY="90.0" prefHeight="540.0" prefWidth="1024.0">
+                    <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="540.0" prefWidth="1024.0">
+                        <TableView fx:id="tableViewManager" layoutY="50.0" prefHeight="529.0" prefWidth="1002.0">
+                            <columns>
+                                <TableColumn fx:id="colNO" maxWidth="40.0" prefWidth="40.0" style="-fx-font-size: 14;" text="STT" />
+                                <TableColumn fx:id="colID" maxWidth="300.0" minWidth="100.0" prefWidth="168.00000381469727" resizable="false" style="-fx-font-size: 14;" text="Mã sản phẩm" />
+                                <TableColumn fx:id="colName" minWidth="0.0" prefWidth="257.6000213623047" resizable="false" style="-fx-font-size: 14;" text="Tên sản phẩm" />
+                                <TableColumn fx:id="colType" maxWidth="291.20001220703125" prefWidth="273.5999755859375" text="Link ảnh" />
+                                <TableColumn fx:id="colUnit" maxWidth="308.0001220703125" prefWidth="141.06658935546875" text="Đơn vị" />
+                                <TableColumn fx:id="colPrice" maxWidth="300.0" minWidth="97.5999755859375" prefWidth="145.3333740234375" resizable="false" style="-fx-font-size: 14;" text="Giá bán" />
+                            </columns>
+                        </TableView>
+                    </ScrollPane>
+                </Pane>
+            </Pane>
+        </Pane>
+    </center>
+</BorderPane>

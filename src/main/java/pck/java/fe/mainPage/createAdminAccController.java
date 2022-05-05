@@ -91,7 +91,7 @@ public class createAdminAccController {
                     ArrayList<String> vals = new ArrayList<>() {
                         {
                             add("'" + usernameTextField.getText() + "'");
-                            add("'" + userPassword.getText() + "'");
+                            add("HASHBYTES('SHA2_512', '" + userPassword.getText() + "')");
                             add("'ACTIVE'");
                             add("'ADMIN'");
                         }

@@ -63,7 +63,7 @@ public class changeManagerPassController {
 
                     DatabaseCommunication dbc = DatabaseCommunication.getInstance();
                     UpdateQuery uq = new UpdateQuery();
-                    uq.update("LOGIN_INFOS").set("password", "'" + newPassword.getText() + "'").where("username", "'" + username + "'");
+                    uq.update("LOGIN_INFOS").set("password", "HASHBYTES('SHA2_512', '" + newPassword.getText() + "')").where("username", "'" + username + "'");
 
                     try {
                         dbc.execute(uq.getQuery());

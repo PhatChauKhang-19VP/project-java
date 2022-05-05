@@ -9,8 +9,8 @@ import pck.java.be.app.util.Ward;
 import pck.java.database.DatabaseCommunication;
 import pck.java.database.SelectQuery;
 
-import javax.crypto.interfaces.PBEKey;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -188,6 +188,40 @@ public class App {
         for (String key : treatmentLocationList.keySet()) {
             System.out.println(treatmentLocationList.get(key));
         }
+    }
+
+    public ArrayList<String> getProductUnitList() {
+        ArrayList<String> unitList = new ArrayList<>();
+        DatabaseCommunication dbc = DatabaseCommunication.getInstance();
+        SelectQuery sq = new SelectQuery();
+        sq.select("distinct unit").from("PRODUCTS");
+        try {
+            List<Map<String, Object>> rs = dbc.executeQuery(sq.getQuery());
+            rs.forEach(map -> {
+                unitList.add(String.valueOf(map.get("unit")));
+            });
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return unitList;
+    }
+
+    public ArrayList<String> getPackageNameList() {
+        ArrayList<String> nameList = new ArrayList<>();
+        DatabaseCommunication dbc = DatabaseCommunication.getInstance();
+        SelectQuery sq = new SelectQuery();
+        sq.select("package_id, name").from("PACKAGES");
+        try {
+            List<Map<String, Object>> rs = dbc.executeQuery(sq.getQuery());
+            rs.forEach(map -> {
+                String name = String.valueOf(map.get("name")),
+                        id = String.valueOf(map.get("package_id"));
+                nameList.add(name + " - " + id);
+            });
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return nameList;
     }
 
     public ProductManagement getProductManagement() {

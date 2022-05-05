@@ -13,16 +13,16 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="640.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pck.java.fe.manager.modal.AddPkgController">
+<AnchorPane prefHeight="834.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pck.java.fe.manager.modal.AddPkgController">
     <children>
-        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="342.0" layoutY="36.0" text="Thêm gói nhu yếu phẩm">
+        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="360.0" layoutY="39.0" text="Thêm gói nhu yếu phẩm">
             <font>
                 <Font name="Arial Bold" size="24.0" />
             </font>
         </Label>
-        <Pane layoutY="100.0" prefHeight="200.0" prefWidth="960.0">
+        <Pane layoutY="100.0" prefHeight="218.0" prefWidth="960.0">
             <children>
-                <ImageView disable="true" fitHeight="150.0" fitWidth="200.0" layoutX="50.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="imageView" disable="true" fitHeight="150.0" fitWidth="200.0" layoutX="50.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="https://res.cloudinary.com/ngo-minh-phat/image/upload/v1650184929/covid_app/products/placeholder-image_e7drvx.png" />
                     </image>
@@ -32,19 +32,19 @@
                         <Font size="14.0" />
                     </font>
                 </Label>
-                <TextField layoutX="600.0" layoutY="20.0" prefHeight="30.0" prefWidth="310.0" promptText="Nhập tên sản phẩm" />
+                <TextField fx:id="pkgName" layoutX="600.0" layoutY="20.0" prefHeight="30.0" prefWidth="310.0" promptText="Nhập tên sản phẩm" />
                 <Label layoutX="300.0" layoutY="60.0" prefHeight="30.0" prefWidth="200.0" text="Giá gói">
                     <font>
                         <Font size="14.0" />
                     </font>
                 </Label>
-                <TextField alignment="CENTER_RIGHT" layoutX="600.0" layoutY="60.0" prefHeight="30.0" prefWidth="100.0" promptText="Giá" />
+                <TextField fx:id="pkgPrice" alignment="CENTER_RIGHT" layoutX="600.0" layoutY="60.0" prefHeight="30.0" prefWidth="100.0" promptText="Giá" />
                 <Label layoutX="710.0" layoutY="59.0" maxWidth="75.0" prefHeight="30.0" prefWidth="30.0" text="VNĐ">
                     <font>
                         <Font size="14.0" />
                     </font>
                 </Label>
-                <Button layoutX="92.0" layoutY="154.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="125.0" text="Chọn hình ảnh" />
+                <Button fx:id="btnSelectImg" layoutX="92.0" layoutY="154.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="125.0" text="Chọn hình ảnh" />
                 <Label layoutX="300.0" layoutY="100.0" prefHeight="30.0" prefWidth="200.0" text="Giới hạn mỗi người">
                     <font>
                         <Font size="14.0" />
@@ -55,8 +55,8 @@
                         <Font size="14.0" />
                     </font>
                 </Label>
-                <TextField alignment="CENTER_RIGHT" layoutX="600.0" layoutY="100.0" prefHeight="30.0" prefWidth="100.0" promptText="Số lượng" />
-                <TextField alignment="CENTER_RIGHT" layoutX="600.0" layoutY="140.0" prefHeight="30.0" prefWidth="100.0" promptText="Số tháng" />
+                <TextField fx:id="pkgPurchaseLim" alignment="CENTER_RIGHT" layoutX="600.0" layoutY="100.0" prefHeight="30.0" prefWidth="100.0" promptText="Số lượng" />
+                <TextField fx:id="pkgTimeLim" alignment="CENTER_RIGHT" layoutX="600.0" layoutY="140.0" prefHeight="30.0" prefWidth="100.0" promptText="Số tháng" />
                 <Label layoutX="710.0" layoutY="100.0" maxWidth="75.0" prefHeight="30.0" prefWidth="30.0" text="Gói">
                     <font>
                         <Font size="14.0" />
@@ -67,63 +67,28 @@
                         <Font size="14.0" />
                     </font>
                 </Label>
+                <Label fx:id="invalidDetails" layoutX="298.0" layoutY="175.0" prefHeight="30.0" prefWidth="284.0" text="Vui lòng điền thông tin đầy đủ và chính xác!" textFill="#ff2909" visible="false">
+                    <font>
+                        <Font name="System Italic" size="14.0" />
+                    </font>
+                </Label>
             </children>
         </Pane>
-        <Button layoutX="330.0" layoutY="590.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="300.0" text="Thêm gói nhu yếu phẩm">
-            <font>
-                <Font name="Arial Bold" size="14.0" />
-            </font>
-        </Button>
-        <ScrollPane layoutX="50.0" layoutY="353.0" prefHeight="205.0" prefWidth="860.0">
+        <ScrollPane layoutX="50.0" layoutY="353.0" prefHeight="400.0" prefWidth="780.0">
             <content>
-                <GridPane gridLinesVisible="true" prefHeight="200.0" prefWidth="855.0">
+                <GridPane fx:id="gridPaneProduct" gridLinesVisible="true" layoutY="20.0" prefHeight="407.0" prefWidth="787.0">
                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints />
+                        <ColumnConstraints />
+                        <ColumnConstraints />
+                        <ColumnConstraints />
                     </columnConstraints>
                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
                     </rowConstraints>
-                    <children>
-                        <Pane prefHeight="200.0" prefWidth="200.0">
-                            <children>
-                                <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="25.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                        <Image url="https://res.cloudinary.com/ngo-minh-phat/image/upload/v1648226576/covid_app/products/cam-sanh-tui-1kg_ohokbs.jpg" />
-                                    </image>
-                                </ImageView>
-                                <Label layoutX="250.0" layoutY="25.0" prefHeight="20.0" prefWidth="150.0" text="Cam sành túi 1kg">
-                                    <font>
-                                        <Font name="Arial Bold" size="14.0" />
-                                    </font>
-                                </Label>
-                                <Label layoutX="250.0" layoutY="55.0" prefHeight="20.0" prefWidth="70.0" text="Đơn giá :">
-                                    <font>
-                                        <Font name="Arial" size="14.0" />
-                                    </font>
-                                </Label>
-                                <Label layoutX="250.0" layoutY="85.0" prefHeight="20.0" prefWidth="80.0" text="Đơn vị tính:">
-                                    <font>
-                                        <Font name="Arial" size="14.0" />
-                                    </font>
-                                </Label>
-                                <Label layoutX="250.0" layoutY="115.0" prefHeight="20.0" prefWidth="80.0" text="Số lượng:">
-                                    <font>
-                                        <Font name="Arial" size="14.0" />
-                                    </font>
-                                </Label>
-                                <TextField alignment="CENTER_RIGHT" disable="true" layoutX="320.0" layoutY="52.0" prefHeight="25.0" prefWidth="50.0" text="55" />
-                                <Label layoutX="380.0" layoutY="55.0" maxWidth="75.0" prefHeight="20.0" prefWidth="30.0" text="VNĐ">
-                                    <font>
-                                        <Font size="14.0" />
-                                    </font>
-                                </Label>
-                                <TextField alignment="CENTER_RIGHT" disable="true" layoutX="330.0" layoutY="82.0" prefHeight="25.0" prefWidth="50.0" text="Túi" />
-                                <TextField alignment="CENTER_RIGHT" layoutX="320.0" layoutY="115.0" prefHeight="25.0" prefWidth="50.0" text="1" />
-                                <Button layoutX="270.0" layoutY="150.0" mnemonicParsing="false" prefWidth="100.0" text="Xóa khỏi gói" />
-                            </children>
-                        </Pane>
-                    </children>
                 </GridPane>
             </content>
         </ScrollPane>
@@ -132,14 +97,16 @@
                 <Font name="Arial" size="18.0" />
             </font>
         </Label>
-        <Button fx:id="btnAddProd" layoutX="870.0" layoutY="315.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0">
-            <graphic>
-                <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="https://res.cloudinary.com/phatchaukhang/image/upload/v1649065784/JAVA/Icon/plus.png" />
-                    </image>
-                </ImageView>
-            </graphic>
+        <Button fx:id="btnAddProd" layoutX="797.0" layoutY="315.0" mnemonicParsing="false" onAction="#onBtnAddProdClicked" prefHeight="30.0" prefWidth="30.0" />
+        <ImageView fitHeight="16.0" fitWidth="16.0" layoutX="804.0" layoutY="322.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="https://res.cloudinary.com/phatchaukhang/image/upload/v1649065784/JAVA/Icon/plus.png" />
+            </image>
+        </ImageView>
+        <Button fx:id="btnAddPkg" layoutX="359.0" layoutY="774.0" mnemonicParsing="false" onAction="#onBtnAddPackageClicked" prefHeight="40.0" prefWidth="300.0" text="Thêm gói nhu yếu phẩm">
+            <font>
+                <Font name="Arial Bold" size="14.0" />
+            </font>
         </Button>
     </children>
 </AnchorPane>

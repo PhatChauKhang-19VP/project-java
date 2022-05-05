@@ -1,19 +1,17 @@
 package pck.java;
 
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.text.TextAlignment;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import pck.java.be.app.App;
@@ -23,6 +21,7 @@ import pck.java.be.app.util.TreatmentLocation;
 import pck.java.database.SelectQuery;
 import pck.java.fe.mainPage.changeManagerPassController;
 import pck.java.fe.manager.AddPatientController;
+import pck.java.fe.manager.modal.ViewPackageDetailsController;
 import pck.java.fe.patient.BuyPackageController;
 import pck.java.fe.patient.CartController;
 import pck.java.fe.utils.LineNumbersCellFactory;
@@ -92,7 +91,7 @@ public class Index extends Application {
     public void gotoCreateAdminAccount() {
         try {
             replaceSceneContent("mainPage.createAdminAccount.fxml");
-        } catch (Exception ex)  {
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
@@ -259,6 +258,24 @@ public class Index extends Application {
         }
     }
 
+    public void gotoPackageDetails(String packageID) {
+        try {
+            ViewPackageDetailsController ctrl = new ViewPackageDetailsController();
+            ctrl.setPackageID(packageID);
+            replaceSceneContent("manager.modalMngrPkgDetails.fxml");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void gotoAddProdToPkg() {
+        try {
+            replaceSceneContent("manager.modalMngrAddProdToPkg.fxml");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
     public void gotoManagerPackages() {
         try {
             replaceSceneContent("manager.managePackages.fxml");
@@ -343,7 +360,7 @@ public class Index extends Application {
 
             int row = 0, col = 0;
 
-            for(String key : App.getInstance().getProductManagement().getOrderList().keySet()) {
+            for (String key : App.getInstance().getProductManagement().getOrderList().keySet()) {
                 System.out.println(App.getInstance().getProductManagement().getOrderList().get(key).getPackageList());
             }
         } catch (Exception ex) {

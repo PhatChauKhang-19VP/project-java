@@ -82,31 +82,6 @@ public class ManagePackagesController implements Initializable {
                 }
             }
         });
-
-        btnDEBUGmodPkg.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                try {
-                    System.out.println(getClass() + "btn mod pkg clicked");
-                    Stage modalAddProd = new Stage();
-                    FXMLLoader loader = new FXMLLoader(Index.class.getResource("manager.modalMngrModPkg.fxml"), null, new JavaFXBuilderFactory());
-                    Parent root = loader.load();
-                    modalAddProd.initOwner(Index.getInstance().getStage());
-                    modalAddProd.setScene(new Scene(root));
-                    modalAddProd.setTitle("Chỉnh sửa gói nhu yếu phẩm");
-                    modalAddProd.initModality(Modality.APPLICATION_MODAL);
-
-                    modalAddProd.getIcons().add(new Image("https://res.cloudinary.com/phatchaukhang/image/upload/v1649255070/HQTCSDL/Icon/icon-shop_d9bmh0.png"));
-                    modalAddProd.getScene().getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
-                    modalAddProd.setResizable(false);
-                    modalAddProd.setFullScreen(false);
-                    modalAddProd.sizeToScene();
-                    modalAddProd.show();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
     }
 
     public void onBackButtonCliked(ActionEvent actionEvent) throws Exception {

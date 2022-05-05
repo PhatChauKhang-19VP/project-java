@@ -95,9 +95,6 @@ public class loginPageController {
             SelectQuery sq = new SelectQuery();
             sq.select("*").from("LOGIN_INFOS").where("username", "'" + username + "'")
                     .where("password", "HASHBYTES('SHA2_512', '" + password + "')").where("account_status='ACTIVE'");
-
-            System.out.println(sq.getQuery());
-
             List<Map<String, Object>> rs = dbc.executeQuery(sq.getQuery());
             if (rs.size() == 0) {
                 return false;
