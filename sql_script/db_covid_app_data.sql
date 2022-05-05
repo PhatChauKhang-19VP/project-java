@@ -12520,7 +12520,7 @@ GO
 --- USERS DUMMY DATA ---
 
 insert into LOGIN_INFOS (username, password, account_status, user_type) values
-	('admin1', HASHBYTES('SHA2_512', '123456789'), 'ACTIVE', 'ADMIN')
+	('admin1', '1', 'ACTIVE', 'ADMIN')
 go
 
 insert into ADMINS (username, name) values
@@ -12528,11 +12528,11 @@ insert into ADMINS (username, name) values
 go
 
 insert into LOGIN_INFOS (username, password, account_status, user_type) values
-	('manager1', HASHBYTES('SHA2_512', '123456789'), 'ACTIVE', 'MANAGER'),
-	('manager2', HASHBYTES('SHA2_512', '123456789'), 'ACTIVE', 'MANAGER'),
-	('manager3', HASHBYTES('SHA2_512', '123456789'), 'ACTIVE', 'MANAGER'),
-	('manager4', HASHBYTES('SHA2_512', '123456789'), 'ACTIVE', 'MANAGER'),
-	('manager5', HASHBYTES('SHA2_512', '123456789'), 'ACTIVE', 'MANAGER')
+	('manager1', '1', 'ACTIVE', 'MANAGER'),
+	('manager2', '1', 'ACTIVE', 'MANAGER'),
+	('manager3', '1', 'ACTIVE', 'MANAGER'),
+	('manager4', '1', 'ACTIVE', 'MANAGER'),
+	('manager5', '1', 'ACTIVE', 'MANAGER')
 go
 
 insert into MANAGERS (username, name) values
@@ -12552,16 +12552,16 @@ insert into TREATMENT_LOCATIONS (treatment_location_code, name, capacity, curren
 go
 
 insert into LOGIN_INFOS (username, password, account_status, user_type) values
-	('patient1', HASHBYTES('SHA2_512', '123456789'), 'ACTIVE', 'PATIENT'),
-	('patient2', HASHBYTES('SHA2_512', '123456789'), 'ACTIVE', 'PATIENT'),
-	('patient3', HASHBYTES('SHA2_512', '123456789'), 'ACTIVE', 'PATIENT'),
-	('patient4', HASHBYTES('SHA2_512', '123456789'), 'ACTIVE', 'PATIENT'),
-	('patient5', HASHBYTES('SHA2_512', '123456789'), 'ACTIVE', 'PATIENT'),
-	('patient6', HASHBYTES('SHA2_512', '123456789'), 'ACTIVE', 'PATIENT'),
-	('patient7', HASHBYTES('SHA2_512', '123456789'), 'ACTIVE', 'PATIENT'),
-	('patient8', HASHBYTES('SHA2_512', '123456789'), 'ACTIVE', 'PATIENT'),
-	('patient9', HASHBYTES('SHA2_512', '123456789'), 'ACTIVE', 'PATIENT'),
-	('patient10', HASHBYTES('SHA2_512', '123456789'), 'ACTIVE', 'PATIENT')
+	('patient1', '1', 'ACTIVE', 'PATIENT'),
+	('patient2', '1', 'ACTIVE', 'PATIENT'),
+	('patient3', '1', 'ACTIVE', 'PATIENT'),
+	('patient4', '1', 'ACTIVE', 'PATIENT'),
+	('patient5', '1', 'ACTIVE', 'PATIENT'),
+	('patient6', '1', 'ACTIVE', 'PATIENT'),
+	('patient7', '1', 'ACTIVE', 'PATIENT'),
+	('patient8', '1', 'ACTIVE', 'PATIENT'),
+	('patient9', '1', 'ACTIVE', 'PATIENT'),
+	('patient10', '1', 'ACTIVE', 'PATIENT')
 go
 
 insert into PATIENTS (
@@ -12610,17 +12610,17 @@ insert into BANK_ACCOUNTS (
 	minimum_payment
 )
 values
-	(HASHBYTES('SHA2_512', '123456789'), 'patient1', '15000000', '2022-03-15 18:00', 100),
-	(HASHBYTES('SHA2_512', '123456789'), 'patient2', '15000000', '2022-03-15 18:00', 100),
-	(HASHBYTES('SHA2_512', '123456789'), 'patient3', '15000000', '2022-03-15 18:00', 100),
-	(HASHBYTES('SHA2_512', '123456789'), 'patient4', '15000000', '2022-03-15 18:00', 100),
-	(HASHBYTES('SHA2_512', '123456789'), 'patient5', '15000000', '2022-03-15 18:00', 100),
-	(HASHBYTES('SHA2_512', '123456789'), 'patient6', '15000000', '2022-03-15 18:00', 100),
-	(HASHBYTES('SHA2_512', '123456789'), 'patient7', '15000000', '2022-03-15 18:00', 100),
-	(HASHBYTES('SHA2_512', '123456789'), 'patient8', '15000000', '2022-03-15 18:00', 100),
-	(HASHBYTES('SHA2_512', '123456789'), 'patient9', '15000000', '2022-03-15 18:00', 100),
-	(HASHBYTES('SHA2_512', '123456789'), 'patient10', '15000000', '2022-03-15 18:00', 100),
-	(HASHBYTES('SHA2_512', '123456789'), 'admin1', '15000000', '2022-01-01 18:00', 100)
+	('1', 'patient1', '15000000', '2022-03-15 18:00', 100),
+	('1', 'patient2', '15000000', '2022-03-15 18:00', 100),
+	('1', 'patient3', '15000000', '2022-03-15 18:00', 100),
+	('1', 'patient4', '15000000', '2022-03-15 18:00', 100),
+	('1', 'patient5', '15000000', '2022-03-15 18:00', 100),
+	('1', 'patient6', '15000000', '2022-03-15 18:00', 100),
+	('1', 'patient7', '15000000', '2022-03-15 18:00', 100),
+	('1', 'patient8', '15000000', '2022-03-15 18:00', 100),
+	('1', 'patient9', '15000000', '2022-03-15 18:00', 100),
+	('1', 'patient10', '15000000', '2022-03-15 18:00', 100),
+	('2BD66886431D7CDADFFE20A789221C5B2E60E826EE9600743D9071869C13EB4F6B3207615FC2324363A2E1A88738E4DD73BC04D2E5ED9046FB4055A84FB264B7', 'admin1', '15000000', '2022-01-01 18:00', 100)
 go
 
 --- PRODUCTS & PACKAGES DUMMY DATA
@@ -12782,7 +12782,7 @@ values
 	('history39', 'patient6', '2022-03-24 08:00', N'PLACE_ORDER;Đặt một đơn hàng mới'),
 	('history40', 'patient10', '2022-03-25 16:00', N'PLACE_ORDER;Đặt một đơn hàng mới'),
 	('history41', 'patient1', '2022-03-18 10:00', N'CHANGE_STATUS;Chuyển từ f2 -> f1'),
-	('history42', 'patient1', '2022-03-18 10:00', N'CHANGE_STATUS;Chuyển từ f1 -> f0'),
+	('history41', 'patient1', '2022-03-18 10:00', N'CHANGE_STATUS;Chuyển từ f2 -> f1'),
 	('history43', 'patient1', '2022-03-22 18:00', N'PAYMENT;Thanh toán dư nợ với số tiền 100'),
 	('history44', 'patient1', '2022-03-24 08:00', N'PAYMENT;Thanh toán dư nợ với số tiền 100')
 

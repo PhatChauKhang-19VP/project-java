@@ -35,4 +35,8 @@ public class History {
     public String toString() {
         return "History: " + history.toString();
     }
+
+    public ArrayList<String> getHistory() {
+        return history;
+    }
 }

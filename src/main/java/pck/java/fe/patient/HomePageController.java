@@ -29,6 +29,13 @@ public class HomePageController {
         }
     }
 
+    public void onCartButtonCliked(ActionEvent actionEvent) {
+        if(actionEvent.getSource() == cartButton) {
+            Index.getInstance().gotoPayPackage();
+        }
+    }
+
+
     public void onPayBalanceButtonCliked(ActionEvent actionEvent) throws Exception {
         if(actionEvent.getSource() == payBalanceButton) {
             Index.getInstance().gotoPayDebt();

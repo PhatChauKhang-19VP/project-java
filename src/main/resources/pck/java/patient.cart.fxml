@@ -13,29 +13,33 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pck.java.fe.patient.CartController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0"
+            prefWidth="1024.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="pck.java.fe.patient.CartController">
     <top>
         <Pane prefHeight="70.0" prefWidth="1024.0" style="-fx-background-color: A8ACFF;" BorderPane.alignment="CENTER">
             <children>
-                <Button fx:id="logoutButton" layoutX="964.0" layoutY="10.0" mnemonicParsing="false" onAction="#onLogoutButtonCliked" prefHeight="50.0" prefWidth="50.0">
+                <Button fx:id="logoutButton" layoutX="964.0" layoutY="10.0" mnemonicParsing="false"
+                        onAction="#onLogoutButtonCliked" prefHeight="50.0" prefWidth="50.0">
                     <graphic>
                         <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="https://res.cloudinary.com/phatchaukhang/image/upload/v1649213502/JAVA/Icon/logout_fw5lna.png" />
+                                <Image url="https://res.cloudinary.com/phatchaukhang/image/upload/v1649213502/JAVA/Icon/logout_fw5lna.png"/>
                             </image>
                         </ImageView>
                     </graphic>
                 </Button>
                 <Label layoutX="421.0" layoutY="14.0" text="Bệnh nhân">
                     <font>
-                        <Font name="Arial Bold" size="36.0" />
+                        <Font name="Arial Bold" size="36.0"/>
                     </font>
                 </Label>
-                <Button fx:id="backButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#onBackButtonCliked" prefHeight="50.0" prefWidth="50.0">
+                <Button fx:id="backButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false"
+                        onAction="#onBackButtonCliked" prefHeight="50.0" prefWidth="50.0">
                     <graphic>
                         <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="https://res.cloudinary.com/phatchaukhang/image/upload/v1650789225/JAVA/Icon/back-arrow_jkinur.png" />
+                                <Image url="https://res.cloudinary.com/phatchaukhang/image/upload/v1650789225/JAVA/Icon/back-arrow_jkinur.png"/>
                             </image>
                         </ImageView>
                     </graphic>
@@ -44,7 +48,7 @@
         </Pane>
     </top>
     <bottom>
-        <Pane prefHeight="70.0" prefWidth="1024.0" style="-fx-background-color: A8ACFF;" BorderPane.alignment="CENTER" />
+        <Pane prefHeight="70.0" prefWidth="1024.0" style="-fx-background-color: A8ACFF;" BorderPane.alignment="CENTER"/>
     </bottom>
     <center>
         <Pane prefWidth="1024.0" BorderPane.alignment="CENTER">
@@ -53,41 +57,17 @@
                 </Label>
                 <Pane layoutY="100.0" prefHeight="530.0" prefWidth="1024.0">
                     <ScrollPane prefHeight="530.0" prefWidth="1024.0">
-                  <content>
-                     <GridPane prefHeight="515.0" prefWidth="1010.0">
-                       <columnConstraints>
-                         <ColumnConstraints />
-                         <ColumnConstraints />
-                           <ColumnConstraints />
-                       </columnConstraints>
-                       <rowConstraints>
-                         <RowConstraints />
-                         <RowConstraints />
-                           <RowConstraints />
-                       </rowConstraints>
-                        <children>
-                           <Pane prefHeight="200.0" prefWidth="1010.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
-                              <children>
-                                 <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                       <Image url="https://res.cloudinary.com/phatchaukhang/image/upload/v1649057250/JAVA/Icon/covid-test-purple-128_za151v.png" />
-                                    </image>
-                                 </ImageView>
-                                 <Pane layoutX="239.0" prefHeight="200.0" prefWidth="583.0">
-                                    <children>
-                                       <Pane prefHeight="51.0">
-                                          <children>
-                                             <Label layoutY="8.0" style="-fx-font-size: 24;" text="Tên gói:" />
-                                             <TextField layoutX="120.0" style="-fx-font-size: 24;" />
-                                          </children>
-                                       </Pane>
-                                    </children>
-                                 </Pane>
-                              </children>
-                           </Pane>
-                        </children>
-                     </GridPane>
-                  </content>
+                        <GridPane fx:id="gridPanePackage" prefHeight="515.0" prefWidth="1010.0" gridLinesVisible="true">
+                            <columnConstraints>
+                                <ColumnConstraints/>
+                                <ColumnConstraints/>
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints/>
+                                <RowConstraints/>
+                                <RowConstraints/>
+                            </rowConstraints>
+                        </GridPane>
                     </ScrollPane>
                 </Pane>
             </Pane>
