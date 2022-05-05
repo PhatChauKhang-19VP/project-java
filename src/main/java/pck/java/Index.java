@@ -20,12 +20,14 @@ import pck.java.be.app.util.TreatmentLocation;
 import pck.java.database.DatabaseCommunication;
 import pck.java.database.SelectQuery;
 import pck.java.fe.mainPage.changeManagerPassController;
+import pck.java.fe.manager.AddPatientController;
 import pck.java.fe.manager.modal.ViewPackageDetailsController;
 import pck.java.fe.patient.BuyPackageController;
 import pck.java.fe.patient.CartController;
 import pck.java.fe.utils.LineNumbersCellFactory;
 import pck.java.fe.utils.PackagePane;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -183,6 +185,49 @@ public class Index extends Application {
 
                 controller.tableViewTreatmentLocation.getItems().add(tloc);
             }
+
+//
+//            Callback<TableColumn<Patient, String>, TableCell<Patient, String>> cellPane
+//                    =
+//                    new Callback<>() {
+//                        @Override
+//                        public TableCell<Patient, String> call(final TableColumn<Patient, String> param) {
+//                            final TableCell<Patient, String> cell = new TableCell<>() {
+//
+//                                final Pane pane = new Pane();
+//
+//                                @Override
+//                                public void updateItem(String item, boolean empty) {
+//                                    super.updateItem(item, empty);
+//                                    if (empty) {
+//                                        setGraphic(null);
+//                                        setText(null);
+//                                    } else {
+//                                        getTableView().getItems().get(getIndex());
+//                                        Patient p = getTableView().getItems().get(getIndex());
+//
+//                                        Label lbl = new Label(p.getStatusAsString());
+//                                        // todo set size, color
+//
+//                                        Button btn = new Button("xem ds\nlien doi");
+//                                        // todo set size, color
+//
+//                                        btn.setOnAction((event) -> {
+//                                            //todo: show modal and handle data
+//                                            ArrayList<Patient> cc = p.getCloseContacts();
+//                                        });
+//                                        pane.getChildren().addAll(lbl, btn);
+//                                        // todo set size, color
+//
+//                                        setGraphic(pane);
+//                                        setText(null);
+//                                    }
+//                                }
+//                            };
+//                            return cell;
+//                        }
+//                    };
+//            controller.<your_column>.setCellFactory(cellPane)
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -239,6 +284,18 @@ public class Index extends Application {
         }
     }
 
+    public void gotoAddPatient(){
+        try {
+            replaceSceneContent("manager.addPatient.fxml");
+            AddPatientController ctrl = loader.getController();
+            ctrl.stage = stage;
+            ctrl.loader = loader;
+            ctrl.f = 0;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
     //Patient
     public void gotoPatientHomePage() {
         try {
@@ -286,9 +343,9 @@ public class Index extends Application {
         }
     }
 
-    public void gotoPayOutstandingBalance() throws Exception {
+    public void gotoPayDebt() {
         try {
-            replaceSceneContent("patient.payOutstandingBalance.fxml");
+            replaceSceneContent("patient.payDebt.fxml");
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -325,7 +382,6 @@ public class Index extends Application {
             stage.getScene().setRoot(page);
         }
         stage.setTitle("Quản lý thông tin covid-19");
-        //stage.getScene().getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
         stage.getIcons().add(new Image("https://res.cloudinary.com/phatchaukhang/image/upload/v1649057250/JAVA/Icon/covid-test-purple-128_za151v.png"));
         stage.setResizable(false);
         stage.setFullScreen(false);

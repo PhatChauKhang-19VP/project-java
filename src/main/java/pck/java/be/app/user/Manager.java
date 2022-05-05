@@ -1,18 +1,20 @@
 package pck.java.be.app.user;
 
 import pck.java.be.app.App;
+import pck.java.database.*;
 import pck.java.be.app.product.Package;
 import pck.java.be.app.product.Product;
 import pck.java.be.app.util.Location;
 import pck.java.be.app.util.Pair;
+import pck.java.be.app.util.TreatmentLocation;
 import pck.java.database.*;
 
 import java.sql.Date;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 public class Manager extends UserDecorator {
     public Manager(IUser user) {
@@ -70,7 +72,7 @@ public class Manager extends UserDecorator {
             ArrayList<String> loginInfo = new ArrayList<>() {
                 {
                     add("'" + user.getUsername() + "'");
-                    add("'" + user.getPassword() + "'");
+                    add("HASHBYTES('SHA2_512'," + "'" + user.getPassword() + "')");
                     add("'ACTIVE'");
                     add("'PATIENT'");
                 }
@@ -103,22 +105,28 @@ public class Manager extends UserDecorator {
                     add("address_ward_code");
                     add("address_line");
                     add("treatment_location_code");
+                    add("debit_balance");
                 }
             };
             ArrayList<String> values = new ArrayList<>() {
                 {
                     add("'" + newPatient.getUsername() + "'");
-                    add("'" + newPatient.getName() + "'");
+                    add("N'" + newPatient.getName() + "'");
                     add(String.valueOf(newPatient.getStatus()));
                     add("'" + java.sql.Date.valueOf(newPatient.getDob()) + "'");
-                    add("'" + newPatient.getAddress().getProvince().getCode() + "'");
-                    add("'" + newPatient.getAddress().getDistrict().getCode() + "'");
-                    add("'" + newPatient.getAddress().getWard().getCode() + "'");
-                    add("'" + newPatient.getAddress().getAddressLine() + "'");
+                    add("N'" + newPatient.getAddress().getProvince().getCode() + "'");
+                    add("N'" + newPatient.getAddress().getDistrict().getCode() + "'");
+                    add("N'" + newPatient.getAddress().getWard().getCode() + "'");
+                    add("N'" + newPatient.getAddress().getAddressLine() + "'");
                     add("'" + newPatient.getTreatmentLocation().getCode() + "'");
+                    add("0");
                 }
             };
             insertQuery.insertInto("PATIENTS").columns(columns).values(values);
+
+            addToTreatmentLocation(newPatient);
+            createBankAccount(newPatient);
+
             try {
                 DatabaseCommunication.getInstance().execute(insertQuery.getQuery());
             } catch (SQLException e) {
@@ -128,10 +136,142 @@ public class Manager extends UserDecorator {
         return true;
     }
 
+    public boolean addCloseContact(Patient p1, Patient p2) {
+        if (getRole() == Role.MANAGER) {
+            InsertQuery insertQuery = new InsertQuery();
+            ArrayList<String> columns = new ArrayList<>() {
+                {
+                    add("f_upper_username");
+                    add("f_lower_username");
+                }
+            };
+            ArrayList<String> values = new ArrayList<>() {
+                {
+                    add("'" + p1.getUsername() + "'");
+                    add("'" + p2.getUsername() + "'");
+                }
+            };
+            insertQuery.insertInto("CLOSE_CONTACTS").columns(columns).values(values);
+
+            // insert close contact
+            try {
+                DatabaseCommunication.getInstance().execute(insertQuery.getQuery());
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return true;
+    }
+
+    public boolean addToTreatmentLocation(Patient p) {
+        if (getRole() == Role.MANAGER) {
+            String query = "";
+            query += "declare @tloc_code varchar(20) = '" + p.getTreatmentLocation().getCode() + "'\n";
+            query += "declare @old_room int = (select t.current_room from TREATMENT_LOCATIONS as t where t.treatment_location_code=@tloc_code)\n";
+            query += """
+                    update TREATMENT_LOCATIONS
+                        set current_room = @old_room + 1    
+                        where treatment_location_code=@tloc_code""";
+
+            System.out.println(query);
+            try {
+                DatabaseCommunication.getInstance().execute(query);
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean createBankAccount(Patient p) {
+        if (getRole() == Role.MANAGER) {
+            InsertQuery iq = new InsertQuery();
+            iq.insertInto("BANK_ACCOUNTS")
+                    .columns("password, belong_to_username, balance, created_at, minimum_payment")
+                    .values(new ArrayList<>(Arrays.asList(
+                            "HASHBYTES('SHA2_512', '" + p.getPassword() + "')",
+                            "'" + p.getUsername() + "'",
+                            "'15000000'",
+                            "'" + LocalDate.now().format(DateTimeFormatter.ISO_DATE) + "'",
+                            "100")));
+
+            System.out.println(iq.getQuery());
+            try {
+                DatabaseCommunication.getInstance().execute(iq.getQuery());
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
+        return true;
+    }
+
     //! 1.2.3 update patient status
     public boolean updateStatus(Patient patient, int newStatus) {
         if (getRole() == Role.MANAGER) {
             patient.setStatus(newStatus);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean updateTloc(Patient patient, TreatmentLocation tloc) {
+        if (getRole() == Role.MANAGER) {
+            if (tloc.getCurrentRoom() >= tloc.getCapacity()){
+                return false;
+            }
+
+            try {
+                //decrease old curr room by 1
+                String query = "";
+                query += "declare @tloc_code varchar(20) = '" + patient.getTreatmentLocation().getCode() + "'\n";
+                query += "declare @old_room int = (select t.current_room from TREATMENT_LOCATIONS as t where t.treatment_location_code=@tloc_code)\n";
+                query += """
+                    update TREATMENT_LOCATIONS
+                        set current_room = @old_room - 1    
+                        where treatment_location_code=@tloc_code""";
+                DatabaseCommunication.getInstance().execute(query);
+
+                //update tloc
+                patient.setTreatmentLocation(tloc);
+                query = "";
+                query += "declare @tloc_code varchar(20) = '" + patient.getTreatmentLocation().getCode() + "'\n";
+                query += "declare @old_room int = (select t.current_room from TREATMENT_LOCATIONS as t where t.treatment_location_code=@tloc_code)\n";
+                query += """
+                    update TREATMENT_LOCATIONS
+                        set current_room = @old_room + 1   
+                        where treatment_location_code=@tloc_code""";
+                DatabaseCommunication.getInstance().execute(query);
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return false;
+            }
+            return true;
+        }
+        return false;
+    }
+
+    public boolean updatePatient(Patient patient){
+        if (getRole() == Role.MANAGER) {
+
+            UpdateQuery uq = new UpdateQuery();
+            String date = patient.getDob().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            uq.update("PATIENTS")
+                    .set("name", "N'" + patient.getName() + "'")
+                    .set("date_of_birth", "'" + date + "'")
+                    .set("address_province_code", "N'" + patient.getAddress().getProvince().getCode() + "'")
+                    .set("address_district_code", "N'" + patient.getAddress().getDistrict().getCode() + "'")
+                    .set("address_ward_code", "N'" + patient.getAddress().getWard().getCode() + "'")
+                    .set("address_line", "N'" + patient.getAddress().getAddressLine() + "'")
+                    .where("username", "'" + patient.getUsername() + "'");
+
+            try {
+                DatabaseCommunication.getInstance().execute(uq.getQuery());
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return false;
+            }
             return true;
         }
         return false;
@@ -360,6 +500,27 @@ public class Manager extends UserDecorator {
                         new ArrayList<>()
                 );
                 patientList.put(username, p);
+
+
+            });
+
+            // load close contacts
+            SelectQuery selectCloseContacts = new SelectQuery();
+            selectCloseContacts
+                    .select("*")
+                    .from("CLOSE_CONTACTS");
+            rs = dbc.executeQuery(selectCloseContacts.getQuery());
+
+            rs.forEach(map -> {
+                String f_upper_username = String.valueOf(map.get("f_upper_username")),
+                        f_lower_username = (String) map.get("f_lower_username");
+
+                patientList
+                        .get(f_upper_username)
+                        .addCloseContact((Patient) App
+                                .getInstance()
+                                .getUserList()
+                                .get(f_lower_username));
             });
         } catch (SQLException e) {
             e.printStackTrace();

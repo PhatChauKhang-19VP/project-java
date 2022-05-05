@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pck.java.fe.manager.AddPatientController">
+    <top>
+        <Pane prefHeight="70.0" prefWidth="1024.0" style="-fx-background-color: A8ACFF;" BorderPane.alignment="CENTER">
+            <Button fx:id="btnSignOut" layoutX="964.0" layoutY="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0">
+                <graphic>
+                    <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                        <Image url="https://res.cloudinary.com/phatchaukhang/image/upload/v1649213502/JAVA/Icon/logout_fw5lna.png" />
+                    </ImageView>
+                </graphic>
+            </Button>
+            <Label layoutX="450.0" layoutY="14.0" text="Quản lí">
+                <font>
+                    <Font name="Arial Bold" size="36.0" />
+                </font>
+            </Label>
+            <Button fx:id="btnBack" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0">
+                <graphic>
+                    <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                        <Image url="https://res.cloudinary.com/phatchaukhang/image/upload/v1650789225/JAVA/Icon/back-arrow_jkinur.png" />
+                    </ImageView>
+                </graphic>
+            </Button>
+        </Pane>
+    </top>
+    <center>
+    </center>
+    <center>
+        <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <Label fx:id="lblPrimary" alignment="CENTER" layoutX="12.0" layoutY="20.0" prefHeight="50.0" prefWidth="1000.0" text="Thêm người liên quan Covid-19">
+                <font>
+                    <Font name="Arial Bold" size="36.0" />
+                </font>
+            </Label>
+            <SplitPane fx:id="splitPane" dividerPositions="0.3" layoutX="12.0" layoutY="70.0" prefHeight="550.0" prefWidth="1000.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="550.0" prefWidth="300.0">
+                    <Pane fx:id="paneLeft" prefHeight="550.0" prefWidth="300.0">
+                        <Label alignment="CENTER" layoutY="10.0" prefWidth="300.0" text="Thông tin bệnh nhân">
+                            <font>
+                                <Font name="System Bold" size="28.0" />
+                            </font>
+                        </Label>
+                        <ScrollPane hbarPolicy="NEVER" layoutY="70.0" pannable="true" prefHeight="480.0" prefWidth="300.0" vbarPolicy="ALWAYS">
+                            <AnchorPane minHeight="0.0" minWidth="0.0">
+                                <Label layoutX="20.0" prefHeight="30.0" prefWidth="250.0" text="Họ và tên">
+                                    <font>
+                                        <Font size="18.0" />
+                                    </font>
+                                </Label>
+                                <TextField fx:id="tfName" layoutX="20.0" layoutY="30.0" prefHeight="40.0" prefWidth="250.0">
+                                    <font>
+                                        <Font size="18.0" />
+                                    </font>
+                                </TextField>
+                                <Label fx:id="emName" layoutX="20.0" layoutY="70.0" prefWidth="250.0" text="Trường họ và tên không được để trống" textFill="RED" visible="false">
+                                    <font>
+                                        <Font name="System Italic" size="14.0" />
+                                    </font>
+                                </Label>
+                                <Label layoutX="20.0" layoutY="100.0" prefHeight="30.0" prefWidth="250.0" text="CCCD">
+                                    <font>
+                                        <Font size="18.0" />
+                                    </font>
+                                </Label>
+                                <TextField fx:id="tfID" layoutX="20.0" layoutY="130.0" prefHeight="40.0" prefWidth="250.0">
+                                    <font>
+                                        <Font size="18.0" />
+                                    </font>
+                                </TextField>
+                                <Label fx:id="emID" layoutX="20.0" layoutY="170.0" prefWidth="250.0" text="Trường CCCD không được bỏ trống" textFill="RED" visible="false">
+                                    <font>
+                                        <Font name="System Italic" size="14.0" />
+                                    </font>
+                                </Label>
+                                <Label layoutX="20.0" layoutY="200.0" prefHeight="30.0" prefWidth="250.0" text="Năm sinh">
+                                    <font>
+                                        <Font size="18.0" />
+                                    </font>
+                                </Label>
+                                <DatePicker fx:id="tfDob" layoutX="20.0" layoutY="230.0" prefHeight="40.0" prefWidth="250.0" style="-fx-font-size: 18;" />
+                                <Label fx:id="emDob" layoutX="20.0" layoutY="270.0" prefWidth="250.0" text="Năm sinh không được bỏ trống" textFill="RED" visible="false">
+                                    <font>
+                                        <Font name="System Italic" size="14.0" />
+                                    </font>
+                                </Label>
+                                <Label layoutX="20.0" layoutY="300.0" prefHeight="30.0" prefWidth="250.0" text="Trạng thái Covid">
+                                    <font>
+                                        <Font size="18.0" />
+                                    </font>
+                                </Label>
+                                <TextField fx:id="tfFStat" layoutX="20.0" layoutY="330.0" prefHeight="40.0" prefWidth="250.0">
+                                    <font>
+                                        <Font size="18.0" />
+                                    </font>
+                                </TextField>
+                                <Label fx:id="emFStat" layoutX="20.0" layoutY="370.0" prefWidth="250.0" text="Trạng thái Covid phải là F0/F1/..." textFill="RED" visible="false">
+                                    <font>
+                                        <Font name="System Italic" size="14.0" />
+                                    </font>
+                                </Label>
+                                <Label layoutX="20.0" layoutY="400.0" prefHeight="30.0" prefWidth="250.0" text="Địa điểm điều trị/cách li">
+                                    <font>
+                                        <Font size="18.0" />
+                                    </font>
+                                </Label>
+                                <ComboBox fx:id="cbTloc" layoutX="20.0" layoutY="430.0" prefHeight="40.0" prefWidth="250.0" promptText="Chọn địa điểm" style="-fx-font-size: 18;" />
+                                <Label fx:id="emTloc" layoutX="20.0" layoutY="470.0" prefWidth="250.0" text="Bạn chưa chọn địa điểm cách li" textFill="RED" visible="false">
+                                    <font>
+                                        <Font name="System Italic" size="14.0" />
+                                    </font>
+                                </Label>
+                                <Label layoutX="20.0" layoutY="500.0" prefHeight="30.0" prefWidth="250.0" text="Tỉnh/Thành phố">
+                                    <font>
+                                        <Font size="18.0" />
+                                    </font>
+                                </Label>
+                                <ComboBox fx:id="cbProvince" layoutX="20.0" layoutY="530.0" prefHeight="40.0" prefWidth="250.0" promptText="Chọn tỉnh/thành phố" style="-fx-font-size: 18;" />
+                                <Label fx:id="emProvince" layoutX="20.0" layoutY="570.0" prefWidth="250.0" text="Bạn chưa chọn tỉnh/thành/phố" textFill="RED" visible="false">
+                                    <font>
+                                        <Font name="System Italic" size="14.0" />
+                                    </font>
+                                </Label>
+                                <Label layoutX="20.0" layoutY="600.0" prefHeight="30.0" prefWidth="250.0" text="Quận/Huyện/Thị xã">
+                                    <font>
+                                        <Font size="18.0" />
+                                    </font>
+                                </Label>
+                                <ComboBox fx:id="cbDistrict" disable="true" layoutX="20.0" layoutY="630.0" prefHeight="40.0" prefWidth="250.0" promptText="Chọn quận/huyện/thị xã" style="-fx-font-size: 18;" />
+                                <Label fx:id="emDistrict" layoutX="20.0" layoutY="670.0" prefWidth="250.0" text="Bạn chưa chọn quận/huyện/thị xã" textFill="RED" visible="false">
+                                    <font>
+                                        <Font name="System Italic" size="14.0" />
+                                    </font>
+                                </Label>
+                                <Label layoutX="20.0" layoutY="700.0" prefHeight="30.0" prefWidth="250.0" text="Xã/Phường/Thị trấn">
+                                    <font>
+                                        <Font size="18.0" />
+                                    </font>
+                                </Label>
+                                <ComboBox fx:id="cbWard" disable="true" layoutX="20.0" layoutY="730.0" prefHeight="40.0" prefWidth="250.0" promptText="Chọn xã/phường/thị trấn" style="-fx-font-size: 18;" />
+                                <Label fx:id="emWard" layoutX="20.0" layoutY="770.0" prefWidth="250.0" text="Bạn chưa chọn xã/phường" textFill="RED" visible="false">
+                                    <font>
+                                        <Font name="System Italic" size="14.0" />
+                                    </font>
+                                </Label>
+                                <Label layoutX="20.0" layoutY="800.0" prefHeight="30.0" prefWidth="250.0" text="Địa chỉ chi tiết">
+                                    <font>
+                                        <Font size="18.0" />
+                                    </font>
+                                </Label>
+                                <TextField fx:id="tfAL" layoutX="20.0" layoutY="830.0" prefHeight="40.0" prefWidth="250.0">
+                                    <font>
+                                        <Font size="18.0" />
+                                    </font>
+                                </TextField>
+                                <Label fx:id="emAL" layoutX="30.0" layoutY="870.0" prefWidth="250.0" text="Trường này không được bỏ trống" textFill="RED" visible="false">
+                                    <font>
+                                        <Font name="System Italic" size="14.0" />
+                                    </font>
+                                </Label>
+                            </AnchorPane>
+                        </ScrollPane>
+                    </Pane>
+                </AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                    <Pane fx:id="paneRight" prefHeight="550.0" prefWidth="700.0">
+                        <Label alignment="CENTER" layoutY="10.0" prefWidth="700.0" text="Danh sách người liên đới">
+                            <font>
+                                <Font name="System Bold" size="28.0" />
+                            </font>
+                        </Label>
+                        <Button fx:id="btnAddCloseContact" layoutX="640.0" layoutY="60.0" mnemonicParsing="false" onAction="#onBtnAddCloseContactClick" prefHeight="50.0" prefWidth="50.0">
+                            <graphic>
+                                <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                    <Image url="https://res.cloudinary.com/phatchaukhang/image/upload/v1649065784/JAVA/Icon/plus.png" />
+                                </ImageView>
+                            </graphic>
+                        </Button>
+                        <TableView fx:id="tvCloseContacts" layoutX="20.0" layoutY="140.0" prefHeight="400.0" prefWidth="670.0">
+                            <columns>
+                                <TableColumn fx:id="colNo" prefWidth="50.0" text="STT" />
+                                <TableColumn fx:id="colID" prefWidth="100.0" text="CCCD" />
+                                <TableColumn fx:id="colDob" prefWidth="100.0" text="Ngày sinh" />
+                                <TableColumn fx:id="colFStat" prefWidth="75.0" text="Trạng thái" />
+                                <TableColumn fx:id="colAddress" prefWidth="200.0" text="Địa chỉ" />
+                                <TableColumn fx:id="colBtnDelete" prefWidth="50.0" />
+                                <TableColumn fx:id="colBtnDetail" prefWidth="50.0" />
+                            </columns>
+                        </TableView>
+                    </Pane>
+                </AnchorPane>
+            </SplitPane>
+            <Button fx:id="btnAddPatient" layoutX="414.0" layoutY="635.0" mnemonicParsing="false" onAction="#onBtnAddPatientClick" prefHeight="50.0" prefWidth="200.0" text="Thêm">
+                <font>
+                    <Font size="24.0" />
+                </font>
+            </Button>
+        </Pane>
+    </center>
+</BorderPane>

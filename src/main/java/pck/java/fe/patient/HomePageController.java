@@ -3,7 +3,6 @@ package pck.java.fe.patient;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import pck.java.Index;
-import pck.java.be.app.App;
 
 public class HomePageController {
     public Button infoButton;
@@ -32,7 +31,7 @@ public class HomePageController {
 
     public void onPayBalanceButtonCliked(ActionEvent actionEvent) throws Exception {
         if(actionEvent.getSource() == payBalanceButton) {
-            Index.getInstance().gotoPayOutstandingBalance();
+            Index.getInstance().gotoPayDebt();
         }
     }
 }

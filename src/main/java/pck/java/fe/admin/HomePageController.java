@@ -7,6 +7,11 @@ import javafx.scene.control.TableView;
 import pck.java.be.app.user.Manager;
 
 public class HomePageController {
+    public TableView<Manager> tableViewManager;
+    public TableColumn colNO;
+    public TableColumn colName;
+    public TableColumn colUsername;
+    public TableColumn colBtn;
     public Button logoutButton;
     public Button createManagerAccButton;
     public Button treatmentLocButton;
@@ -24,6 +29,8 @@ public class HomePageController {
         }
     }
 
+    public Button btnAddTloc;
+    public Button btnAddMng;
     public void onManageManagerButtonCliked(ActionEvent actionEvent) {
         if (actionEvent.getSource() == manageManagerAccButton) {
             pck.java.Index.getInstance().gotoManageManagerAccount();

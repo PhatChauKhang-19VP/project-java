@@ -12782,7 +12782,7 @@ values
 	('history39', 'patient6', '2022-03-24 08:00', N'PLACE_ORDER;Đặt một đơn hàng mới'),
 	('history40', 'patient10', '2022-03-25 16:00', N'PLACE_ORDER;Đặt một đơn hàng mới'),
 	('history41', 'patient1', '2022-03-18 10:00', N'CHANGE_STATUS;Chuyển từ f2 -> f1'),
-	('history41', 'patient1', '2022-03-18 10:00', N'CHANGE_STATUS;Chuyển từ f1 -> f0'),
+	('history42', 'patient1', '2022-03-18 10:00', N'CHANGE_STATUS;Chuyển từ f1 -> f0'),
 	('history43', 'patient1', '2022-03-22 18:00', N'PAYMENT;Thanh toán dư nợ với số tiền 100'),
 	('history44', 'patient1', '2022-03-24 08:00', N'PAYMENT;Thanh toán dư nợ với số tiền 100')
 
